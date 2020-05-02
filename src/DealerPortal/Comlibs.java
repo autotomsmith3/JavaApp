@@ -34,6 +34,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -327,45 +328,15 @@ public class Comlibs {
 	}
 
 	public WebDriver drivers(String browserID) throws IOException {
-		if (browserID.equalsIgnoreCase("IE")) {
-			// 1. Original one: //Working in XP IE8
+		if (browserID.equalsIgnoreCase("Edge")) {
+			// 1. IE browser - Original one: //Working in XP IE8
 			// File file = new File(
 			// "C:/1/Eclipse/RefLibraris/IEDriverServer_x64_2.43.0/IEDriverServer.exe");
-			System.setProperty("webdriver.internetexplorer.driver",
-					"C:\\eclipse\\RefLibraris\\IEDriverServer_x64\\IEDriverServer.exe");
-			// C:\1\Eclipse\RefLibraris\IEDriverServer_x64_2.41.0/IEDriverServer.exe
-			// File file = new
-			// File("C:/1/Eclipse/RefLibraris/IEDriverServer_Win32_2.39.0/IEDriverServer.exe");
-			// //works on xy
-
-			// File file=new
-			// File("C:/Documents and Settings/zhoul/My Documents/eclipse/IE/IEDriverServer.exe");
-			// System.setProperty("webdriver.ie.driver",
-			// file.getAbsolutePath());
-			WebDriver driver = new InternetExplorerDriver();
-			// // 2. Improved one:
-			// https://groups.google.com/forum/#!msg/selenium-users/jJLggNQB9yc/ghy2wsfx28wJ
-			// // Note: this one can only open IE but hanged
-			// // File file =new
-			// File("C:\\Users\\Susanth\\lib\\IEDriverServer64.exe");
-			//
-			// // File file=new
-			// File("C:/1/Eclipse/RefLibraris/IEDriverServer_Win32_2.39.0/IEDriverServer.exe");
-			// // File file=new
-			// File("C:/1/Eclipse/RefLibraris/IEDriverServer_x64_2.39.0/IEDriverServer.exe");
-			// File file=new
-			// File("C:/Documents and Settings/zhoul/My Documents/eclipse/IE/IEDriverServer.exe");
-			// System.setProperty("webdriver.ie.driver",
-			// file.getAbsolutePath());
-			// DesiredCapabilities cap= new DesiredCapabilities();
-			// cap.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
-			// true);
-			// cap.setCapability("initialBrowserUrl", "www.google.com");//this
-			// is the solution? only open IE
-			// cap.setCapability("nativeEvents", true);
-			// cap.setCapability("ignoreZoomSetting",true);
-			// cap.setJavascriptEnabled(true);
-			// WebDriver driver=new InternetExplorerDriver(cap);
+//			System.setProperty("webdriver.internetexplorer.driver",
+//					"C:\\eclipse\\RefLibraris\\IEDriverServer_x64\\IEDriverServer.exe");
+//			WebDriver driver = new InternetExplorerDriver();
+//			Edge browser
+			WebDriver driver = new EdgeDriver();
 			return driver;
 		} else if (browserID.equalsIgnoreCase("FireFox")) {
 			final String firebugPath = "C:\\1\\Eclipse\\RefLibraris\\firebug-2.0.19.xpi";
