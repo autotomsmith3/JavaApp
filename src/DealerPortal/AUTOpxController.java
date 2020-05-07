@@ -3988,7 +3988,8 @@ public class AUTOpxController extends Comlibs {
 		}
 
 		TCnum = "Add GB_01_2";
-		int t=wt*5;
+		//TODO
+		int t=wt*50;
 		System.out.println("\nWaiting "+t+" secs for loading the bg images!\n");
 		log.Wait(t);	
 		System.out.println("\nDone!\n");
