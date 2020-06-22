@@ -2219,7 +2219,8 @@ public class AdminPortalController extends Comlibs {
 		bgRow = 2; // 5 is not viewable. need to scroll mouse up to see that.
 		tc = "TC237412_02";
 		NewVehicleP.clickCompletionBtn(driver, recordRow, tc);
-		ac.Wait(wt * 2);
+		//TODO
+		ac.Wait(wt * 22);
 		NewVehicleP.selectBackground(driver, bgRow, bgCol, tc);
 //		NewVehicleP.inputPattern(driver, notesStr, tc);
 		NewVehicleP.inputNotes(driver, "Selected bg - " + " Row: " + bgRow + ", Column: " + bgCol, tc);
@@ -2791,6 +2792,8 @@ public class AdminPortalController extends Comlibs {
 		ac.Wait(wt);
 		tc = "YMM trim filtering_01";
 		vpP.clickTrimDropDown(driver, tc);
+		//TODO
+		ac.Wait(wt*22);
 		vpP.clickTrimOne(driver, 2, tc);// 2=xDriver iPerformance (USC90BMC831A0)
 		ac.Wait(wt);
 		tc = "YMM sumbit filtering_01";
@@ -3190,7 +3193,8 @@ public class AdminPortalController extends Comlibs {
 		bgCol = 2;
 		bgRow = 1;
 		wlP.clickEditIcon(driver, 1, tc);
-		ac.Wait(wt);
+		//TODO
+		ac.Wait(wt*100);
 		wlP.selectBackgrounds(driver, bgRow, bgCol, bgRow + 1, bgCol, tc);
 		wlP.inputNotes(driver, "Selected bg - " + " Row: " + bgRow + ", Column: " + bgCol + ", and Row: " + (bgRow + 1)
 				+ ", Column: " + bgCol, tc);//
