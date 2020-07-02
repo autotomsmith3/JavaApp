@@ -2220,7 +2220,7 @@ public class AdminPortalController extends Comlibs {
 		tc = "TC237412_02";
 		NewVehicleP.clickCompletionBtn(driver, recordRow, tc);
 		//TODO
-		ac.Wait(wt * 22);
+		ac.Wait(wt * 12);
 		NewVehicleP.selectBackground(driver, bgRow, bgCol, tc);
 //		NewVehicleP.inputPattern(driver, notesStr, tc);
 		NewVehicleP.inputNotes(driver, "Selected bg - " + " Row: " + bgRow + ", Column: " + bgCol, tc);
@@ -2793,7 +2793,7 @@ public class AdminPortalController extends Comlibs {
 		tc = "YMM trim filtering_01";
 		vpP.clickTrimDropDown(driver, tc);
 		//TODO
-		ac.Wait(wt*22);
+		ac.Wait(wt*12);
 		vpP.clickTrimOne(driver, 2, tc);// 2=xDriver iPerformance (USC90BMC831A0)
 		ac.Wait(wt);
 		tc = "YMM sumbit filtering_01";
@@ -3194,7 +3194,7 @@ public class AdminPortalController extends Comlibs {
 		bgRow = 1;
 		wlP.clickEditIcon(driver, 1, tc);
 		//TODO
-		ac.Wait(wt*100);
+		ac.Wait(wt*12);
 		wlP.selectBackgrounds(driver, bgRow, bgCol, bgRow + 1, bgCol, tc);
 		wlP.inputNotes(driver, "Selected bg - " + " Row: " + bgRow + ", Column: " + bgCol + ", and Row: " + (bgRow + 1)
 				+ ", Column: " + bgCol, tc);//
@@ -3989,10 +3989,10 @@ public class AdminPortalController extends Comlibs {
 			// VinStatusOnly(driver, tBrowser, versionNum, env);
 			////// ************************************************************************************
 
-			////// 1.ManageDealerShipsAddNewAccount:
-			log.rwExcel("", "-----ManageAccounts - Add An New Account Testing started-----" + (i + 1), "");
-			ManageDealerShipsAddNewAccount ManageDealerShips = new ManageDealerShipsAddNewAccount();
-			ManageDealerShips.AddNewAccount(driver, tBrowser, versionNum, env, chkEmail);
+//			////// 1.ManageDealerShipsAddNewAccount:
+//			log.rwExcel("", "-----ManageAccounts - Add An New Account Testing started-----" + (i + 1), "");
+//			ManageDealerShipsAddNewAccount ManageDealerShips = new ManageDealerShipsAddNewAccount();
+//			ManageDealerShips.AddNewAccount(driver, tBrowser, versionNum, env, chkEmail);
 
 			//// 2.ManageDealerShips and others (Manage Image Type, Manage Angle Mappings,
 			//// Manage Export Templates and Manage Global Config):
