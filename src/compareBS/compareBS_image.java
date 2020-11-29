@@ -10,11 +10,11 @@ import org.json.JSONObject;
 
 //import cPP.JSONParser;
 
-public class compareBS_text {
+public class compareBS_image {
 	private static int blank = 0;
 	private static int noObj = 0;
 
-	public static void PostText() throws Exception {
+	public static void PostImage() throws Exception {
 		String VehicleSetCode = "";
 		String LngCode = "";
 		String CountryCode = "";
@@ -23,13 +23,13 @@ public class compareBS_text {
 		String parameterString = "";
 		Properties prop = new Properties();
 		try {
-			prop.load(compareBS_text.class.getClassLoader().getResourceAsStream("compareBS_data/compareBS_text.properties"));
+			prop.load(compareBS_image.class.getClassLoader().getResourceAsStream("compareBS_data/compareBS_text.properties"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// String env = prop.getProperty("environment");
-		String text_Body = prop.getProperty("text_Body");
+		String text_Body = prop.getProperty("image_Body");
 		
 		
 		String[][] modelParameter = cPP.com_libs.fetchArrayFromPropFile("MakeModel_Parameters", prop); 
@@ -41,7 +41,7 @@ public class compareBS_text {
 		int testDataTotal = modelParameter.length;
 		int parametersize = modelParameter[testDataTotal - 1].length;
 
-		String PostTextSavePathFile = "C:\\1\\Eclipse\\Test Results\\ComopareBS\\text\\CompareBS_text.xls";
+		String PostTextSavePathFile = "C:\\1\\Eclipse\\Test Results\\ComopareBS\\text\\CompareBS_image.xls";
 		// String jSONText = "";
 		// jSONParser(jSONText);// start with { (curly brace - object) OK
 		String[] titleStringGetMakeModelWS = { "S/N", "URL_parameter", "serverTime", "error", "executionTimeMS",
@@ -52,7 +52,7 @@ public class compareBS_text {
 		// QA: http://lnoc-q1cp-xws1:8080/model-walk/rest/makemodel/BASE/EN/US/2016
 		// QA: http://lnoc-q1cp-xws1:8080/model-walk/rest/makemodel/STYLEID/EN/US/2017
 //		String envURL = "http://qa1-compare-api.gm-test.autodata.tech/compare/v2/api/text";//QA
-		String envURL = "https://compare.api.chromedata.com/compare/v2/api/text";//Prod
+		String envURL = "https://compare.api.chromedata.com/compare/v2/api/image";//Prod
 		// int imageNums = 56;// default=34
 		int count = 0;
 		for (int Num = 0; Num <= testDataTotal - 1; Num++) {
@@ -202,7 +202,7 @@ public class compareBS_text {
 		// // From what I can read on json.org, all JSON strings should start with { (curly brace - object), and [ characters (square brackets - array) represent an array element in JSON.
 		// // ******************************************************curly brace - object*********************************************************
 		System.out.println("Started...");
-		PostText();
+		PostImage();
 		// jSonObjec_CPP_BuildDataExtractOrchestrationWS();
 		// // ******************************************************End of curly brace - object*********************************************************
 

@@ -198,23 +198,40 @@ public class com_libs {
 		}
 		return outputString;
 	}
+
 	public static String getNewSourceCodeJson(String urlParameters, String url1, String url2, String auth_key)
 			throws Exception {
-		// POST method - works
+		// POST method - works but lost data...20201121
 		// add auth_key in Headers
+		int wt=20;
 		final String USER_AGENT = "Mozilla/5.0";
 		URL obj = new URL(url1 + url2);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+		con.setConnectTimeout(1000 * 600);
+		con.setReadTimeout(1000 * 600);
+
 		con.setRequestMethod("POST");// for daaSNI is "POST"
-		con.setRequestProperty("User-Agent", USER_AGENT);
+//		con.setRequestProperty("User-Agent", USER_AGENT);
 		con.setRequestProperty("Accept", "application/json");
 		con.setRequestProperty("Content-Type", "application/json");
+//		con.setRequestProperty("Content-Length", Integer.toString(11416884));//11416884
 		
+////		*************QA*************
+//		con.setRequestProperty("Accept-Language", "en-CA");
+//		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
+//		con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
+//		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+//		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+////		*************QA*************
+		
+//		*************Prod*************
 		con.setRequestProperty("Accept-Language", "en-CA");
-		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
-		con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
-		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
-		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-5zebsDfR5vg7qIyN9FUM6E5O\"");
+//		con.setRequestProperty("chrome-appId", "autodata-5zebsDfR5vg7qIyN9FUM6E5O");
+//		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+//		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+//		*************Prod*************		
 		
 //		con.setRequestProperty("auth_key", auth_key);
 //		// con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
@@ -229,7 +246,7 @@ public class com_libs {
 		int responseCode = con.getResponseCode();
 		String outputString;
 		if (!(responseCode == 404) && !(responseCode == 400) && !(responseCode == 503) && !(responseCode == 500)) {
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF8"));
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
 			StringBuffer postData = new StringBuffer();
 
@@ -243,12 +260,25 @@ public class com_libs {
 //			
 //			System.out.println( " \n\n");
 //			
+
+//			StringBuilder response = new StringBuilder();
+//			String responseLine = null;
+//			while ((responseLine = in.readLine()) != null) {
+//				response.append(responseLine.trim());
+//			}
+//			String xx = response.toString();
+//			int len = xx.length();
+//			if (len <= 72433) {
+//				System.out.println("Still not resolved!!! Short return=72433. Now return=" + len);
+//			} else {
+//				System.out.println("Good!!! Now return >=72433. See return >=" + len);
+//			}
+		
 			
-			
-			
-			while ((inputLine = in.readLine()) != null ) {
+
+			while ((inputLine = in.readLine()) != null) {
 				if (!inputLine.isEmpty()) {
-				postData.append(inputLine);
+					postData.append(inputLine);
 				}
 			}
 			in.close();
@@ -259,6 +289,7 @@ public class com_libs {
 		}
 		return outputString;
 	}
+
 	public static String getSourceCodeJsonPost(String urlParameters, String url1, String url2) throws Exception {
 		// POST method - works
 		final String USER_AGENT = "Mozilla/5.0";
@@ -267,7 +298,7 @@ public class com_libs {
 		con.setRequestMethod("POST");// for daaSNI is "POST"
 		con.setRequestProperty("User-Agent", USER_AGENT);
 		con.setRequestProperty("Content-Type", "application/json");
-		con.setRequestProperty("api_key", "QWERTYUIOP"); //This is for Car360 Login API only
+		con.setRequestProperty("api_key", "QWERTYUIOP"); // This is for Car360 Login API only
 		// con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 		// //Original
 		con.setRequestProperty("Accept-Language", "en-US,fr-CA;q=0.7,en;q=0.3");
@@ -361,7 +392,13 @@ public class com_libs {
 			}
 		}
 	}
-
+	public static void Wait(int i) {
+		try {
+			Thread.sleep(i * 1000);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public static void writeToSheet(String resultfile, String[] jSONValues) throws IOException {
 		int n = 0;
 		String sName, passOrfail, dateStamp, timeStamp;
