@@ -204,34 +204,41 @@ public class com_libs {
 		// POST method - works but lost data...20201121
 		// add auth_key in Headers
 		int wt=20;
+		
+		 final int CONNECTION_TIMEOUT = 1000 * 900; 
+		 final int DATARETREIVAL_TIMEOUT = 1000 * 900;
+		
+		
+		
+		
 		final String USER_AGENT = "Mozilla/5.0";
 		URL obj = new URL(url1 + url2);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setConnectTimeout(CONNECTION_TIMEOUT);
+		con.setReadTimeout(DATARETREIVAL_TIMEOUT);
 
-		con.setConnectTimeout(1000 * 600);
-		con.setReadTimeout(1000 * 600);
 
 		con.setRequestMethod("POST");// for daaSNI is "POST"
-//		con.setRequestProperty("User-Agent", USER_AGENT);
+		con.setRequestProperty("User-Agent", USER_AGENT);
 		con.setRequestProperty("Accept", "application/json");
 		con.setRequestProperty("Content-Type", "application/json");
-//		con.setRequestProperty("Content-Length", Integer.toString(11416884));//11416884
+		con.setRequestProperty("Content-Length", Integer.toString(11416884));//11416884
 		
-////		*************QA*************
-//		con.setRequestProperty("Accept-Language", "en-CA");
-//		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
-//		con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
-//		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
-//		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
-////		*************QA*************
-		
-//		*************Prod*************
+//		*************QA*************
 		con.setRequestProperty("Accept-Language", "en-CA");
-		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-5zebsDfR5vg7qIyN9FUM6E5O\"");
-//		con.setRequestProperty("chrome-appId", "autodata-5zebsDfR5vg7qIyN9FUM6E5O");
-//		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
-//		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
-//		*************Prod*************		
+		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
+		con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
+		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+//		*************QA*************
+		
+////		*************Prod*************
+//		con.setRequestProperty("Accept-Language", "en-CA");
+//		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-5zebsDfR5vg7qIyN9FUM6E5O\"");
+////		con.setRequestProperty("chrome-appId", "autodata-5zebsDfR5vg7qIyN9FUM6E5O");
+////		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+////		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+////		*************Prod*************		
 		
 //		con.setRequestProperty("auth_key", auth_key);
 //		// con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
@@ -274,9 +281,20 @@ public class com_libs {
 //				System.out.println("Good!!! Now return >=72433. See return >=" + len);
 //			}
 		
+//			
+//			int len;
+//			byte[] buffer = new byte[4096];
+//			while (-1 != (len = in.read(buffer))) {
+//			  wr.write(buffer, 0, len);
+//			}
+			
+			
+			
+			
 			
 
 			while ((inputLine = in.readLine()) != null) {
+				System.out.println("Return data Size = "+inputLine.length());
 				if (!inputLine.isEmpty()) {
 					postData.append(inputLine);
 				}

@@ -51,8 +51,8 @@ public class compareBS_text {
 		// DEV: http://lnoc-dvcp-xws1:8080/model-walk/rest/makemodel/BASE/EN/US/2016
 		// QA: http://lnoc-q1cp-xws1:8080/model-walk/rest/makemodel/BASE/EN/US/2016
 		// QA: http://lnoc-q1cp-xws1:8080/model-walk/rest/makemodel/STYLEID/EN/US/2017
-//		String envURL = "http://qa1-compare-api.gm-test.autodata.tech/compare/v2/api/text";//QA
-		String envURL = "https://compare.api.chromedata.com/compare/v2/api/text";//Prod
+		String envURL = "http://qa1-compare-api.product-london.autodata.tech/compare/v2/api/text";//QA
+//		String envURL = "https://compare.api.chromedata.com/compare/v2/api/text";//Prod
 		// int imageNums = 56;// default=34
 		int count = 0;
 		for (int Num = 0; Num <= testDataTotal - 1; Num++) {
