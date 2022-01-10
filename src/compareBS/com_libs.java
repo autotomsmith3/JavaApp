@@ -1,21 +1,29 @@
 package compareBS;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -199,7 +207,8 @@ public class com_libs {
 		return outputString;
 	}
 
-	public static String getNewSourceCodeJson(String BSBody, String url1, String url2, String auth_key)
+	public static String getNewSourceCodeJson(String BSBody, String url1, String url2, String auth_key,int s,
+			String lang,String appid,String product_key,String profile_Key)
 			throws Exception {
 		// POST method - works but lost data...20201121
 		// add auth_key in Headers
@@ -208,7 +217,7 @@ public class com_libs {
 		 final int CONNECTION_TIMEOUT = 1000 * 900; 
 		 final int DATARETREIVAL_TIMEOUT = 1000 * 900;
 		
-		
+			String filePath = "C:\\1\\Eclipse\\Test Results\\CompareBS\\CompareBS.txt";
 		
 		
 		final String USER_AGENT = "Mozilla/5.0";
@@ -220,16 +229,24 @@ public class com_libs {
 
 		con.setRequestMethod("POST");// for daaSNI is "POST"
 		con.setRequestProperty("User-Agent", USER_AGENT);
+		con.setRequestProperty("Content-Length", Integer.toString(11416884));//11416884
+
 		con.setRequestProperty("Accept", "application/json");
 		con.setRequestProperty("Content-Type", "application/json");
-		con.setRequestProperty("Content-Length", Integer.toString(11416884));//11416884
-		
 //		*************QA*************
-		con.setRequestProperty("Accept-Language", "en-CA");
-		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
-		con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
-		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
-		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+		con.setRequestProperty("Accept-Language", lang);
+		
+//		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
+		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id="+appid);
+		
+//		con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
+		con.setRequestProperty("chrome-appId", "autodata-"+appid);
+		
+//		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+		con.setRequestProperty("chrome-chrome-productKey", product_key);
+		
+//		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+		con.setRequestProperty("X-Profile-Key", profile_Key);
 //		*************QA*************
 		
 ////		*************Prod*************
@@ -257,44 +274,11 @@ public class com_libs {
 			String inputLine;
 			StringBuffer postData = new StringBuffer();
 
-//			while (in.ready()) {
-//				outputString=in.readLine();
-////				  System.out.println(in.readLine()+" - End\n\n"); 
-//					System.out.println( outputString+"\n\nNot end!!! \n\n");
-//			}
-//			
-//			System.out.println( "End!!! \n\n");
-//			
-//			System.out.println( " \n\n");
-//			
-
-//			StringBuilder response = new StringBuilder();
-//			String responseLine = null;
-//			while ((responseLine = in.readLine()) != null) {
-//				response.append(responseLine.trim());
-//			}
-//			String xx = response.toString();
-//			int len = xx.length();
-//			if (len <= 72433) {
-//				System.out.println("Still not resolved!!! Short return=72433. Now return=" + len);
-//			} else {
-//				System.out.println("Good!!! Now return >=72433. See return >=" + len);
-//			}
-		
-//			
-//			int len;
-//			byte[] buffer = new byte[4096];
-//			while (-1 != (len = in.read(buffer))) {
-//			  wr.write(buffer, 0, len);
-//			}
-			
-			
-			
-			
-			
+			int len=0;
 
 			while ((inputLine = in.readLine()) != null) {
-				System.out.println("Return data Size = "+inputLine.length());
+//				System.out.println("Return data Size = "+inputLine.length());
+				len =inputLine.length();
 				if (!inputLine.isEmpty()) {
 					postData.append(inputLine);
 				}
@@ -302,11 +286,17 @@ public class com_libs {
 			in.close();
 			outputString = postData.toString();
 			con.disconnect();
+			
+			System.out.println(s+" - Return data Size = "+len+"  - Return Status Code: "+responseCode);
+			SaveScratch(filePath, s+" - Return data Size = "+len+"  - Return Status Code: "+responseCode);
+			
 		} else {
 			//error shows: 400,404, 500, 503, 
 			//write to txt file for acode or styleid and error code here:
 			//
 			outputString = "";
+			System.out.println(s+" - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = "+responseCode);
+			SaveScratch(filePath, s+" - Return data Size = "+" - 0."+"  - Return Status Code: "+responseCode+" - Failed.");
 		}
 		return outputString;
 	}
@@ -413,6 +403,7 @@ public class com_libs {
 			}
 		}
 	}
+
 	public static void Wait(int i) {
 		try {
 			Thread.sleep(i * 1000);
@@ -420,6 +411,7 @@ public class com_libs {
 			e.printStackTrace();
 		}
 	}
+
 	public static void writeToSheet(String resultfile, String[] jSONValues) throws IOException {
 		int n = 0;
 		String sName, passOrfail, dateStamp, timeStamp;
@@ -460,6 +452,63 @@ public class com_libs {
 			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	public String[] loadTextFromDataFolder(String env, String filePathName) throws IOException {
+		boolean loadFromClasspath = true;
+//		String fileName = "StagingAllURLs.txt"; // provide an absolute path here to be sure that file is found
+		BufferedReader reader = null;
+		String[] empty = { "" };
+		try {
+
+			if (loadFromClasspath) {
+				InputStream in = getClass().getClassLoader().getResourceAsStream(filePathName);
+				reader = new BufferedReader(new InputStreamReader(in));
+			} else {
+				// load from file system
+				reader = new BufferedReader(new FileReader(new File(filePathName)));
+			}
+			List<String> liness = new ArrayList<String>();
+			String line = null;
+//	        String liness="";
+			while ((line = reader.readLine()) != null) {
+				// do something with the line here
+				System.out.println("Line read: " + line);
+				liness.add(line);
+			}
+
+			String urls[] = liness.toArray(new String[0]);
+			int arrsize = urls.length;
+			System.out.println("\nArrary lenght=" + arrsize);
+			for (String url : urls) {
+				System.out.println("URL=" + url);
+			}
+			System.out.println("\nArrary lenght=" + arrsize);
+			return urls;
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage() + " for AllURLs.txt", "File Error",
+					JOptionPane.ERROR_MESSAGE);
+		} finally {
+			if (reader != null) {
+				reader.close();
+			}
+		}
+		return empty;
+	}
+	public static void SaveScratch(String pathfilename, String ScratchText) {
+		try {
+			// BufferedWriter out2 = new BufferedWriter(new FileWriter(dataDir+
+			// "Acodes.txt", true)); //original OK
+			BufferedWriter out2 = new BufferedWriter(new FileWriter(pathfilename, true));
+			// out2.write("("+i+"): "+Acode+": ");
+			// out2.write(i + ". " + Acode + ": "); //Original OK
+			// out2.newLine();
+			out2.write(ScratchText);
+			out2.newLine();
+			out2.close();
+		} catch (Exception e) {// Catch exception if any
+			System.err.println("Error: " + e.getMessage());
 		}
 	}
 }
