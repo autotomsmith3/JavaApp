@@ -217,8 +217,8 @@ public class com_libs {
 		 final int CONNECTION_TIMEOUT = 1000 * 900; 
 		 final int DATARETREIVAL_TIMEOUT = 1000 * 900;
 		
-			String filePath = "C:\\1\\Eclipse\\Test Results\\CompareBS\\CompareBS.txt";
-		
+			String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\CompareBS_Text_StatusCode.txt";
+			String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\CompareBS_Text_Returns.txt";
 		
 		final String USER_AGENT = "Mozilla/5.0";
 		URL obj = new URL(url1 + url2);
@@ -288,15 +288,16 @@ public class com_libs {
 			con.disconnect();
 			
 			System.out.println(s+" - Return data Size = "+len+"  - Return Status Code: "+responseCode);
-			SaveScratch(filePath, s+" - Return data Size = "+len+"  - Return Status Code: "+responseCode);
-			
+			SaveScratch(filePath_statusCode, s+" - Return data Size = "+len+"  - Return Status Code: "+responseCode);
+			SaveScratch(filePath_return, s+" - Return data Size = "+len+"  - Return result = "+outputString);
 		} else {
 			//error shows: 400,404, 500, 503, 
 			//write to txt file for acode or styleid and error code here:
 			//
 			outputString = "";
 			System.out.println(s+" - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = "+responseCode);
-			SaveScratch(filePath, s+" - Return data Size = "+" - 0."+"  - Return Status Code: "+responseCode+" - Failed.");
+			SaveScratch(filePath_statusCode, s+" - Return data Size = "+" - 0."+"  - Return Status Code: "+responseCode+" - Failed.");
+			SaveScratch(filePath_return, s+" - Return data Size = 0  - Return result = empty!!!");
 		}
 		return outputString;
 	}
