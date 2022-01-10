@@ -1,0 +1,5 @@
+{"vehicles":[{"code":"417002"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"414891"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"414892"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"414893"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"414894x"}],"include": {"vehicleDetails": true,"includeCategories": true}}
