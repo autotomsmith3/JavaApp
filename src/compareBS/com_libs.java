@@ -199,11 +199,11 @@ public class com_libs {
 		return outputString;
 	}
 
-	public static String getNewSourceCodeJson(String urlParameters, String url1, String url2, String auth_key)
+	public static String getNewSourceCodeJson(String BSBody, String url1, String url2, String auth_key)
 			throws Exception {
 		// POST method - works but lost data...20201121
 		// add auth_key in Headers
-		int wt=20;
+		int wt=2;
 		
 		 final int CONNECTION_TIMEOUT = 1000 * 900; 
 		 final int DATARETREIVAL_TIMEOUT = 1000 * 900;
@@ -247,7 +247,7 @@ public class com_libs {
 		// Send post request en-US,fr-CA;q=0.7,en;q=0.3
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-		wr.writeBytes(urlParameters);
+		wr.writeBytes(BSBody);
 		wr.flush();
 		wr.close();
 		int responseCode = con.getResponseCode();
@@ -303,6 +303,9 @@ public class com_libs {
 			outputString = postData.toString();
 			con.disconnect();
 		} else {
+			//error shows: 400,404, 500, 503, 
+			//write to txt file for acode or styleid and error code here:
+			//
 			outputString = "";
 		}
 		return outputString;
