@@ -14,7 +14,7 @@ public class compareBS_text {
 	private static int blank = 0;
 	private static int noObj = 0;
 
-	public static void PostText(String env,String client, String envClientTextURL, String headers[]) throws Exception {
+	public static void PostText(String env, String client, String envClientTextURL, String headers[]) throws Exception {
 		String VehicleSetCode = "";
 		String LngCode = "";
 		String CountryCode = "";
@@ -46,8 +46,8 @@ public class compareBS_text {
 
 		for (String Text_Body : TextBodys) {
 			count++;
-			String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJson(env,client,Text_Body, envURL,"","", count, headers[0],
-					headers[1], headers[2], headers[3]);
+			String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonPostText(env, client, Text_Body, envURL, "",
+					"", count, headers[0], headers[1], headers[2], headers[3]);
 
 		}
 
@@ -201,10 +201,10 @@ public class compareBS_text {
 //		String client = "Kia";
 //		String Headers[] = fetchOneDemArrayFromPropFile(client+".Headers", prop);
 //			{ "", "", "", "", "" };
-		for (String client:Clients){	
+		for (String client : Clients) {
 			String TextUR = prop.getProperty(env + ".TextURL");
-			String Headers[] = fetchOneDemArrayFromPropFile(client+".Headers", prop);
-			PostText(env,client, TextUR, Headers);
+			String Headers[] = fetchOneDemArrayFromPropFile(client + ".Headers", prop);
+			PostText(env, client, TextUR, Headers);
 		}
 		// jSonObjec_CPP_BuildDataExtractOrchestrationWS();
 		// // ******************************************************End of curly brace -
