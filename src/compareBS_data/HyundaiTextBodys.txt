@@ -1,0 +1,5 @@
+{"vehicles":[{"code":"USC90HYS061E0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"USD10HYC012A0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"USD10HYC012B0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"USD10HYC012C0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"USD10HYC012D0"}],"include": {"vehicleDetails": true,"includeCategories": true}}

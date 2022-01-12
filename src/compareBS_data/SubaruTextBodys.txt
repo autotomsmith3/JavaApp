@@ -1,0 +1,6 @@
+{"vehicles":[{"code":"CAD20SUS041A0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"CAD20SUS041B0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"CAD20SUS041C0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"CAD20SUS041D0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"CAD20SUS041F0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"CAD20SUS041G0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
