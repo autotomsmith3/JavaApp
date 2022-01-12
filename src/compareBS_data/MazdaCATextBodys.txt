@@ -1,0 +1,4 @@
+{"vehicles":[{"code":"425242"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"425243"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"425244"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"416486"}],"include": {"vehicleDetails": true,"includeCategories": true}}

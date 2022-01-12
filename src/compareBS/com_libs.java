@@ -36,6 +36,8 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.json.*;
 
+//import competitiveCompareGoAllTrimsUI.competitiveCompareUIController;
+
 public class com_libs {
 	public static String getSourceCode(String prefix, String url) {
 		String inputLine = "";
@@ -285,6 +287,310 @@ public class com_libs {
 			System.out.println(s+" - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = "+responseCode);
 			SaveScratch(filePath_statusCode, client+". "+ s+" - Return data Size = "+" - 0."+"  - Return Status Code: "+responseCode+" - Failed.");
 			SaveScratch(filePath_return, client+". "+ s+" - Return data Size = 0  - Return result = empty!!!");
+		}
+		return outputString;
+	}
+	public static String getNewSourceCodeJsonGETcommonCompetitors(String environment,String client,String BSBody, String url1, String url2, String auth_key,int s,
+			String lang,String appid,String product_key,String profile_Key)
+			throws Exception {
+		// POST method - works but lost data...20201121
+		// add auth_key in Headers
+		int wt=2;
+		
+		 final int CONNECTION_TIMEOUT = 1000 * 900; 
+		 final int DATARETREIVAL_TIMEOUT = 1000 * 900;
+		
+			String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\"+environment+"."+client+"CompareBS_Text_StatusCode.txt";
+			String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\"+environment+"."+client+"CompareBS_Text_Returns.txt";
+		
+		final String USER_AGENT = "Mozilla/5.0";
+		URL obj = new URL(url1 + url2);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setConnectTimeout(CONNECTION_TIMEOUT);
+		con.setReadTimeout(DATARETREIVAL_TIMEOUT);
+
+
+		con.setRequestMethod("POST");// for daaSNI is "POST"
+		con.setRequestProperty("User-Agent", USER_AGENT);
+		con.setRequestProperty("Content-Length", Integer.toString(11416884));//11416884
+
+		con.setRequestProperty("Accept", "application/json");
+		con.setRequestProperty("Content-Type", "application/json");
+//		*************QA*************
+		con.setRequestProperty("Accept-Language", lang);
+		
+//		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
+		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id="+appid);
+		
+//		con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
+		con.setRequestProperty("chrome-appId", "autodata-"+appid);
+		
+//		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+		con.setRequestProperty("chrome-chrome-productKey", product_key);
+		
+//		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+		con.setRequestProperty("X-Profile-Key", profile_Key);
+//		*************QA*************
+
+		con.setDoOutput(true);
+		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+		wr.writeBytes(BSBody);
+		wr.flush();
+		wr.close();
+		int responseCode = con.getResponseCode();
+		String outputString;
+		if (!(responseCode == 404) && !(responseCode == 400) && !(responseCode == 503) && !(responseCode == 500)) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len=0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len =inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			outputString = postData.toString();
+			con.disconnect();
+			
+			System.out.println(s+" - Return data Size = "+len+"  - Return Status Code: "+responseCode);
+			SaveScratch(filePath_statusCode, client+". "+ s+" - Return data Size = "+len+"  - Return Status Code: "+responseCode);
+			SaveScratch(filePath_return, client+". "+ s+" - Return data Size = "+len+"  - Return result = "+outputString);
+		} else {
+			//error shows: 400,404, 500, 503, 
+			//write to txt file for acode or styleid and error code here:
+			//
+			outputString = "";
+			System.out.println(s+" - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = "+responseCode);
+			SaveScratch(filePath_statusCode, client+". "+ s+" - Return data Size = "+" - 0."+"  - Return Status Code: "+responseCode+" - Failed.");
+			SaveScratch(filePath_return, client+". "+ s+" - Return data Size = 0  - Return result = empty!!!");
+		}
+		return outputString;
+	}
+
+	public static String getNewSourceCodeJsonGET(String environment, String client,
+			String BSBody, String url1, String url2, String url3,int s,
+			String lang,String appid,String product_key,String profile_Key)
+			throws Exception {
+		// POST method - works but lost data...20201121
+		// add auth_key in Headers
+		Properties prop = new Properties();
+		prop.load(compareBS_commonCompetitors.class.getClassLoader()
+				.getResourceAsStream("./compareBS_data/compareBS_text.properties"));
+		String resultfile1 = prop.getProperty("CommonCompetitors.StatusCode_resutlPathFile");
+		String resultfile2 = prop.getProperty("CommonCompetitors.return_resutlPathFile");
+		int wt=2;                            
+		String sName, passOrfail, dateStamp, timeStamp;
+		
+		 final int CONNECTION_TIMEOUT = 1000 * 900; 
+		 final int DATARETREIVAL_TIMEOUT = 1000 * 900;
+		
+		 
+		 Calendar cal = Calendar.getInstance();
+			cal.getTime();
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+			SimpleDateFormat sdfmt = new SimpleDateFormat("yyyy-MM-dd");
+			timeStamp = sdf.format(cal.getTime());
+			DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+			Date d = new Date();
+			dateStamp = df.format(d);
+			timeStamp = dateStamp + "  " + timeStamp;
+			resultfile1 = resultfile1.replace(".txt", "");
+			resultfile1 = resultfile1 + "_" + sdfmt.format(d) + ".txt";
+			 
+			resultfile2 = resultfile2.replace(".xls", "");
+			resultfile2 = resultfile2 + "_" + sdfmt.format(d) + ".txt";
+		 
+//			String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\"+environment+"."+client+"CompareBS_CommonCompetitors_StatusCode.txt";
+//			String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\"+environment+"."+client+"CompareBS_CommonCompetitors_Returns.txt";
+		
+			String filePath_statusCode =resultfile1;
+			String filePath_return =resultfile2;
+			
+			
+			
+			
+		final String USER_AGENT = "Mozilla/5.0";
+		String fURL=url1 + url2+url3;
+		URL obj = new URL(fURL);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setConnectTimeout(CONNECTION_TIMEOUT);
+		con.setReadTimeout(DATARETREIVAL_TIMEOUT);
+
+
+		con.setRequestMethod("GET");// for daaSNI is "POST"
+		con.setRequestProperty("User-Agent", USER_AGENT);
+		con.setRequestProperty("Content-Length", Integer.toString(11416884));//11416884
+
+		con.setRequestProperty("Accept", "application/json");
+		con.setRequestProperty("Content-Type", "application/json");
+//		*************QA*************
+		con.setRequestProperty("Accept-Language", lang);
+		
+//		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
+		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id="+appid);
+		
+//		con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
+		con.setRequestProperty("chrome-appId", "autodata-"+appid);
+		
+//		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+		con.setRequestProperty("chrome-chrome-productKey", product_key);
+		
+//		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+		con.setRequestProperty("X-Profile-Key", profile_Key);
+//		*************QA*************
+
+		con.setDoOutput(true);
+		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+//		wr.writeBytes(BSBody);
+		wr.flush();
+		wr.close();
+		int responseCode = con.getResponseCode();
+		String outputString;
+		if (!(responseCode == 404) && !(responseCode == 405)&& !(responseCode == 400) && !(responseCode == 503) && !(responseCode == 500)) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len=0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len =inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			outputString = postData.toString();
+			con.disconnect();
+			
+			System.out.println(s+" - Return data Size = "+len+"  - Return Status Code: "+responseCode);
+			SaveScratch(environment+"."+client+filePath_statusCode, client+". "+ s+" - Return data Size = "+len+"  - Return Status Code: "+responseCode);
+			SaveScratch(environment+"."+client+filePath_return, client+". "+ s+" - Return data Size = "+len+"  - Return result = "+outputString);
+		} else {
+			//error shows: 400,404, 500, 503, 
+			//write to txt file for acode or styleid and error code here:
+			//
+			outputString = "";
+			System.out.println(s+" - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = "+responseCode);
+			SaveScratch(environment+"."+client+filePath_statusCode, client+". "+ s+" - Return data Size = "+" - 0."+"  - Return Status Code: "+responseCode+" - Failed.");
+			SaveScratch(environment+"."+client+filePath_return, client+". "+ s+" - Return data Size = 0  - Return result = empty!!!");
+		}
+		return outputString;
+	}
+	public static String getNewSourceCodeJsonGETVehicles(String environment, String client,
+			String BSBody, String url1, String url2, String url3,int s,
+			String lang,String appid,String product_key,String profile_Key)
+			throws Exception {
+		// POST method - works but lost data...20201121
+		// add auth_key in Headers
+		Properties prop = new Properties();
+		prop.load(compareBS_commonCompetitors.class.getClassLoader()
+				.getResourceAsStream("./compareBS_data/compareBS_text.properties"));
+		String resultfile1 = prop.getProperty("Vehicles.StatusCode_resutlPathFile");
+		String resultfile2 = prop.getProperty("Vehicles.return_resutlPathFile");
+		int wt=2;
+		String sName, passOrfail, dateStamp, timeStamp;
+		
+		 final int CONNECTION_TIMEOUT = 1000 * 900; 
+		 final int DATARETREIVAL_TIMEOUT = 1000 * 900;
+		
+		 
+		 Calendar cal = Calendar.getInstance();
+			cal.getTime();
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+			SimpleDateFormat sdfmt = new SimpleDateFormat("yyyy-MM-dd");
+			timeStamp = sdf.format(cal.getTime());
+			DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+			Date d = new Date();
+			dateStamp = df.format(d);
+			timeStamp = dateStamp + "  " + timeStamp;
+			resultfile1 = resultfile1.replace(".xls", "");
+			resultfile1 = resultfile1 + "_" + sdfmt.format(d) + ".txt";
+			 
+			resultfile2 = resultfile2.replace(".xls", "");
+			resultfile2 = resultfile2 + "_" + sdfmt.format(d) + ".txt";
+		 
+//			String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\"+environment+"."+client+"CompareBS_CommonCompetitors_StatusCode.txt";
+//			String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\"+environment+"."+client+"CompareBS_CommonCompetitors_Returns.txt";
+		
+			String filePath_statusCode =resultfile1;
+			String filePath_return =resultfile2;
+			
+			
+			
+			
+		final String USER_AGENT = "Mozilla/5.0";
+		String fURL=url1 + url2+url3;
+		URL obj = new URL(fURL);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setConnectTimeout(CONNECTION_TIMEOUT);
+		con.setReadTimeout(DATARETREIVAL_TIMEOUT);
+
+
+		con.setRequestMethod("GET");// for daaSNI is "POST"
+		con.setRequestProperty("User-Agent", USER_AGENT);
+		con.setRequestProperty("Content-Length", Integer.toString(11416884));//11416884
+
+		con.setRequestProperty("Accept", "application/json");
+		con.setRequestProperty("Content-Type", "application/json");
+//		*************QA*************
+		con.setRequestProperty("Accept-Language", lang);
+		
+//		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
+		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id="+appid);
+		
+//		con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
+		con.setRequestProperty("chrome-appId", "autodata-"+appid);
+		
+//		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+		con.setRequestProperty("chrome-chrome-productKey", product_key);
+		
+//		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+		con.setRequestProperty("X-Profile-Key", profile_Key);
+//		*************QA*************
+
+		con.setDoOutput(true);
+		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+//		wr.writeBytes(BSBody);
+		wr.flush();
+		wr.close();
+		int responseCode = con.getResponseCode();
+		String outputString;
+		if (!(responseCode == 404) && !(responseCode == 405)&& !(responseCode == 400) && !(responseCode == 503) && !(responseCode == 500)) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len=0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len =inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			outputString = postData.toString();
+			con.disconnect();
+			
+			System.out.println(s+" - Return data Size = "+len+"  - Return Status Code: "+responseCode);
+			SaveScratch(environment+"."+client+filePath_statusCode, client+". "+ s+" - Return data Size = "+len+"  - Return Status Code: "+responseCode);
+			SaveScratch(environment+"."+client+filePath_return, client+". "+ s+" - Return data Size = "+len+"  - Return result = "+outputString);
+		} else {
+			//error shows: 400,404, 500, 503, 
+			//write to txt file for acode or styleid and error code here:
+			//
+			outputString = "";
+			System.out.println(s+" - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = "+responseCode);
+			SaveScratch(environment+"."+client+filePath_statusCode, client+". "+ s+" - Return data Size = "+" - 0."+"  - Return Status Code: "+responseCode+" - Failed.");
+			SaveScratch(environment+"."+client+filePath_return, client+". "+ s+" - Return data Size = 0  - Return result = empty!!!");
 		}
 		return outputString;
 	}
