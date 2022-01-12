@@ -203,7 +203,7 @@ public class compareBS_commonCompetitors {
 //			{ "", "", "", "", "" };
 		for (String client:Clients){	
 			String CommonCompetitorsURL = prop.getProperty(env + ".CommonCompetitorsURL");
-			String Headers[] = fetchOneDemArrayFromPropFile(client+".Headers", prop);
+			String Headers[] = fetchOneDemArrayFromPropFile(env+"."+client+".Headers", prop);
 			GetCommonCompetitors(env,client, CommonCompetitorsURL, Headers);
 		}
 		// jSonObjec_CPP_BuildDataExtractOrchestrationWS();

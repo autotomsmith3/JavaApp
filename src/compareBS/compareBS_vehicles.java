@@ -14,7 +14,8 @@ public class compareBS_vehicles {
 	private static int blank = 0;
 	private static int noObj = 0;
 
-	public static void GetVehicles(String env,String client, String envClientTextURL, String headers[]) throws Exception {
+	public static void GetVehicles(String env, String client, String envClientTextURL, String headers[])
+			throws Exception {
 		String VehicleSetCode = "";
 		String LngCode = "";
 		String CountryCode = "";
@@ -33,8 +34,8 @@ public class compareBS_vehicles {
 		com_libs comlibs = new com_libs();
 
 		String headerss = "";
-		String commonCompetitorsCodes[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + client + "Vehicles.txt");
-		int testDataTotal = commonCompetitorsCodes.length;
+		String vehiclesCodes[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + client + "Vehicles.txt");
+		int testDataTotal = vehiclesCodes.length;
 
 		String envURL = envClientTextURL;// QA
 
@@ -42,12 +43,12 @@ public class compareBS_vehicles {
 
 		System.out.println("testDataTotal = " + testDataTotal);
 		parameterString = VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
-		String getCommonCompetitorsURL = envURL;// + VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
+		String getVehiclesURL = envURL;// + VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
 
-		for (String commonCompetitorsCode : commonCompetitorsCodes) {
+		for (String vehiclesCode : vehiclesCodes) {
 			count++;
-			String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonGETVehicles(env,client,commonCompetitorsCode, envURL,commonCompetitorsCode,"common-competitors", count, headers[0],
-					headers[1], headers[2], headers[3]);
+			String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonGETVehicles(env, client, vehiclesCode,
+					envURL, vehiclesCode, "vehicles", count, headers[0], headers[1], headers[2], headers[3]);
 
 		}
 
@@ -201,10 +202,10 @@ public class compareBS_vehicles {
 //		String client = "Kia";
 //		String Headers[] = fetchOneDemArrayFromPropFile(client+".Headers", prop);
 //			{ "", "", "", "", "" };
-		for (String client:Clients){	
-			String CommonCompetitorsURL = prop.getProperty(env + ".CommonCompetitorsURL");
-			String Headers[] = fetchOneDemArrayFromPropFile(client+".Headers", prop);
-			GetVehicles(env,client, CommonCompetitorsURL, Headers);
+		for (String client : Clients) {
+			String VehiclesURL = prop.getProperty(env + ".VehiclesURL");
+			String Headers[] = fetchOneDemArrayFromPropFile(client + ".Headers", prop);
+			GetVehicles(env, client, VehiclesURL, Headers);
 		}
 		// jSonObjec_CPP_BuildDataExtractOrchestrationWS();
 		// // ******************************************************End of curly brace -
