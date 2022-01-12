@@ -14,7 +14,7 @@ public class compareBS_text {
 	private static int blank = 0;
 	private static int noObj = 0;
 
-	public static void PostText(String env, String client, String envClientTextURL, String headers[]) throws Exception {
+	public static void PostText(String env, String client, String envClientTextURL, String headers[],String TextBodys[]) throws Exception {
 		String VehicleSetCode = "";
 		String LngCode = "";
 		String CountryCode = "";
@@ -30,10 +30,10 @@ public class compareBS_text {
 			e.printStackTrace();
 		}
 
-		com_libs comlibs = new com_libs();
+//		com_libs comlibs = new com_libs();
 
 		String headerss = "";
-		String TextBodys[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + client + "TextBodys.txt");
+//		String TextBodys[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + client + "TextBodys.txt");
 		int testDataTotal = TextBodys.length;
 
 		String envURL = envClientTextURL;// QA
@@ -184,7 +184,7 @@ public class compareBS_text {
 		// // ******************************************************curly brace -
 		// object*********************************************************
 		System.out.println("Started...");
-
+		com_libs comlibs = new com_libs();
 		Properties prop = new Properties();
 		try {
 			prop.load(compareBS_text.class.getClassLoader()
@@ -203,8 +203,10 @@ public class compareBS_text {
 //			{ "", "", "", "", "" };
 		for (String client : Clients) {
 			String TextUR = prop.getProperty(env + ".TextURL");
-			String Headers[] = fetchOneDemArrayFromPropFile(client + ".Headers", prop);
-			PostText(env, client, TextUR, Headers);
+			String TextBodys[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + client + "TextBodys.txt");
+//			String Headers[] = fetchOneDemArrayFromPropFile(client + ".Headers", prop);
+			String Headers[] = fetchOneDemArrayFromPropFile(env+"."+client+".Headers", prop);
+			PostText(env, client, TextUR, Headers,TextBodys);
 		}
 		// jSonObjec_CPP_BuildDataExtractOrchestrationWS();
 		// // ******************************************************End of curly brace -

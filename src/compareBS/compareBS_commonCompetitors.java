@@ -14,7 +14,7 @@ public class compareBS_commonCompetitors {
 	private static int blank = 0;
 	private static int noObj = 0;
 
-	public static void GetCommonCompetitors(String env,String client, String envClientTextURL, String headers[]) throws Exception {
+	public static void GetCommonCompetitors(String env,String client, String envClientTextURL, String headers[], String commonCompetitorsCodes[] ) throws Exception {
 		String VehicleSetCode = "";
 		String LngCode = "";
 		String CountryCode = "";
@@ -30,10 +30,10 @@ public class compareBS_commonCompetitors {
 			e.printStackTrace();
 		}
 
-		com_libs comlibs = new com_libs();
+//		com_libs comlibs = new com_libs();
 
 		String headerss = "";
-		String commonCompetitorsCodes[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + client + "CommonCompetitors.txt");
+//		String commonCompetitorsCodes[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + client + "CommonCompetitors.txt");
 		int testDataTotal = commonCompetitorsCodes.length;
 
 		String envURL = envClientTextURL;// QA
@@ -184,7 +184,9 @@ public class compareBS_commonCompetitors {
 		// // ******************************************************curly brace -
 		// object*********************************************************
 		System.out.println("Started...");
-
+		com_libs comlibs = new com_libs();
+//		String [] commonCompetitorsCodes=new String [500] ;
+		
 		Properties prop = new Properties();
 		try {
 			prop.load(compareBS_commonCompetitors.class.getClassLoader()
@@ -203,8 +205,9 @@ public class compareBS_commonCompetitors {
 //			{ "", "", "", "", "" };
 		for (String client:Clients){	
 			String CommonCompetitorsURL = prop.getProperty(env + ".CommonCompetitorsURL");
+			String commonCompetitorsCodes[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + client + "CommonCompetitors.txt"); 
 			String Headers[] = fetchOneDemArrayFromPropFile(env+"."+client+".Headers", prop);
-			GetCommonCompetitors(env,client, CommonCompetitorsURL, Headers);
+			GetCommonCompetitors(env,client, CommonCompetitorsURL, Headers,commonCompetitorsCodes);
 		}
 		// jSonObjec_CPP_BuildDataExtractOrchestrationWS();
 		// // ******************************************************End of curly brace -
