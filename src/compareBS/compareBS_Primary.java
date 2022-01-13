@@ -1,20 +1,20 @@
 package compareBS;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-//import cPP.JSONParser;
-
-public class compareBS_image {
+public class compareBS_Primary {
 	private static int blank = 0;
 	private static int noObj = 0;
 
-	public static void PostImage() throws Exception {
+	public static void GetPrimary(String env,String client, String envClientTextURL, String headers[] ) throws Exception {
 		String VehicleSetCode = "";
 		String LngCode = "";
 		String CountryCode = "";
@@ -23,71 +23,46 @@ public class compareBS_image {
 		String parameterString = "";
 		Properties prop = new Properties();
 		try {
-			prop.load(compareBS_image.class.getClassLoader().getResourceAsStream("compareBS_data/compareBS_text.properties"));
+			prop.load(compareBS_Primary.class.getClassLoader()
+					.getResourceAsStream("compareBS_data/compareBS_text.properties"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// String env = prop.getProperty("environment");
-		String text_Body = prop.getProperty("image_Body");
-		
-		
-		String[][] modelParameter = cPP.com_libs.fetchArrayFromPropFile("MakeModel_Parameters", prop); 
-		
-		
-		
-		
-		// String[] gvuid = { "7b47571c-b442-4be8-85da-f4baa7f4ccce", "7b47571c-b442-4be8-85da-f4baa7f4ccce" };
-		int testDataTotal = modelParameter.length;
-		int parametersize = modelParameter[testDataTotal - 1].length;
 
-		String PostTextSavePathFile = "C:\\1\\Eclipse\\Test Results\\ComopareBS\\text\\CompareBS_image.xls";
-		// String jSONText = "";
-		// jSONParser(jSONText);// start with { (curly brace - object) OK
-		String[] titleStringGetMakeModelWS = { "S/N", "URL_parameter", "serverTime", "error", "executionTimeMS",
-				"filtersObj","vehiclesArray", "priceObj", "make", "modelsObj", "modelYearId", "model"};
-		;
-		// /makemodel/{VehicleSetCode}/{LngCode}/{CountryCode}/{year}
-		// DEV: http://lnoc-dvcp-xws1:8080/model-walk/rest/makemodel/BASE/EN/US/2016
-		// QA: http://lnoc-q1cp-xws1:8080/model-walk/rest/makemodel/BASE/EN/US/2016
-		// QA: http://lnoc-q1cp-xws1:8080/model-walk/rest/makemodel/STYLEID/EN/US/2017
-//		String envURL = "http://qa1-compare-api.gm-test.autodata.tech/compare/v2/api/text";//QA
-		String envURL = "https://compare.api.staging.chromedata.com/compare/v3/api/models/primary";//Staging
-		// int imageNums = 56;// default=34
+//		com_libs comlibs = new com_libs();
+
+		String headerss = "";
+//		String commonCompetitorsCodes[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + client + "CommonCompetitors.txt");
+//		int testDataTotal = commonCompetitorsCodes.length;
+
+		String envURL = envClientTextURL;// QA
+
 		int count = 0;
-		for (int Num = 0; Num <= testDataTotal - 1; Num++) {
-			// for (String gvuid : modelParameter[imageNum]) {
+
+//		System.out.println("testDataTotal = " + testDataTotal);
+		parameterString = VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
+//		String getCommonCompetitorsURL = envURL;// + VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
+
+//		for (String commonCompetitorsCode : commonCompetitorsCodes) {
 			count++;
-			VehicleSetCode = modelParameter[Num][0];
-			LngCode = modelParameter[Num][1];
-			CountryCode = modelParameter[Num][2];
-			year = modelParameter[Num][3];
+			String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonGETPrimary(env,client,"", envURL,"","", count, headers[0],
+					headers[1], headers[2], headers[3]);
 
-			parameterString = VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
-			String getMakeModelURL = envURL;// + VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
-			// getSourceCodeJson(String urlParameters, String url1, String url2, String auth_key)
-			 String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonGETPrimary(text_Body, envURL,"","");
+//		}
 
-//			String filepath = "H:\\My Documents\\CompareService\\QA\\Testing\\Test Data\\makemodel.txt";
-//			String jsonTextFrGetMakeModelWS = readFile(filepath);
-
-			 GetPrimaryDetails(PostTextSavePathFile, titleStringGetMakeModelWS, jsonTextFrGetMakeModelWS,
-					getMakeModelURL, parameterString, count);
-
-			// }
-		}
 	}
 
-	public static void GetPrimaryDetails(String wsResultfile, String[] titleString, String text, String URLString,
+	public static void PostTextDetails(String wsResultfile, String[] titleString, String text, String URLString,
 			String parameterS, int countNum) throws IOException {
 		com_libs.writeTitle(wsResultfile, titleString);
 		String serverTime = "";
 		String error = "";
 		String executionTimeMS = "";
-		String resultObj="";
+		String resultObj = "";
 		String id = "";
 		String make = "";
-		 String modelsObj = "";
+		String modelsObj = "";
 		String modelYearId = "";
 		String model = "";
 		String[] temp = new String[30];
@@ -134,7 +109,7 @@ public class compareBS_image {
 
 						JSONArray modelsObject = result.getJSONObject(i).getJSONArray("models");
 						int modelsObjSize = modelsObject.length();
-						modelsObj=Integer.toString(modelsObjSize);
+						modelsObj = Integer.toString(modelsObjSize);
 						for (int j = 0; j < modelsObjSize; j++) {
 							try {
 								modelYearId = modelsObject.getJSONObject(j).getString("modelYearId");
@@ -146,8 +121,6 @@ public class compareBS_image {
 							} catch (Exception ex) {
 								model = "";
 							}
-					
-				
 
 							System.out.println("S/N: " + countNum);
 							System.out.println("executionTimeMS: " + executionTimeMS);
@@ -197,19 +170,60 @@ public class compareBS_image {
 		return sb.toString();
 	}
 
+	private static String[] fetchOneDemArrayFromPropFile(String propertyName, Properties propFile) {
+		// get array split up by the colin
+		String a[] = propFile.getProperty(propertyName).split(",");
+		return a;
+	}
+
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		// // From what I can read on json.org, all JSON strings should start with { (curly brace - object), and [ characters (square brackets - array) represent an array element in JSON.
-		// // ******************************************************curly brace - object*********************************************************
+		// // From what I can read on json.org, all JSON strings should start with {
+		// (curly brace - object), and [ characters (square brackets - array) represent
+		// an array element in JSON.
+		// // ******************************************************curly brace -
+		// object*********************************************************
 		System.out.println("Started...");
-		PostImage();
+		com_libs comlibs = new com_libs();
+//		String [] commonCompetitorsCodes=new String [500] ;
+		
+		Properties prop = new Properties();
+		try {
+			prop.load(compareBS_Primary.class.getClassLoader()
+					.getResourceAsStream("./compareBS_data/compareBS_text.properties"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String env = prop.getProperty("environment");
+//		String TextUR = prop.getProperty(env + ".TextURL");
+//		String clients[] = prop.getProperty("clients");
+		String Clients[] = fetchOneDemArrayFromPropFile("clients", prop);
+//		String envKiaTextURL = "http://apior.autodatacorp.org/compare/v3/api/text";//QA 
+//		String client = "Kia";
+//		String Headers[] = fetchOneDemArrayFromPropFile(client+".Headers", prop);
+//			{ "", "", "", "", "" };
+		for (String client:Clients){	
+			String PrimaryURL = prop.getProperty(env + ".PrimaryURL");
+//			String PrimaryCodes[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + env + "." + client + "Prmary.txt"); 
+			String Headers[] = fetchOneDemArrayFromPropFile(env+"."+client+".Headers", prop);
+	
+			GetPrimary(env,client, PrimaryURL, Headers);
+		}
 		// jSonObjec_CPP_BuildDataExtractOrchestrationWS();
-		// // ******************************************************End of curly brace - object*********************************************************
+		// // ******************************************************End of curly brace -
+		// object*********************************************************
 
-		// //// ******************************************************start with [ characters (square brackets - array*********************************************************
+		// //// ******************************************************start with [
+		// characters (square brackets -
+		// array*********************************************************
 		//
-		// jSonArry_UnityInventory(); //On Tuesday Auguest 30, 2016: API returns { "message": "An error has occurred." } from https://data.dealervideos.com/v1.0/vehicles/2FHFIYI
-		// // //******************************************************End of start with [ characters (square brackets - array*********************************************************
+		// jSonArry_UnityInventory(); //On Tuesday Auguest 30, 2016: API returns {
+		// "message": "An error has occurred." } from
+		// https://data.dealervideos.com/v1.0/vehicles/2FHFIYI
+		// // //******************************************************End of start with
+		// [ characters (square brackets -
+		// array*********************************************************
 
 		System.out.println("Complete!!!");
 	}
