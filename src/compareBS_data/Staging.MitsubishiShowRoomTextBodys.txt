@@ -1,0 +1,7 @@
+{"vehicles":[{"code":"424595"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"424596"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"425552"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"418970"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"418971"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"409189"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"409190"}],"include": {"vehicleDetails": true,"includeCategories": true}}

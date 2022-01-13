@@ -205,7 +205,7 @@ public class compareBS_commonCompetitors {
 //			{ "", "", "", "", "" };
 		for (String client:Clients){	
 			String CommonCompetitorsURL = prop.getProperty(env + ".CommonCompetitorsURL");
-			String commonCompetitorsCodes[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + client + "CommonCompetitors.txt"); 
+			String commonCompetitorsCodes[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + env + "." + client + "CommonCompetitors.txt"); 
 			String Headers[] = fetchOneDemArrayFromPropFile(env+"."+client+".Headers", prop);
 			GetCommonCompetitors(env,client, CommonCompetitorsURL, Headers,commonCompetitorsCodes);
 		}

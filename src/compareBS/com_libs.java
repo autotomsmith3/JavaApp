@@ -344,8 +344,8 @@ public class com_libs {
 		filePath_return = filePath_return + "_" + sdfmt.format(d) + ".txt";
 
 		final String USER_AGENT = "Mozilla/5.0";
-		
-		String urlS=url1 + url2+auth_key;
+
+		String urlS = url1 + url2 + auth_key;
 		URL obj = new URL(urlS);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setConnectTimeout(CONNECTION_TIMEOUT);
@@ -589,7 +589,7 @@ public class com_libs {
 //			*************QA*************
 		con.setUseCaches(false);
 		con.setDoOutput(true);
-		
+
 //		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 ////			wr.writeBytes(BSBody);
 //		wr.flush();

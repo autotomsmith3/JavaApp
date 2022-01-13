@@ -203,9 +203,9 @@ public class compareBS_text {
 //			{ "", "", "", "", "" };
 		for (String client : Clients) {
 			String TextUR = prop.getProperty(env + ".TextURL");
-			String TextBodys[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + client + "TextBodys.txt");
+			String TextBodys[] = comlibs.loadTextFromDataFolder(env, "./compareBS_data/" + env + "." + client + "TextBodys.txt");
 //			String Headers[] = fetchOneDemArrayFromPropFile(client + ".Headers", prop);
-			String Headers[] = fetchOneDemArrayFromPropFile(env+"."+client+".Headers", prop);
+			String Headers[] = fetchOneDemArrayFromPropFile(env+"."+ client+".Headers", prop);
 			PostText(env, client, TextUR, Headers,TextBodys);
 		}
 		// jSonObjec_CPP_BuildDataExtractOrchestrationWS();
