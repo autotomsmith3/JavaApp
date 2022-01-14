@@ -24,7 +24,7 @@ public class compareBS_Primary {
 		String parameterString = "";
 		String PostTextSavePathFile = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + env + "_Primary.xls";
 		String[] titleStringGetMakeModelWS = { "S/N", "URL_parameter", "serverTime", "error", "executionTimeMS",
-				"filtersObj", "Acode or Styleid", "Year", "make", "Make", "model", "empty" };
+				"filtersObj", "Acode or YMM_id", "Year", "Make", "Client", "Model", "Styleid" };
 
 		Properties prop = new Properties();
 		try {
@@ -47,7 +47,7 @@ public class compareBS_Primary {
 		String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonGETPrimary(env, client, "", envURL, "", "",
 				count, headers[0], headers[1], headers[2], headers[3]);
 
-		GetPrimaryDetails(PostTextSavePathFile, titleStringGetMakeModelWS, jsonTextFrGetMakeModelWS, envURL,
+		GetPrimaryDetails(client,PostTextSavePathFile, titleStringGetMakeModelWS, jsonTextFrGetMakeModelWS, envURL,
 				parameterString, count);
 
 	}
@@ -169,7 +169,7 @@ public class compareBS_Primary {
 		return sb.toString();
 	}
 
-	public static void GetPrimaryDetails(String wsResultfile, String[] titleString, String text, String URLString,
+	public static void GetPrimaryDetails(String client,String wsResultfile, String[] titleString, String text, String URLString,
 			String parameterS, int countNum) throws IOException {
 		com_libs.writeTitle(wsResultfile, titleString);
 		String serverTime = "";
@@ -266,7 +266,7 @@ public class compareBS_Primary {
 							jsonValue[6] = code;
 							jsonValue[7] = year;
 							jsonValue[8] = modelsObj;// modelsObj.toString();
-							jsonValue[9] = make;
+							jsonValue[9] = client;
 							jsonValue[10] = model;
 							cPP.com_libs.writeToSheet(wsResultfile, jsonValue);
 						}
