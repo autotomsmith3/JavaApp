@@ -66,7 +66,7 @@ public class compareBS_image {
 			parameterString = VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
 			String getMakeModelURL = envURL;// + VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
 			// getSourceCodeJson(String urlParameters, String url1, String url2, String auth_key)
-			 String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonGETPrimary(text_Body, envURL,"","");
+			 String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonGETPrimary();
 
 //			String filepath = "H:\\My Documents\\CompareService\\QA\\Testing\\Test Data\\makemodel.txt";
 //			String jsonTextFrGetMakeModelWS = readFile(filepath);
