@@ -40,7 +40,7 @@ public class compareBS_commonCompetitors {
 
 		int count = 0;
 
-		System.out.println("testDataTotal = " + testDataTotal);
+		System.out.println(client+" - TestDataTotal = " + testDataTotal);
 		parameterString = VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
 		String getCommonCompetitorsURL = envURL;// + VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
 
