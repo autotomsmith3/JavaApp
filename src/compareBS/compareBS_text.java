@@ -14,7 +14,8 @@ public class compareBS_text {
 	private static int blank = 0;
 	private static int noObj = 0;
 
-	public static void PostText(String env, String client, String envClientTextURL, String headers[],String TextBodys[]) throws Exception {
+	public static void PostText(String env, String client, String envClientTextURL, String headers[],
+			String TextBodys[]) throws Exception {
 		String VehicleSetCode = "";
 		String LngCode = "";
 		String CountryCode = "";
@@ -203,10 +204,11 @@ public class compareBS_text {
 //			{ "", "", "", "", "" };
 		for (String client : Clients) {
 			String TextUR = prop.getProperty(env + ".TextURL");
-			String TextBodys[] = comlibs.loadTextFromDataFolder(env, "./compareBS_data/" + env + "." + client + "TextBodys.txt");
+			String TextBodys[] = comlibs.loadTextFromDataFolder(env,
+					"./compareBS_data/" + env + "." + client + "TextBodys.txt");
 //			String Headers[] = fetchOneDemArrayFromPropFile(client + ".Headers", prop);
-			String Headers[] = fetchOneDemArrayFromPropFile(env+"."+ client+".Headers", prop);
-			PostText(env, client, TextUR, Headers,TextBodys);
+			String Headers[] = fetchOneDemArrayFromPropFile(env + "." + client + ".Headers", prop);
+			PostText(env, client, TextUR, Headers, TextBodys);
 		}
 		// jSonObjec_CPP_BuildDataExtractOrchestrationWS();
 		// // ******************************************************End of curly brace -

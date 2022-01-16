@@ -34,7 +34,8 @@ public class compareBS_vehicles {
 		com_libs comlibs = new com_libs();
 
 		String headerss = "";
-		String vehiclesCodes[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + client + "Vehicles.txt");
+		String vehiclesCodes[] = comlibs.loadTextFromDataFolder("empty",
+				"./compareBS_data/" + env + "." + client + "Vehicles.txt");
 		int testDataTotal = vehiclesCodes.length;
 
 		String envURL = envClientTextURL;// QA
@@ -204,7 +205,7 @@ public class compareBS_vehicles {
 //			{ "", "", "", "", "" };
 		for (String client : Clients) {
 			String VehiclesURL = prop.getProperty(env + ".VehiclesURL");
-			String Headers[] = fetchOneDemArrayFromPropFile(client + ".Headers", prop);
+			String Headers[] = fetchOneDemArrayFromPropFile(env + "." + client + ".Headers", prop);
 			GetVehicles(env, client, VehiclesURL, Headers);
 		}
 		// jSonObjec_CPP_BuildDataExtractOrchestrationWS();

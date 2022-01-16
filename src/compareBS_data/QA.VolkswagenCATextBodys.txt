@@ -59,4 +59,3 @@
 {"vehicles":[{"code":"CAD10VWS072G0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"CAD10VWS091A0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"CAD10VWS092A0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
-

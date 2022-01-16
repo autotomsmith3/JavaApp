@@ -211,8 +211,8 @@ public class com_libs {
 	}
 
 	public static String getNewSourceCodeJsonPostText(String environment, String client, String BSBody, String url1,
-			String url2, String auth_key, int s, String lang, String appid, String product_key, String profile_Key)
-			throws Exception {
+			String url2, String auth_key, int s_number, String lang, String appid, String product_key,
+			String profile_Key) throws Exception {
 		// POST method - works but lost data...20201121
 		// add auth_key in Headers
 		int wt = 2;
@@ -275,6 +275,8 @@ public class com_libs {
 		wr.close();
 		int responseCode = con.getResponseCode();
 		String outputString;
+		String acode_or_styleid = BSBody.substring(22, 35);
+
 		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
@@ -294,27 +296,29 @@ public class com_libs {
 			outputString = postData.toString();
 			con.disconnect();
 
-			System.out.println(s + " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
-			SaveScratch(filePath_statusCode,
-					client + ". " + s + " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
-			SaveScratch(filePath_return,
-					client + ". " + s + " - Return data Size = " + len + "  - Return result = " + outputString);
+			System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "
+					+ responseCode);
+			SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
+					+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
+			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
+					+ " - Return data Size = " + len + "  - Return result = " + outputString);
 		} else {
 			// error shows: 400,404, 500, 503,
 			// write to txt file for acode or styleid and error code here:
 			//
 			outputString = "";
-			System.out.println(
-					s + " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
-			SaveScratch(filePath_statusCode, client + ". " + s + " - Return data Size = " + " - 0."
-					+ "  - Return Status Code: " + responseCode + " - Failed.");
-			SaveScratch(filePath_return, client + ". " + s + " - Return data Size = 0  - Return result = empty!!!");
+			System.out.println(client + ". " + s_number
+					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
+			SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
+					+ " - Return data Size = " + "- 0." + "  - Return Status Code: " + responseCode + " - Failed.");
+			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
+					+ " - Return data Size = 0  - Return result = empty!!!");
 		}
 		return outputString;
 	}
 
-	public static String getNewSourceCodeJsonGETcommonCompetitors(String environment, String client, String BSBody,
-			String url1, String url2, String auth_key, int s, String lang, String appid, String product_key,
+	public static String getNewSourceCodeJsonGETcommonCompetitors(String environment, String client, String cc_code,
+			String url1, String url2, String auth_key, int s_number, String lang, String appid, String product_key,
 			String profile_Key) throws Exception {
 		// POST method - works but lost data...20201121
 		// add auth_key in Headers
@@ -399,27 +403,30 @@ public class com_libs {
 			outputString = postData.toString();
 			con.disconnect();
 
-			System.out.println(s + " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
-			SaveScratch(filePath_statusCode,
-					client + ". " + s + " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
-			SaveScratch(filePath_return,
-					client + ". " + s + " - Return data Size = " + len + "  - Return result = " + outputString);
+			System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "
+					+ responseCode);
+			SaveScratch(filePath_statusCode, client + ". " + cc_code + ". " + s_number + ". " + " - Return data Size = "
+					+ len + "  - Return Status Code: " + responseCode);
+			SaveScratch(filePath_return, client + ". " + cc_code + ". " + s_number + ". " + " - Return data Size = "
+					+ len + "  - Return result = " + outputString);
 		} else {
 			// error shows: 400,404, 500, 503,
 			// write to txt file for acode or styleid and error code here:
 			//
 			outputString = "";
-			System.out.println(
-					s + " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
-			SaveScratch(filePath_statusCode, client + ". " + s + " - Return data Size = " + " - 0."
-					+ "  - Return Status Code: " + responseCode + " - Failed.");
-			SaveScratch(filePath_return, client + ". " + s + " - Return data Size = 0  - Return result = empty!!!");
+			System.out.println(client + ". " + s_number
+					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
+			SaveScratch(filePath_statusCode, client + ". " + cc_code + ". " + s_number + ". " + " - Return data Size = "
+					+ "- 0." + "  - Return Status Code: " + responseCode + " - Failed.");
+			SaveScratch(filePath_return, client + ". " + cc_code + ". " + s_number + ". "
+					+ " - Return data Size = 0  - Return result = empty!!!");
 		}
 		return outputString;
 	}
-	public static String getNewSourceCodeJsonGETPrimary(String environment, String client, String BSBody,
-			String url1, String url2, String auth_key, int s, String lang, String appid, String product_key,
-			String profile_Key) throws Exception {
+
+	public static String getNewSourceCodeJsonGETPrimary(String environment, String client, String BSBody, String url1,
+			String url2, String auth_key, int s, String lang, String appid, String product_key, String profile_Key)
+			throws Exception {
 		// POST method - works but lost data...20201121
 		// add auth_key in Headers
 		int wt = 2;
@@ -427,7 +434,7 @@ public class com_libs {
 		final int CONNECTION_TIMEOUT = 1000 * 900;
 		final int DATARETREIVAL_TIMEOUT = 1000 * 900;
 
-		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment 
+		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment
 				+ "CompareBS_Primary_StatusCode.txt";
 		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
 				+ "CompareBS_Primary_Returns.txt";
@@ -521,6 +528,7 @@ public class com_libs {
 		}
 		return outputString;
 	}
+
 	public static String getNewSourceCodeJsonGET(String environment, String client, String BSBody, String url1,
 			String url2, String url3, int s, String lang, String appid, String product_key, String profile_Key)
 			throws Exception {
@@ -634,8 +642,8 @@ public class com_libs {
 	}
 
 	public static String getNewSourceCodeJsonGETVehicles(String environment, String client, String BSBody, String url1,
-			String url2, String vehiclesS, int s, String lang, String appid, String product_key, String profile_Key)
-			throws Exception {
+			String url2, String vehiclesS, int s_number, String lang, String appid, String product_key,
+			String profile_Key) throws Exception {
 		// POST method - works but lost data...20201121
 		// add auth_key in Headers
 		int wt = 2;
@@ -718,21 +726,23 @@ public class com_libs {
 			outputString = postData.toString();
 			con.disconnect();
 
-			System.out.println(s + " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
-			SaveScratch(filePath_statusCode,
-					client + ". " + s + " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
-			SaveScratch(filePath_return,
-					client + ". " + s + " - Return data Size = " + len + "  - Return result = " + outputString);
+			System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "
+					+ responseCode);
+			SaveScratch(filePath_statusCode, client + ". " + BSBody + ". " + s_number + " - Return data Size = " + len
+					+ "  - Return Status Code: " + responseCode);
+			SaveScratch(filePath_return, client + ". " + BSBody + ". " + s_number + " - Return data Size = " + len
+					+ "  - Return result = " + outputString);
 		} else {
 			// error shows: 400,404, 500, 503,
 			// write to txt file for acode or styleid and error code here:
 			//
 			outputString = "";
-			System.out.println(
-					s + " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
-			SaveScratch(filePath_statusCode, client + ". " + s + " - Return data Size = " + " - 0."
-					+ "  - Return Status Code: " + responseCode + " - Failed.");
-			SaveScratch(filePath_return, client + ". " + s + " - Return data Size = 0  - Return result = empty!!!");
+			System.out.println(client + ". " + s_number
+					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
+			SaveScratch(filePath_statusCode, client + ". " + BSBody + ". " + s_number + " - Return data Size = "
+					+ " - 0." + "  - Return Status Code: " + responseCode + " - Failed.");
+			SaveScratch(filePath_return,
+					client + ". " + BSBody + ". " + s_number + " - Return data Size = 0  - Return result = empty!!!");
 		}
 		return outputString;
 	}
