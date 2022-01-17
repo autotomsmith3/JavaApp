@@ -276,7 +276,7 @@ public class com_libs {
 		int responseCode = con.getResponseCode();
 		String outputString;
 		String acode_or_styleid = BSBody.substring(22, 35);
-
+		acode_or_styleid = getSubText(acode_or_styleid, '"');//  "\"" - "
 		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
@@ -1063,4 +1063,22 @@ public class com_libs {
 			System.err.println("Error: " + e.getMessage());
 		}
 	}
+
+	public static String getSubText(String textString, char startString) throws Exception { // "\""
+		String returnString = "";
+		String styleid = "";
+//		String acode = textString.substring(22, 35);
+		int startPlace = textString.indexOf(startString);
+		if (startPlace >= 3) {
+			//styleid
+			styleid = textString.substring(0, 12- startPlace);
+			returnString = styleid;
+		} else {
+			//acode
+			returnString = textString;
+		}
+
+		return returnString;
+	}
+
 }
