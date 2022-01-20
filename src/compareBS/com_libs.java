@@ -508,6 +508,10 @@ public class com_libs {
 			}
 			in.close();
 			outputString = postData.toString();
+			
+			outputString=formatJSON(environment,client,outputString);
+			
+			
 			con.disconnect();
 
 			System.out.println(s + " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
@@ -1080,5 +1084,21 @@ public class com_libs {
 
 		return returnString;
 	}
+	public static String formatJSON(String env, String client, String jsonString) throws Exception {
 
+//		JsonParser parser = new JsonParser();
+//		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//
+//		JsonElement el = parser.parse(jsonString);
+//		jsonString = gson.toJson(el); // done
+
+		// if it's not already, convert to a JSON object
+		JSONObject jsonObject = new JSONObject(jsonString);
+		// To string method prints it with specified indentation
+//		System.out.println(jsonObject.toString(4));
+
+		jsonString = jsonObject.toString(4);
+
+		return jsonString;
+	}
 }

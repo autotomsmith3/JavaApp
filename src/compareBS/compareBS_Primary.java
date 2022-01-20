@@ -46,8 +46,14 @@ public class compareBS_Primary {
 		count++;
 		String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonGETPrimary(env, client, "", envURL, "", "",
 				count, headers[0], headers[1], headers[2], headers[3]);
+		// formatted json string:
+//		String jsonFormatted = formatJSON(env, client, jsonTextFrGetMakeModelWS);
+//		System.out.println("Json String after formating:\n" + jsonFormatted);
 
-		GetPrimaryDetails(client,PostTextSavePathFile, titleStringGetMakeModelWS, jsonTextFrGetMakeModelWS, envURL,
+//		GetPrimaryDetails(client, PostTextSavePathFile, titleStringGetMakeModelWS, jsonTextFrGetMakeModelWS, envURL,
+//				parameterString, count);
+
+		GetPrimaryDetails(client, PostTextSavePathFile, titleStringGetMakeModelWS, jsonTextFrGetMakeModelWS, envURL,
 				parameterString, count);
 
 	}
@@ -169,8 +175,8 @@ public class compareBS_Primary {
 		return sb.toString();
 	}
 
-	public static void GetPrimaryDetails(String client,String wsResultfile, String[] titleString, String text, String URLString,
-			String parameterS, int countNum) throws IOException {
+	public static void GetPrimaryDetails(String client, String wsResultfile, String[] titleString, String text,
+			String URLString, String parameterS, int countNum) throws IOException {
 		com_libs.writeTitle(wsResultfile, titleString);
 		String serverTime = "";
 		String error = "";
@@ -291,6 +297,24 @@ public class compareBS_Primary {
 		String a[] = propFile.getProperty(propertyName).split(",");
 		return a;
 	}
+
+//	public static String formatJSON(String env, String client, String jsonString) throws Exception {
+//
+////		JsonParser parser = new JsonParser();
+////		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+////
+////		JsonElement el = parser.parse(jsonString);
+////		jsonString = gson.toJson(el); // done
+//
+//		// if it's not already, convert to a JSON object
+//		JSONObject jsonObject = new JSONObject(jsonString);
+//		// To string method prints it with specified indentation
+////		System.out.println(jsonObject.toString(4));
+//
+//		jsonString = jsonObject.toString(4);
+//
+//		return jsonString;
+//	}
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
