@@ -275,6 +275,7 @@ public class com_libs {
 		wr.close();
 		int responseCode = con.getResponseCode();
 		String outputString;
+		String inputString;
 		String acode_or_styleid = BSBody.substring(22, 35);
 		acode_or_styleid = getSubText(acode_or_styleid, '"');// "\"" - "
 		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + sdfmt.format(d) + ".txt";
@@ -298,15 +299,46 @@ public class com_libs {
 			outputString = postData.toString();
 			con.disconnect();
 			outputString = formatJSON(environment, client, outputString);
-			outputString="Acode or Styleid = "+acode_or_styleid+"\n"+outputString;
+//			outputString="Acode or Styleid = "+acode_or_styleid+"\n"+outputString;
+			
+//			read previous return
+			inputString=readFile("C:\\1\\Eclipse\\Test Results\\CompareBS\\11_QA.KiaCompareBS_Text_Returns_CAD00KIC031A0_2022-01-20.txt");
+			inputString=formatJSON(environment,client,inputString);
+						
+			System.out.println(inputString);
+//			compare two 
+			MyStrComparable comp= new MyStrComparable();
+			int pass=comp.compare(outputString, inputString);
+			if (pass==1) {
+				//=1 -- passed
+				
+				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
+						+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode+". Compare to previous return: Passed!");
+				
+				
+			}else {
+				//=-1 -- failed
+				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
+						+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode+". ---------------Compare to previous return: Failed!!!");
+			}
+			
+			
+			
 			
 			System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "
-					+ responseCode);
-			SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
+					+ responseCode+". Compare to previous return: Failed!");
+
 //			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
 //					+ " - Return data Size = " + len + "  - Return result = " + outputString);
 			SaveScratch(filePath_return,  outputString);
+
+			
+
+			
+			
+			System.out.println("Return compare two Strings = "+pass);
+			
+			
 			
 			
 			
@@ -1108,5 +1140,16 @@ public class com_libs {
 		jsonString = jsonObject.toString(4);
 
 		return jsonString;
+	}
+	public static String readFile(String path) throws IOException {
+		String sCurrentLine;
+		StringBuilder sb = new StringBuilder();
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+
+			while ((sCurrentLine = br.readLine()) != null) {
+				sb.append(sCurrentLine);
+			}
+		}
+		return sb.toString();
 	}
 }
