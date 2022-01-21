@@ -49,7 +49,9 @@ public class compareBS_text {
 			count++;
 			String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonPostText(env, client, Text_Body, envURL, "",
 					"", count, headers[0], headers[1], headers[2], headers[3]);
-
+			//read previous return
+			
+			//compare
 		}
 
 	}
