@@ -298,14 +298,18 @@ public class com_libs {
 			outputString = postData.toString();
 			con.disconnect();
 			outputString = formatJSON(environment, client, outputString);
-
+			outputString="Acode or Styleid = "+acode_or_styleid+"\n"+outputString;
+			
 			System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "
 					+ responseCode);
 			SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
 					+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
 //			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
 //					+ " - Return data Size = " + len + "  - Return result = " + outputString);
-			SaveScratch(filePath_return,  "Acode or Styleid = "+acode_or_styleid+"\n"+outputString);
+			SaveScratch(filePath_return,  outputString);
+			
+			
+			
 		} else {
 			// error shows: 400,404, 500, 503,
 			// write to txt file for acode or styleid and error code here:
