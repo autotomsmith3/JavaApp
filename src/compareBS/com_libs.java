@@ -210,9 +210,116 @@ public class com_libs {
 		return outputString;
 	}
 
+	public static String getNewSourceCodeJsonPostTextOriginal(String environment, String client, String BSBody, String url1,
+					String url2, String auth_key, int s_number, String lang, String appid, String product_key,
+					String profile_Key) throws Exception {
+				// POST method - works but lost data...20201121
+				// add auth_key in Headers
+				int wt = 2;
+				String sName, passOrfail, dateStamp, timeStamp;
+				final int CONNECTION_TIMEOUT = 1000 * 900;
+				final int DATARETREIVAL_TIMEOUT = 1000 * 900;
+
+				String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
+						+ "CompareBS_Text_StatusCode.txt";
+				String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
+						+ "CompareBS_Text_Returns.txt";
+
+				Calendar cal = Calendar.getInstance();
+				cal.getTime();
+				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+				SimpleDateFormat sdfmt = new SimpleDateFormat("yyyy-MM-dd");
+				timeStamp = sdf.format(cal.getTime());
+				DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+				Date d = new Date();
+				dateStamp = df.format(d);
+				timeStamp = dateStamp + "  " + timeStamp;
+				filePath_statusCode = filePath_statusCode.replace(".txt", "");
+				filePath_statusCode = filePath_statusCode + "_" + sdfmt.format(d) + ".txt";
+
+				filePath_return = filePath_return.replace(".txt", "");
+				filePath_return = filePath_return + "_" + sdfmt.format(d) + ".txt";
+
+				final String USER_AGENT = "Mozilla/5.0";
+				URL obj = new URL(url1 + url2);
+				HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+				con.setConnectTimeout(CONNECTION_TIMEOUT);
+				con.setReadTimeout(DATARETREIVAL_TIMEOUT);
+
+				con.setRequestMethod("POST");// for daaSNI is "POST"
+				con.setRequestProperty("User-Agent", USER_AGENT);
+				con.setRequestProperty("Content-Length", Integer.toString(11416884));// 11416884
+
+				con.setRequestProperty("Accept", "application/json");
+				con.setRequestProperty("Content-Type", "application/json");
+//				*************QA*************
+				con.setRequestProperty("Accept-Language", lang);
+
+//				con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
+				con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=" + appid);
+
+//				con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
+				con.setRequestProperty("chrome-appId", "autodata-" + appid);
+
+//				con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+				con.setRequestProperty("chrome-chrome-productKey", product_key);
+
+//				con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+				con.setRequestProperty("X-Profile-Key", profile_Key);
+//				*************QA*************
+
+				con.setDoOutput(true);
+				DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+				wr.writeBytes(BSBody);
+				wr.flush();
+				wr.close();
+				int responseCode = con.getResponseCode();
+				String outputString;
+				String acode_or_styleid = BSBody.substring(22, 35);
+				acode_or_styleid = getSubText(acode_or_styleid, '"');//  "\"" - "
+				if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+						&& !(responseCode == 500)) {
+					BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+					String inputLine;
+					StringBuffer postData = new StringBuffer();
+
+					int len = 0;
+
+					while ((inputLine = in.readLine()) != null) {
+//						System.out.println("Return data Size = "+inputLine.length());
+						len = inputLine.length();
+						if (!inputLine.isEmpty()) {
+							postData.append(inputLine);
+						}
+					}
+					in.close();
+					outputString = postData.toString();
+					con.disconnect();
+
+					System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "
+							+ responseCode);
+					SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
+							+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
+					SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
+							+ " - Return data Size = " + len + "  - Return result = " + outputString);
+				} else {
+					// error shows: 400,404, 500, 503,
+					// write to txt file for acode or styleid and error code here:
+					//
+					outputString = "";
+					System.out.println(client + ". " + s_number
+							+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
+					SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
+							+ " - Return data Size = " + "- 0." + "  - Return Status Code: " + responseCode + " - Failed.");
+					SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
+							+ " - Return data Size = 0  - Return result = empty!!!");
+				}
+				return outputString;
+			}
+
 	public static String getNewSourceCodeJsonPostText(String environment, String client, String BSBody, String url1,
 			String url2, String auth_key, int s_number, String lang, String appid, String product_key,
-			String profile_Key) throws Exception {
+			String profile_Key,String preDateFolder,String currentDateFolder) throws Exception {
 		// POST method - works but lost data...20201121
 		// add auth_key in Headers
 		int wt = 2;
@@ -220,11 +327,15 @@ public class com_libs {
 		final int CONNECTION_TIMEOUT = 1000 * 900;
 		final int DATARETREIVAL_TIMEOUT = 1000 * 900;
 
-		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
+		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\"+environment +"\\"+currentDateFolder+"\\"+ environment + "." + client
 				+ "CompareBS_Text_StatusCode.txt";
-		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + s_number + "_" + environment + "."
+		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\"+environment+"\\" +currentDateFolder+"\\"+ s_number + "_" + environment + "."
 				+ client + "CompareBS_Text_Returns.txt";
 
+		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\"+environment +"\\"+preDateFolder+"\\"+ environment + "." + client
+				+ "CompareBS_Text_StatusCode.txt";
+		
+		
 		Calendar cal = Calendar.getInstance();
 		cal.getTime();
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
@@ -302,7 +413,9 @@ public class com_libs {
 //			outputString="Acode or Styleid = "+acode_or_styleid+"\n"+outputString;
 			
 //			read previous return
-			inputString=readFile("C:\\1\\Eclipse\\Test Results\\CompareBS\\11_QA.KiaCompareBS_Text_Returns_CAD00KIC031A0_2022-01-20.txt");
+			inputString=readFile("C:\\1\\Eclipse\\Test Results\\CompareBS\\QA\\2022-01-19\\1_QA.KiaCompareBS_Text_Returns_CAD00KIC031A0_2022-01-19.txt");
+//			inputString=readFile(inputfilePath_statusCode);
+
 			inputString=formatJSON(environment,client,inputString);
 						
 			System.out.println(inputString);
@@ -356,7 +469,6 @@ public class com_libs {
 		}
 		return outputString;
 	}
-
 	public static String getNewSourceCodeJsonGETcommonCompetitors(String environment, String client, String cc_code,
 			String url1, String url2, String auth_key, int s_number, String lang, String appid, String product_key,
 			String profile_Key) throws Exception {
