@@ -222,8 +222,8 @@ public class com_libs {
 
 		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
 				+ "CompareBS_Text_StatusCode.txt";
-		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
-				+ "CompareBS_Text_Returns.txt";
+		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + s_number + "_" + environment + "."
+				+ client + "CompareBS_Text_Returns.txt";
 
 		Calendar cal = Calendar.getInstance();
 		cal.getTime();
@@ -276,10 +276,9 @@ public class com_libs {
 		int responseCode = con.getResponseCode();
 		String outputString;
 		String acode_or_styleid = BSBody.substring(22, 35);
-		acode_or_styleid = getSubText(acode_or_styleid, '"');//  "\"" - "
-		filePath_return = filePath_return + "_" + acode_or_styleid +"_"+sdfmt.format(d) + ".txt";
-		
-		
+		acode_or_styleid = getSubText(acode_or_styleid, '"');// "\"" - "
+		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + sdfmt.format(d) + ".txt";
+
 		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
@@ -298,12 +297,12 @@ public class com_libs {
 			in.close();
 			outputString = postData.toString();
 			con.disconnect();
-			outputString=formatJSON(environment,client,outputString);
-			
+			outputString = formatJSON(environment, client, outputString);
+
 			System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "
 					+ responseCode);
 			SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode);		
+					+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
 			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
 					+ " - Return data Size = " + len + "  - Return result = " + outputString);
 		} else {
@@ -512,10 +511,9 @@ public class com_libs {
 			}
 			in.close();
 			outputString = postData.toString();
-			
-			outputString=formatJSON(environment,client,outputString);
-			
-			
+
+			outputString = formatJSON(environment, client, outputString);
+
 			con.disconnect();
 
 			System.out.println(s + " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
@@ -1078,16 +1076,17 @@ public class com_libs {
 //		String acode = textString.substring(22, 35);
 		int startPlace = textString.indexOf(startString);
 		if (startPlace >= 3) {
-			//styleid
-			styleid = textString.substring(0, 12- startPlace);
+			// styleid
+			styleid = textString.substring(0, 12 - startPlace);
 			returnString = styleid;
 		} else {
-			//acode
+			// acode
 			returnString = textString;
 		}
 
 		return returnString;
 	}
+
 	public static String formatJSON(String env, String client, String jsonString) throws Exception {
 
 //		JsonParser parser = new JsonParser();
