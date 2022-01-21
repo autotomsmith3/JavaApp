@@ -43,7 +43,7 @@ public class compareBS_text {
 
 		System.out.println("testDataTotal = " + testDataTotal);
 		parameterString = VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
-		String getMakeModelURL = envURL;// + VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
+//		String getMakeModelURL = envURL;// + VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
 
 		for (String Text_Body : TextBodys) {
 			count++;
