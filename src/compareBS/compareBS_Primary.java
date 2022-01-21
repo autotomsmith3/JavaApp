@@ -6,9 +6,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.util.Comparator;
 
 public class compareBS_Primary {
 	private static int blank = 0;
@@ -46,12 +46,9 @@ public class compareBS_Primary {
 		count++;
 		String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonGETPrimary(env, client, "", envURL, "", "",
 				count, headers[0], headers[1], headers[2], headers[3]);
-		// formatted json string:
-//		String jsonFormatted = formatJSON(env, client, jsonTextFrGetMakeModelWS);
-//		System.out.println("Json String after formating:\n" + jsonFormatted);
-
-//		GetPrimaryDetails(client, PostTextSavePathFile, titleStringGetMakeModelWS, jsonTextFrGetMakeModelWS, envURL,
-//				parameterString, count);
+		String jsonTextFrGetMakeModelWScopy=jsonTextFrGetMakeModelWS;
+		
+//		int equ=MyStrComparable.compare(jsonTextFrGetMakeModelWS,jsonTextFrGetMakeModelWScopy);
 
 		GetPrimaryDetails(client, PostTextSavePathFile, titleStringGetMakeModelWS, jsonTextFrGetMakeModelWS, envURL,
 				parameterString, count);
@@ -298,23 +295,25 @@ public class compareBS_Primary {
 		return a;
 	}
 
-//	public static String formatJSON(String env, String client, String jsonString) throws Exception {
-//
-////		JsonParser parser = new JsonParser();
-////		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-////
-////		JsonElement el = parser.parse(jsonString);
-////		jsonString = gson.toJson(el); // done
-//
-//		// if it's not already, convert to a JSON object
-//		JSONObject jsonObject = new JSONObject(jsonString);
-//		// To string method prints it with specified indentation
-////		System.out.println(jsonObject.toString(4));
-//
-//		jsonString = jsonObject.toString(4);
-//
-//		return jsonString;
-//	}
+	public class MyStrComparable implements Comparator<String> {
+
+		@Override
+		public int compare(String o1, String o2) {
+//	       return (o1>o2 ? -1 : (o1==o2 ? 0 : 1));  //Decrease order
+//	       return (Integer.parseInt(o1)>Integer.parseInt(o2) ? -1 : (o1==o2 ? 0 : 1)); //Increase order
+
+//	     return (Integer.valueOf(o1)<Integer.valueOf(o2) ? -1 : (o1==o2 ? 0 : 1)); //Increase order
+
+			if (o1.compareTo(o2) > 0) {
+				return 1;
+			} else if (o1.compareTo(o2) == 0) {
+				return 1;
+			} else {
+				return -1;
+			}
+
+		}
+	}
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
