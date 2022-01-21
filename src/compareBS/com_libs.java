@@ -238,7 +238,7 @@ public class com_libs {
 		filePath_statusCode = filePath_statusCode + "_" + sdfmt.format(d) + ".txt";
 
 		filePath_return = filePath_return.replace(".txt", "");
-		filePath_return = filePath_return + "_" + sdfmt.format(d) + ".txt";
+//		filePath_return = filePath_return + "_" + BSBody +"_"+sdfmt.format(d) + ".txt";
 
 		final String USER_AGENT = "Mozilla/5.0";
 		URL obj = new URL(url1 + url2);
@@ -277,6 +277,9 @@ public class com_libs {
 		String outputString;
 		String acode_or_styleid = BSBody.substring(22, 35);
 		acode_or_styleid = getSubText(acode_or_styleid, '"');//  "\"" - "
+		filePath_return = filePath_return + "_" + acode_or_styleid +"_"+sdfmt.format(d) + ".txt";
+		
+		
 		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
@@ -295,11 +298,12 @@ public class com_libs {
 			in.close();
 			outputString = postData.toString();
 			con.disconnect();
-
+			outputString=formatJSON(environment,client,outputString);
+			
 			System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "
 					+ responseCode);
 			SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
+					+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode);		
 			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
 					+ " - Return data Size = " + len + "  - Return result = " + outputString);
 		} else {
