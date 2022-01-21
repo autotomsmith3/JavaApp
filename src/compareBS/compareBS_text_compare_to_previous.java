@@ -14,7 +14,7 @@ public class compareBS_text_compare_to_previous {
 	private static int blank = 0;
 	private static int noObj = 0;
 
-	public static void PostText(String env, String client, String envClientTextURL, String headers[],
+	public static void PostTextCompareToPreviousResult(String env, String client, String envClientTextURL, String headers[],
 			String TextBodys[],String preDateFolder, String currentDataFolder) throws Exception {
 		String VehicleSetCode = "";
 		String LngCode = "";
@@ -47,7 +47,7 @@ public class compareBS_text_compare_to_previous {
 
 		for (String Text_Body : TextBodys) {
 			count++;
-			String jsonTextFrPostTextWS = com_libs.getNewSourceCodeJsonPostText(env, client, Text_Body, envURL, "",
+			String jsonTextFrPostTextWS = com_libs.getNewSourceCodeJsonPostTextToComopare(env, client, Text_Body, envURL, "",
 					"", count, headers[0], headers[1], headers[2], headers[3],preDateFolder,currentDataFolder);
 
 //			System.out.println(jsonTextFrPostTextWS);
@@ -215,7 +215,7 @@ public class compareBS_text_compare_to_previous {
 					"./compareBS_data/" + env + "." + client + "TextBodys.txt");
 //			String Headers[] = fetchOneDemArrayFromPropFile(client + ".Headers", prop);
 			String Headers[] = fetchOneDemArrayFromPropFile(env + "." + client + ".Headers", prop);
-			PostText(env, client, TextUR, Headers, TextBodys,preDateFolder,currentDateFolder);
+			PostTextCompareToPreviousResult(env, client, TextUR, Headers, TextBodys,preDateFolder,currentDateFolder);
 		}
 		// jSonObjec_CPP_BuildDataExtractOrchestrationWS();
 		// // ******************************************************End of curly brace -
