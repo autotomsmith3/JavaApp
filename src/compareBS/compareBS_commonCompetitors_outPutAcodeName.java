@@ -47,7 +47,7 @@ public class compareBS_commonCompetitors_outPutAcodeName {
 
 		for (String commonCompetitorsCode : commonCompetitorsCodes) {
 			count++;
-			String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonGETcommonCompetitors(env, client,
+			String jsonCommonCompetitorsWS = com_libs.getNewSourceCodeJsonGETcommonCompetitors(env, client,
 					commonCompetitorsCode, envURL, commonCompetitorsCode, "common-competitors", count, headers[0],
 					headers[1], headers[2], headers[3]);
 
