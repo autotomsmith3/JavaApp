@@ -596,7 +596,6 @@ public class com_libs {
 		}
 		return outputString;
 	}
-
 	public static String getNewSourceCodeJsonGETcommonCompetitors(String environment, String client, String cc_code,
 			String url1, String url2, String auth_key, int s_number, String lang, String appid, String product_key,
 			String profile_Key) throws Exception {
@@ -708,6 +707,188 @@ public class com_libs {
 					+ " - Return data Size = 0  - Return result = empty!!!");
 		}
 		return outputString;
+	}
+
+	public static String getNewSourceCodeJsonGETcommonCompetitorsToCompare(String environment, String client, String cc_code,
+			String url1, String url2, String auth_key, int s_number, String lang, String appid, String product_key,
+			String profile_Key, String preDateFolder,String currentDateFolder) throws Exception {
+		// POST method - works but lost data...20201121
+		// add auth_key in Headers
+		int wt = 2;
+		String sName, passOrfail, dateStamp, timeStamp;
+		final int CONNECTION_TIMEOUT = 1000 * 900;
+		final int DATARETREIVAL_TIMEOUT = 1000 * 900;
+
+		String acode_or_styleid = cc_code.replace("/", "");
+
+		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\"
+				+ currentDateFolder + "\\" + environment + "." + client + "CompareBS_Text_StatusCode.txt";
+		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + currentDateFolder
+				+ "\\" + s_number + "_" + environment + "." + client + "CompareBS_Text_Returns.txt";
+
+		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\"
+				+ preDateFolder + "\\" + s_number + "_" + environment + "." + client + "_CompareBS_CommonCompetitors_Returns_"
+				+ acode_or_styleid + "_" + preDateFolder + ".txt";
+		filePath_statusCode = filePath_statusCode + "_" + currentDateFolder + ".txt";
+		
+		filePath_return = filePath_return.replace(".txt", "");
+		
+		final String USER_AGENT = "Mozilla/5.0";
+
+		String urlS = url1 + url2 + auth_key;
+		URL obj = new URL(urlS);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setConnectTimeout(CONNECTION_TIMEOUT);
+		con.setReadTimeout(DATARETREIVAL_TIMEOUT);
+
+		con.setRequestMethod("GET");// for daaSNI is "POST"
+		con.setRequestProperty("User-Agent", USER_AGENT);
+		con.setRequestProperty("Content-Length", Integer.toString(11416884));// 11416884
+
+		con.setRequestProperty("Accept", "application/json");
+		con.setRequestProperty("Content-Type", "application/json");
+//		*************QA*************
+		con.setRequestProperty("Accept-Language", lang);
+
+//		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
+		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=" + appid);
+
+//		con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
+		con.setRequestProperty("chrome-appId", "autodata-" + appid);
+
+//		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+		con.setRequestProperty("chrome-chrome-productKey", product_key);
+
+//		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+		con.setRequestProperty("X-Profile-Key", profile_Key);
+//		*************QA*************
+
+		con.setDoOutput(true);
+
+		int responseCode = con.getResponseCode();
+		String outputString;
+		String inputString;
+		
+		filePath_return = filePath_return + "_" + currentDateFolder + ".txt";
+
+		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+				&& !(responseCode == 500)) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			outputString = postData.toString();
+			con.disconnect();
+			outputString = formatJSON(environment, client, outputString);
+
+			inputString = readFile(inputfilePath_statusCode);
+			try {
+				inputString = formatJSON(environment, client, inputString);
+			} catch (Exception ex) {
+
+				System.out.println("Unable to format JSON file for " + s_number + ". " + acode_or_styleid
+						+ "_inputString = " + inputString);
+			}
+
+//			System.out.println(inputString);
+//			compare two 
+			MyStrComparable comp = new MyStrComparable();
+			int pass = comp.compare(outputString, inputString);
+			if (pass == 1) {
+				// =1 -- passed: All match.
+
+				SaveScratch(filePath_statusCode,
+						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + len
+								+ "  - Return Status Code: " + responseCode + ". Compare to previous return: Passed!");
+
+			} else if (pass == -1) {
+
+				// =-1 --failed: some of them do not match.
+				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
+						+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode
+						+ ". ------Compare to previous return: Failed!!! - lots do not match! Previous one is empty! - current API returns - Working now! - Passed!");
+			} else if (pass == 2) {
+				// =2 -- failed: lots do not match.
+				// result
+				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
+						+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode
+						+ ". ------Compare to previous return: Failed! - some of them do not match!!! - Failed!");
+			} else {
+				// = -- failed: lots do not match.
+				// result
+				SaveScratch(filePath_statusCode,
+						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + len
+								+ "  - Return Status Code: " + responseCode
+								+ ". ------Compare to previous return: Failed!!!!!! <>-1,<>1,<>2");
+
+			}
+
+			SaveScratch(filePath_return, outputString);
+
+			System.out.println(s_number + " - " + client + ". " + acode_or_styleid
+					+ " - Return compare two Strings 1-All match,2-Some not match,-1-Lots not match = " + pass);
+
+		} else {
+			// error shows: 400,404, 500, 503,
+			// write to txt file for acode or styleid and error code here:
+			//
+			outputString = "";
+
+			inputString = readFile(inputfilePath_statusCode);
+			if (inputString.contains("Return result = empty")) {
+				System.out.println(client + ". " + s_number + ". " + acode_or_styleid
+						+ " - Failed! Previous one contains empty result!, return Status Code = " + responseCode);
+				SaveScratch(filePath_statusCode,
+						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
+								+ "  - Return Status Code: " + responseCode
+								+ " - Failed! Previous return is also empty! - Passed!");
+
+			} else {
+
+				SaveScratch(filePath_statusCode,
+						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
+								+ "  - Return Status Code: " + responseCode
+								+ " - Failed. Previous retrun does not conturn empty!! - Failed");
+
+			}
+
+			System.out.println(client + ". " + s_number + ". " + acode_or_styleid
+					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
+
+			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
+					+ " - Return data Size = 0  - Return result = empty!!!");
+		}
+		return outputString;
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 	}
 
 	public static String getNewSourceCodeJsonGETPrimary(String environment, String client, String BSBody, String url1,
