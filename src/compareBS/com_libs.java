@@ -406,7 +406,7 @@ public class com_libs {
 			con.disconnect();
 			outputString = formatJSON(environment, client, outputString);
 //			outputString = "Acode or Styleid = " + acode_or_styleid + "\n" + outputString;//Add to first line
-			
+
 			System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "
 					+ responseCode);
 			SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
@@ -436,14 +436,16 @@ public class com_libs {
 
 		final int CONNECTION_TIMEOUT = 1000 * 900;
 		final int DATARETREIVAL_TIMEOUT = 1000 * 900;
-
+		String acode_or_styleid = BSBody.substring(22, 35);
+		acode_or_styleid = getSubText(acode_or_styleid, '"');
 		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\"
 				+ currentDateFolder + "\\" + environment + "." + client + "CompareBS_Text_StatusCode.txt";
 		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + currentDateFolder
 				+ "\\" + s_number + "_" + environment + "." + client + "CompareBS_Text_Returns.txt";
 
 		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\"
-				+ preDateFolder + "\\" + environment + "." + client + "CompareBS_Text_StatusCode.txt";
+				+ preDateFolder + "\\" + s_number + "_" + environment + "." + client + "CompareBS_Text_Returns_"
+				+ acode_or_styleid + "_" + preDateFolder + ".txt";
 
 		filePath_statusCode = filePath_statusCode + "_" + currentDateFolder + ".txt";
 
@@ -486,8 +488,8 @@ public class com_libs {
 		int responseCode = con.getResponseCode();
 		String outputString;
 		String inputString;
-		String acode_or_styleid = BSBody.substring(22, 35);
-		acode_or_styleid = getSubText(acode_or_styleid, '"');// "\"" - "
+//		acode_or_styleid = BSBody.substring(22, 35);
+//		acode_or_styleid = getSubText(acode_or_styleid, '"');// "\"" - "
 //		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + sdfmt.format(d) + ".txt";//currentDateFolder
 		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + currentDateFolder + ".txt";
 
@@ -513,13 +515,13 @@ public class com_libs {
 //			outputString="Acode or Styleid = "+acode_or_styleid+"\n"+outputString;
 
 //			read previous return
-			inputString = readFile(
-					"C:\\1\\Eclipse\\Test Results\\CompareBS\\QA\\2022-01-19\\1_QA.KiaCompareBS_Text_Returns_CAD00KIC031A0_2022-01-19.txt");
-//			inputString=readFile(inputfilePath_statusCode);
+//			inputString = readFile(
+//					"C:\\1\\Eclipse\\Test Results\\CompareBS\\QA\\2022-01-19\\1_QA.KiaCompareBS_Text_Returns_CAD00KIC031A0_2022-01-19.txt");
+			inputString = readFile(inputfilePath_statusCode);
 
 			inputString = formatJSON(environment, client, inputString);
 
-			System.out.println(inputString);
+//			System.out.println(inputString);
 //			compare two 
 			MyStrComparable comp = new MyStrComparable();
 			int pass = comp.compare(outputString, inputString);
@@ -535,7 +537,7 @@ public class com_libs {
 				SaveScratch(filePath_statusCode,
 						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + len
 								+ "  - Return Status Code: " + responseCode
-								+ ". ---------------------------------------------------------Compare to previous return: Failed!!!");
+								+ ". ------Compare to previous return: Failed!!!");
 			}
 
 			System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "

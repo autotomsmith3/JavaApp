@@ -14,8 +14,8 @@ public class compareBS_text_compare_to_previous {
 	private static int blank = 0;
 	private static int noObj = 0;
 
-	public static void PostTextCompareToPreviousResult(String env, String client, String envClientTextURL, String headers[],
-			String TextBodys[],String preDateFolder, String currentDataFolder) throws Exception {
+	public static void PostTextCompareToPreviousResult(String env, String client, String envClientTextURL,
+			String headers[], String TextBodys[], String preDateFolder, String currentDataFolder) throws Exception {
 		String VehicleSetCode = "";
 		String LngCode = "";
 		String CountryCode = "";
@@ -47,14 +47,14 @@ public class compareBS_text_compare_to_previous {
 
 		for (String Text_Body : TextBodys) {
 			count++;
-			String jsonTextFrPostTextWS = com_libs.getNewSourceCodeJsonPostTextToComopare(env, client, Text_Body, envURL, "",
-					"", count, headers[0], headers[1], headers[2], headers[3],preDateFolder,currentDataFolder);
+			String jsonTextFrPostTextWS = com_libs.getNewSourceCodeJsonPostTextToComopare(env, client, Text_Body,
+					envURL, "", "", count, headers[0], headers[1], headers[2], headers[3], preDateFolder,
+					currentDataFolder);
 
 //			System.out.println(jsonTextFrPostTextWS);
-			//read previous return
-			
-			
-			//compare
+			// read previous return
+
+			// compare
 		}
 
 	}
@@ -200,11 +200,14 @@ public class compareBS_text_compare_to_previous {
 			e.printStackTrace();
 		}
 		String env = prop.getProperty("environment");
-		String preDateFolder=prop.getProperty("comparePreviousDate");
-		String currentDateFolder=prop.getProperty("compareCurrentDate");
+		String preDateFolder = prop.getProperty("comparePreviousDate");
+//		String currentDateFolder=prop.getProperty("compareCurrentDate");
 //		String TextUR = prop.getProperty(env + ".TextURL");
 //		String clients[] = prop.getProperty("clients");
 		String Clients[] = fetchOneDemArrayFromPropFile("clients", prop);
+		String currentDateFolder = comlibs.getCurrentyyyy_mm_dd();
+		System.out.println("yyyy-mm-dd=" + currentDateFolder);
+
 //		String envKiaTextURL = "http://apior.autodatacorp.org/compare/v3/api/text";//QA 
 //		String client = "Kia";
 //		String Headers[] = fetchOneDemArrayFromPropFile(client+".Headers", prop);
@@ -215,7 +218,7 @@ public class compareBS_text_compare_to_previous {
 					"./compareBS_data/" + env + "." + client + "TextBodys.txt");
 //			String Headers[] = fetchOneDemArrayFromPropFile(client + ".Headers", prop);
 			String Headers[] = fetchOneDemArrayFromPropFile(env + "." + client + ".Headers", prop);
-			PostTextCompareToPreviousResult(env, client, TextUR, Headers, TextBodys,preDateFolder,currentDateFolder);
+			PostTextCompareToPreviousResult(env, client, TextUR, Headers, TextBodys, preDateFolder, currentDateFolder);
 		}
 		// jSonObjec_CPP_BuildDataExtractOrchestrationWS();
 		// // ******************************************************End of curly brace -
