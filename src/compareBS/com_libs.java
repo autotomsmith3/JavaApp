@@ -543,7 +543,7 @@ public class com_libs {
 				SaveScratch(filePath_statusCode,
 						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + len
 								+ "  - Return Status Code: " + responseCode
-								+ ". ------Compare to previous return: Failed!!! - lots do not match!!!!!! - current API returns, previous one is empty!");
+								+ ". ------Compare to previous return: Failed!!! - lots do not match! Previous one is empty! - current API returns - Working now! - Passed!");
 			} else if (pass==2){
 				// =2 -- failed: lots do not match.
 				// result
@@ -576,10 +576,25 @@ public class com_libs {
 			// write to txt file for acode or styleid and error code here:
 			//
 			outputString = "";
+			
+			inputString = readFile(inputfilePath_statusCode);
+			if(inputString.contains("Return result = empty")) {
+				
+				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
+						+ " - Return data Size = " + "- 0." + "  - Return Status Code: " + responseCode + " - Failed! Previous return is also empty! - Passed!");
+				
+			}else {
+				
+				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
+						+ " - Return data Size = " + "- 0." + "  - Return Status Code: " + responseCode + " - Failed. Previous retrun does not conturn empty!!");
+	
+			}
+			
+	
+			
 			System.out.println(client + ". " + s_number
 					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
-			SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = " + "- 0." + "  - Return Status Code: " + responseCode + " - Failed.");
+
 			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
 					+ " - Return data Size = 0  - Return result = empty!!!");
 		}
