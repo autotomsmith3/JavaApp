@@ -561,7 +561,8 @@ public class com_libs {
 
 			SaveScratch(filePath_return, outputString);
 
-			System.out.println(s_number+" - "+client+". "+acode_or_styleid+" - Return compare two Strings 1-All match,2-Some not match,-1-Lots not match = " + pass);
+			System.out.println(s_number + " - " + client + ". " + acode_or_styleid
+					+ " - Return compare two Strings 1-All match,2-Some not match,-1-Lots not match = " + pass);
 
 		} else {
 			// error shows: 400,404, 500, 503,
@@ -571,7 +572,7 @@ public class com_libs {
 
 			inputString = readFile(inputfilePath_statusCode);
 			if (inputString.contains("Return result = empty")) {
-				System.out.println(client + ". " + s_number+ ". "+acode_or_styleid
+				System.out.println(client + ". " + s_number + ". " + acode_or_styleid
 						+ " - Failed! Previous one contains empty result!, return Status Code = " + responseCode);
 				SaveScratch(filePath_statusCode,
 						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
@@ -587,7 +588,7 @@ public class com_libs {
 
 			}
 
-			System.out.println(client + ". " + s_number+ ". "+acode_or_styleid
+			System.out.println(client + ". " + s_number + ". " + acode_or_styleid
 					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
 
 			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
@@ -606,10 +607,12 @@ public class com_libs {
 		final int CONNECTION_TIMEOUT = 1000 * 900;
 		final int DATARETREIVAL_TIMEOUT = 1000 * 900;
 
+		String acode_or_styleid = cc_code.replace("/", "");
+
 		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
 				+ "CompareBS_CommonCompetitors_StatusCode.txt";
-		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
-				+ "CompareBS_CommonCompetitors_Returns.txt";
+		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + s_number + "_" + environment + "."
+				+ client + "_CompareBS_CommonCompetitors_Returns_" + acode_or_styleid + ".txt";
 
 		Calendar cal = Calendar.getInstance();
 		cal.getTime();
@@ -663,6 +666,11 @@ public class com_libs {
 //		wr.close();
 		int responseCode = con.getResponseCode();
 		String outputString;
+//		String acode_or_styleid = cc_code.replace("/","");
+
+//		acode_or_styleid = getSubText(acode_or_styleid, '"');// "\"" - "
+//		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + sdfmt.format(d) + ".txt";
+
 		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
@@ -681,13 +689,12 @@ public class com_libs {
 			in.close();
 			outputString = postData.toString();
 			con.disconnect();
-
+			outputString = formatJSON(environment, client, outputString);
 			System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "
 					+ responseCode);
 			SaveScratch(filePath_statusCode, client + ". " + cc_code + ". " + s_number + ". " + " - Return data Size = "
 					+ len + "  - Return Status Code: " + responseCode);
-			SaveScratch(filePath_return, client + ". " + cc_code + ". " + s_number + ". " + " - Return data Size = "
-					+ len + "  - Return result = " + outputString);
+			SaveScratch(filePath_return, outputString);
 		} else {
 			// error shows: 400,404, 500, 503,
 			// write to txt file for acode or styleid and error code here:
