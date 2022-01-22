@@ -549,7 +549,7 @@ public class com_libs {
 				// result
 				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
 						+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode
-						+ ". ------Compare to previous return: Failed! - some of them do not match!!!");
+						+ ". ------Compare to previous return: Failed! - some of them do not match!!! - Failed!");
 			}else {
 				// = -- failed: lots do not match.
 				// result
@@ -586,7 +586,7 @@ public class com_libs {
 			}else {
 				
 				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
-						+ " - Return data Size = " + "- 0." + "  - Return Status Code: " + responseCode + " - Failed. Previous retrun does not conturn empty!!");
+						+ " - Return data Size = " + "- 0." + "  - Return Status Code: " + responseCode + " - Failed. Previous retrun does not conturn empty!! - Failed");
 	
 			}
 			
