@@ -26,7 +26,7 @@ public class MyStrComparable implements Comparator<String> {
 			return -1;
 		}else {
 			//Some not match <0   
-			return -1;
+			return 2;
 		}
 
 	}

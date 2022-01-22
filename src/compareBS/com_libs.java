@@ -561,7 +561,7 @@ public class com_libs {
 
 			SaveScratch(filePath_return, outputString);
 
-			System.out.println(s_number+" - "+acode_or_styleid+" - Return compare two Strings 1-All match,2-Some not match,-1-Lots not match = " + pass);
+			System.out.println(s_number+" - "+client+". "+acode_or_styleid+" - Return compare two Strings 1-All match,2-Some not match,-1-Lots not match = " + pass);
 
 		} else {
 			// error shows: 400,404, 500, 503,
