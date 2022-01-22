@@ -539,60 +539,55 @@ public class com_libs {
 
 			} else if (pass == -1) {
 
-				// =-1 --failed: some of them do not match. 
-				SaveScratch(filePath_statusCode,
-						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + len
-								+ "  - Return Status Code: " + responseCode
-								+ ". ------Compare to previous return: Failed!!! - lots do not match! Previous one is empty! - current API returns - Working now! - Passed!");
-			} else if (pass==2){
+				// =-1 --failed: some of them do not match.
+				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
+						+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode
+						+ ". ------Compare to previous return: Failed!!! - lots do not match! Previous one is empty! - current API returns - Working now! - Passed!");
+			} else if (pass == 2) {
 				// =2 -- failed: lots do not match.
 				// result
 				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
 						+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode
 						+ ". ------Compare to previous return: Failed! - some of them do not match!!! - Failed!");
-			}else {
+			} else {
 				// = -- failed: lots do not match.
 				// result
-				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
-						+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode
-						+ ". ------Compare to previous return: Failed!!!!!! <>-1,<>1,<>2");
+				SaveScratch(filePath_statusCode,
+						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + len
+								+ "  - Return Status Code: " + responseCode
+								+ ". ------Compare to previous return: Failed!!!!!! <>-1,<>1,<>2");
 
-				
-				
-				
 			}
 
-			System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "
-					+ responseCode + ". Compare to previous return: Failed!");
-
-//			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
-//					+ " - Return data Size = " + len + "  - Return result = " + outputString);
 			SaveScratch(filePath_return, outputString);
 
-			System.out.println("Return compare two Strings = " + pass);
+			System.out.println(s_number+" - "+acode_or_styleid+" - Return compare two Strings 1-All match,2-Some not match,-1-Lots not match = " + pass);
 
 		} else {
 			// error shows: 400,404, 500, 503,
 			// write to txt file for acode or styleid and error code here:
 			//
 			outputString = "";
-			
+
 			inputString = readFile(inputfilePath_statusCode);
-			if(inputString.contains("Return result = empty")) {
-				
-				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
-						+ " - Return data Size = " + "- 0." + "  - Return Status Code: " + responseCode + " - Failed! Previous return is also empty! - Passed!");
-				
-			}else {
-				
-				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
-						+ " - Return data Size = " + "- 0." + "  - Return Status Code: " + responseCode + " - Failed. Previous retrun does not conturn empty!! - Failed");
-	
+			if (inputString.contains("Return result = empty")) {
+				System.out.println(client + ". " + s_number+ ". "+acode_or_styleid
+						+ " - Failed! Previous one contains empty result!, return Status Code = " + responseCode);
+				SaveScratch(filePath_statusCode,
+						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
+								+ "  - Return Status Code: " + responseCode
+								+ " - Failed! Previous return is also empty! - Passed!");
+
+			} else {
+
+				SaveScratch(filePath_statusCode,
+						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
+								+ "  - Return Status Code: " + responseCode
+								+ " - Failed. Previous retrun does not conturn empty!! - Failed");
+
 			}
-			
-	
-			
-			System.out.println(client + ". " + s_number
+
+			System.out.println(client + ". " + s_number+ ". "+acode_or_styleid
 					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
 
 			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
