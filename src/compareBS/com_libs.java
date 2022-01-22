@@ -596,6 +596,7 @@ public class com_libs {
 		}
 		return outputString;
 	}
+
 	public static String getNewSourceCodeJsonGETcommonCompetitors(String environment, String client, String cc_code,
 			String url1, String url2, String auth_key, int s_number, String lang, String appid, String product_key,
 			String profile_Key) throws Exception {
@@ -709,9 +710,9 @@ public class com_libs {
 		return outputString;
 	}
 
-	public static String getNewSourceCodeJsonGETcommonCompetitorsToCompare(String environment, String client, String cc_code,
-			String url1, String url2, String auth_key, int s_number, String lang, String appid, String product_key,
-			String profile_Key, String preDateFolder,String currentDateFolder) throws Exception {
+	public static String getNewSourceCodeJsonGETcommonCompetitorsToCompare(String environment, String client,
+			String cc_code, String url1, String url2, String auth_key, int s_number, String lang, String appid,
+			String product_key, String profile_Key, String preDateFolder, String currentDateFolder) throws Exception {
 		// POST method - works but lost data...20201121
 		// add auth_key in Headers
 		int wt = 2;
@@ -722,17 +723,19 @@ public class com_libs {
 		String acode_or_styleid = cc_code.replace("/", "");
 
 		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\"
-				+ currentDateFolder + "\\" + environment + "." + client + "CompareBS_Text_StatusCode.txt";
-		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + currentDateFolder
-				+ "\\" + s_number + "_" + environment + "." + client + "CompareBS_Text_Returns.txt";
+				+ "common_competitors" + "\\" + currentDateFolder + "\\" + environment + "." + client
+				+ "CompareBS_Text_StatusCode.txt";
+		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "common_competitors"
+				+ "\\" + currentDateFolder + "\\" + s_number + "_" + environment + "." + client + "_"
+				+ "CompareBS_CommonCompetitors_Returns.txt";
 
 		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\"
-				+ preDateFolder + "\\" + s_number + "_" + environment + "." + client + "_CompareBS_CommonCompetitors_Returns_"
-				+ acode_or_styleid + "_" + preDateFolder + ".txt";
+				+ preDateFolder + "\\" + s_number + "_" + environment + "." + client
+				+ "_CompareBS_CommonCompetitors_Returns_" + acode_or_styleid + "_" + preDateFolder + ".txt";
 		filePath_statusCode = filePath_statusCode + "_" + currentDateFolder + ".txt";
-		
+
 		filePath_return = filePath_return.replace(".txt", "");
-		
+
 		final String USER_AGENT = "Mozilla/5.0";
 
 		String urlS = url1 + url2 + auth_key;
@@ -768,8 +771,8 @@ public class com_libs {
 		int responseCode = con.getResponseCode();
 		String outputString;
 		String inputString;
-		
-		filePath_return = filePath_return + "_" + currentDateFolder + ".txt";
+
+		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + currentDateFolder + ".txt";
 
 		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
@@ -869,26 +872,7 @@ public class com_libs {
 					+ " - Return data Size = 0  - Return result = empty!!!");
 		}
 		return outputString;
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 	}
 
 	public static String getNewSourceCodeJsonGETPrimary(String environment, String client, String BSBody, String url1,
