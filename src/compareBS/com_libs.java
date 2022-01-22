@@ -438,12 +438,12 @@ public class com_libs {
 		final int DATARETREIVAL_TIMEOUT = 1000 * 900;
 		String acode_or_styleid = BSBody.substring(22, 35);
 		acode_or_styleid = getSubText(acode_or_styleid, '"');
-		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\"
+		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\"+ "text" + "\\"
 				+ currentDateFolder + "\\" + environment + "." + client + "CompareBS_Text_StatusCode.txt";
-		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + currentDateFolder
+		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment+ "\\"+ "text"  + "\\" + currentDateFolder
 				+ "\\" + s_number + "_" + environment + "." + client + "CompareBS_Text_Returns.txt";
 
-		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\"
+		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment+ "\\"+ "text" + "\\"
 				+ preDateFolder + "\\" + s_number + "_" + environment + "." + client + "CompareBS_Text_Returns_"
 				+ acode_or_styleid + "_" + preDateFolder + ".txt";
 
