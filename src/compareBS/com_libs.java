@@ -518,26 +518,48 @@ public class com_libs {
 //			inputString = readFile(
 //					"C:\\1\\Eclipse\\Test Results\\CompareBS\\QA\\2022-01-19\\1_QA.KiaCompareBS_Text_Returns_CAD00KIC031A0_2022-01-19.txt");
 			inputString = readFile(inputfilePath_statusCode);
+			try {
+				inputString = formatJSON(environment, client, inputString);
+			} catch (Exception ex) {
 
-			inputString = formatJSON(environment, client, inputString);
+				System.out.println("Unable to format JSON file for " + s_number + ". " + acode_or_styleid
+						+ "_inputString = " + inputString);
+			}
 
 //			System.out.println(inputString);
 //			compare two 
 			MyStrComparable comp = new MyStrComparable();
 			int pass = comp.compare(outputString, inputString);
 			if (pass == 1) {
-				// =1 -- passed
+				// =1 -- passed: All match.
 
 				SaveScratch(filePath_statusCode,
 						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + len
 								+ "  - Return Status Code: " + responseCode + ". Compare to previous return: Passed!");
 
-			} else {
-				// =-1 -- failed
+			} else if (pass == -1) {
+
+				// =-1 --failed: some of them do not match. 
 				SaveScratch(filePath_statusCode,
 						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + len
 								+ "  - Return Status Code: " + responseCode
-								+ ". ------Compare to previous return: Failed!!!");
+								+ ". ------Compare to previous return: Failed!!! - lots do not match!!!!!! - current API returns, previous one is empty!");
+			} else if (pass==2){
+				// =2 -- failed: lots do not match.
+				// result
+				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
+						+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode
+						+ ". ------Compare to previous return: Failed! - some of them do not match!!!");
+			}else {
+				// = -- failed: lots do not match.
+				// result
+				SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
+						+ " - Return data Size = " + len + "  - Return Status Code: " + responseCode
+						+ ". ------Compare to previous return: Failed!!!!!! <>-1,<>1,<>2");
+
+				
+				
+				
 			}
 
 			System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "
