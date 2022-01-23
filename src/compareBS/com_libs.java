@@ -3,6 +3,7 @@ package compareBS;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
+//import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -438,16 +439,16 @@ public class com_libs {
 		final int DATARETREIVAL_TIMEOUT = 1000 * 900;
 		String acode_or_styleid = BSBody.substring(22, 35);
 		acode_or_styleid = getSubText(acode_or_styleid, '"');
-		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\"+ "text" + "\\"
-				+ currentDateFolder + "\\" + environment + "." + client + "CompareBS_Text_StatusCode.txt";
-		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment+ "\\"+ "text"  + "\\" + currentDateFolder
-				+ "\\" + s_number + "_" + environment + "." + client + "CompareBS_Text_Returns.txt";
+		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "text" + "\\"
+				+ currentDateFolder + "\\" + environment + "." + client + "CompareBS_Text_StatusCode";
+		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "text" + "\\"
+				+ currentDateFolder + "\\" + s_number + "_" + environment + "." + client + "CompareBS_Text_Returns.txt";
 
-		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment+ "\\"+ "text" + "\\"
-				+ preDateFolder + "\\" + s_number + "_" + environment + "." + client + "CompareBS_Text_Returns_"
+		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "text"
+				+ "\\" + preDateFolder + "\\" + s_number + "_" + environment + "." + client + "CompareBS_Text_Returns_"
 				+ acode_or_styleid + "_" + preDateFolder + ".txt";
 
-		filePath_statusCode = filePath_statusCode + "_" + currentDateFolder + ".txt";
+		filePath_statusCode = filePath_statusCode + "_" + currentDateFolder +"_CompareTo_"+preDateFolder+ ".txt";
 
 		filePath_return = filePath_return.replace(".txt", "");
 //		filePath_return = filePath_return + "_" + BSBody +"_"+sdfmt.format(d) + ".txt";
@@ -724,15 +725,15 @@ public class com_libs {
 
 		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\"
 				+ "common_competitors" + "\\" + currentDateFolder + "\\" + environment + "." + client
-				+ "CompareBS_Text_StatusCode.txt";
+				+ "_CompareBS_CommonCompetitors_StatusCode";
 		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "common_competitors"
 				+ "\\" + currentDateFolder + "\\" + s_number + "_" + environment + "." + client + "_"
 				+ "CompareBS_CommonCompetitors_Returns.txt";
 
 		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\"
-				+ preDateFolder + "\\" + s_number + "_" + environment + "." + client
+				+ "common_competitors" + "\\" + preDateFolder + "\\" + s_number + "_" + environment + "." + client
 				+ "_CompareBS_CommonCompetitors_Returns_" + acode_or_styleid + "_" + preDateFolder + ".txt";
-		filePath_statusCode = filePath_statusCode + "_" + currentDateFolder + ".txt";
+		filePath_statusCode = filePath_statusCode + "_" + currentDateFolder+"_"+"Compared_To_"+preDateFolder + ".txt";
 
 		filePath_return = filePath_return.replace(".txt", "");
 
