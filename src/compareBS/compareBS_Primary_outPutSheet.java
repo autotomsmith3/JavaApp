@@ -10,7 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.Comparator;
 
-public class compareBS_Primary {
+public class compareBS_Primary_outPutSheet {
 	private static int blank = 0;
 	private static int noObj = 0;
 
@@ -28,7 +28,7 @@ public class compareBS_Primary {
 
 		Properties prop = new Properties();
 		try {
-			prop.load(compareBS_Primary.class.getClassLoader()
+			prop.load(compareBS_Primary_outPutSheet.class.getClassLoader()
 					.getResourceAsStream("compareBS_data/compareBS_text.properties"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -328,7 +328,7 @@ public class compareBS_Primary {
 
 		Properties prop = new Properties();
 		try {
-			prop.load(compareBS_Primary.class.getClassLoader()
+			prop.load(compareBS_Primary_outPutSheet.class.getClassLoader()
 					.getResourceAsStream("./compareBS_data/compareBS_text.properties"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
