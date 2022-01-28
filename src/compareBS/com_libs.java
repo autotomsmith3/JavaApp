@@ -632,7 +632,7 @@ public class com_libs {
 
 		final String USER_AGENT = "Mozilla/5.0";
 
-		String urlS = url1 + url2 + auth_key;
+		String urlS = url1 +"/"+ url2 +"/"+ auth_key;
 		URL obj = new URL(urlS);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setConnectTimeout(CONNECTION_TIMEOUT);
@@ -904,7 +904,7 @@ public class com_libs {
 
 		final String USER_AGENT = "Mozilla/5.0";
 
-		String urlS = url1 + url2 + auth_key;
+		String urlS = url1 +"/"+ url2 + auth_key;
 		URL obj = new URL(urlS);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setConnectTimeout(CONNECTION_TIMEOUT);
@@ -1075,7 +1075,7 @@ public class com_libs {
 
 		final String USER_AGENT = "Mozilla/5.0";
 
-		String urlS = url1 + url2 + auth_key;
+		String urlS = url1 +"/" +url2 + auth_key;
 		URL obj = new URL(urlS);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setConnectTimeout(CONNECTION_TIMEOUT);
@@ -1489,7 +1489,7 @@ public class com_libs {
 		String sName, passOrfail, dateStamp, timeStamp;
 		final int CONNECTION_TIMEOUT = 1000 * 900;
 		final int DATARETREIVAL_TIMEOUT = 1000 * 900;
-		String urlString = url1 + url2 + vehiclesS;
+		String urlString = url1 +"/"+ url2 + vehiclesS;
 		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
 				+ "CompareBS_Vehicles_StatusCode.txt";
 		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
