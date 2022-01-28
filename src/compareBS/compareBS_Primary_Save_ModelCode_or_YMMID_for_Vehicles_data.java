@@ -2,6 +2,7 @@ package compareBS;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,11 +12,11 @@ import org.json.JSONObject;
 
 import java.util.Comparator;
 
-public class compareBS_Primary_Save_ModelCode_or_YMMID {
+public class compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data {
 	private static int blank = 0;
 	private static int noObj = 0;
 
-	public static void GetPrimary(String env, String client, String envClientTextURL, String headers[])
+	public static void GetPrimary(String env, String client, String envClientTextURL, String headers[], String BS_name)
 			throws Exception {
 		String VehicleSetCode = "";
 		String LngCode = "";
@@ -30,7 +31,7 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID {
 
 		Properties prop = new Properties();
 		try {
-			prop.load(compareBS_Primary_Save_ModelCode_or_YMMID.class.getClassLoader()
+			prop.load(compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data.class.getClassLoader()
 					.getResourceAsStream("compareBS_data/compareBS_text.properties"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -38,7 +39,7 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID {
 		}
 
 		String acode_or_styleid_savePath = prop.getProperty("CommonCompetitorsBS_data_auto_produce_path");
-		
+
 		String headerss = "";
 
 		String envURL = envClientTextURL;// QA
@@ -50,10 +51,7 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID {
 				"", envURL, "", "", count, headers[0], headers[1], headers[2], headers[3]);
 		String jsonTextFrGetMakeModelWScopy = jsonTextFrGetMakeModelWS;
 
-//		int equ=MyStrComparable.compare(jsonTextFrGetMakeModelWS,jsonTextFrGetMakeModelWScopy);
-//		public static void GetPrimaryDetails(String path, String env, String client,String BS_Name, String wsResultfile, String[] titleString, String text,
-//				String URLString, String parameterS, int countNum) throws IOException {
-		GetPrimaryDetails(acode_or_styleid_savePath, env, client, "Vehicles", PostTextSavePathFile,
+		GetPrimaryDetails(acode_or_styleid_savePath, env, client, BS_name, PostTextSavePathFile,
 				titleStringGetMakeModelWS, jsonTextFrGetMakeModelWS, envURL, parameterString, count);
 
 	}
@@ -295,7 +293,7 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID {
 				temp[3] = "200 error";
 				System.out.println("S/N: " + countNum);
 				System.out.println("ERROR 200 ON : " + URLString);
-				cPP.com_libs.writeToSheet(wsResultfile, temp);
+				comlibs.SaveAcode_Styleid(path, env, client, BS_Name, code);
 			}
 		}
 	}
@@ -324,6 +322,25 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID {
 			}
 
 		}
+
+	}
+
+	private static void Check_BS_Exist_To_Delete(String acode_or_styleid_savePath, String env, String client,
+			String bS_name, String txt) {
+		// TODO Auto-generated method stub
+		String file_name = acode_or_styleid_savePath + env + "." + client + bS_name + txt;
+		System.out.println("Checking...");
+		check_file_exist_to_delete(file_name);
+	}
+
+	private static void check_file_exist_to_delete(String file_name) {
+		// TODO Auto-generated method stub
+
+		File f = new File(file_name);
+		if (f.exists() && !f.isDirectory()) {
+			// do something
+			f.delete();
+		}
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -339,22 +356,24 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID {
 
 		Properties prop = new Properties();
 		try {
-			prop.load(compareBS_Primary_Save_ModelCode_or_YMMID.class.getClassLoader()
+			prop.load(compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data.class.getClassLoader()
 					.getResourceAsStream("./compareBS_data/compareBS_text.properties"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String env = prop.getProperty("environment");
-//		String TextUR = prop.getProperty(env + ".TextURL");
-//		String clients[] = prop.getProperty("clients");
+		String acode_or_styleid_savePath = prop.getProperty("CommonCompetitorsBS_data_auto_produce_path");
+
+		String BS_name = "Vehicles";
+
 		String Clients[] = fetchOneDemArrayFromPropFile("clients", prop);
 		for (String client : Clients) {
 			String PrimaryURL = prop.getProperty(env + ".PrimaryURL");
 //			String PrimaryCodes[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + env + "." + client + "Prmary.txt"); 
 			String Headers[] = fetchOneDemArrayFromPropFile(env + "." + client + ".Headers", prop);
-
-			GetPrimary(env, client, PrimaryURL, Headers);
+			Check_BS_Exist_To_Delete(acode_or_styleid_savePath, env, client, BS_name, ".txt");
+			GetPrimary(env, client, PrimaryURL, Headers, BS_name);
 		}
 		// jSonObjec_CPP_BuildDataExtractOrchestrationWS();
 		// // ******************************************************End of curly brace -
