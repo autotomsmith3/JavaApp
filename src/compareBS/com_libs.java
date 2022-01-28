@@ -632,7 +632,7 @@ public class com_libs {
 
 		final String USER_AGENT = "Mozilla/5.0";
 
-		String urlS = url1 +"/"+ url2 +"/"+ auth_key;
+		String urlS = url1 + "/" + url2 + "/" + auth_key;
 		URL obj = new URL(urlS);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setConnectTimeout(CONNECTION_TIMEOUT);
@@ -904,7 +904,7 @@ public class com_libs {
 
 		final String USER_AGENT = "Mozilla/5.0";
 
-		String urlS = url1 +"/"+ url2 + auth_key;
+		String urlS = url1 + "/" + url2 + auth_key;
 		URL obj = new URL(urlS);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setConnectTimeout(CONNECTION_TIMEOUT);
@@ -1075,7 +1075,7 @@ public class com_libs {
 
 		final String USER_AGENT = "Mozilla/5.0";
 
-		String urlS = url1 +"/" +url2 + auth_key;
+		String urlS = url1 + "/" + url2 + auth_key;
 		URL obj = new URL(urlS);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setConnectTimeout(CONNECTION_TIMEOUT);
@@ -1261,9 +1261,118 @@ public class com_libs {
 		}
 		return outputString;
 	}
-	public static String getNewSourceCodeJsonGETVehiclesToSheet(String environment, String client, String vehicles_code, String url1,
-			String url2, String auth_key, int s, String lang, String appid, String product_key, String profile_Key)
-			throws Exception {
+
+	public static String getNewSourceCodeJsonGETPrimaryAndSaveModelCode_or_YMMID(String environment, String client,
+			String BSBody, String url1, String url2, String auth_key, int s, String lang, String appid,
+			String product_key, String profile_Key) throws Exception {
+		// POST method - works but lost data...20201121
+		// add auth_key in Headers
+		int wt = 2;
+		String sName, passOrfail, dateStamp, timeStamp;
+		final int CONNECTION_TIMEOUT = 1000 * 900;
+		final int DATARETREIVAL_TIMEOUT = 1000 * 900;
+
+		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment
+				+ "CompareBS_Primary_StatusCode.txt";
+		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
+				+ "CompareBS_Primary_Returns.txt";
+
+		Calendar cal = Calendar.getInstance();
+		cal.getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		SimpleDateFormat sdfmt = new SimpleDateFormat("yyyy-MM-dd");
+		timeStamp = sdf.format(cal.getTime());
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+		Date d = new Date();
+		dateStamp = df.format(d);
+		timeStamp = dateStamp + "  " + timeStamp;
+		filePath_statusCode = filePath_statusCode.replace(".txt", "");
+		filePath_statusCode = filePath_statusCode + "_" + sdfmt.format(d) + ".txt";
+
+		filePath_return = filePath_return.replace(".txt", "");
+		filePath_return = filePath_return + "_" + sdfmt.format(d) + ".txt";
+
+		final String USER_AGENT = "Mozilla/5.0";
+
+		String urlS = url1 + url2 + auth_key;
+		URL obj = new URL(urlS);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setConnectTimeout(CONNECTION_TIMEOUT);
+		con.setReadTimeout(DATARETREIVAL_TIMEOUT);
+
+		con.setRequestMethod("GET");// for daaSNI is "POST"
+		con.setRequestProperty("User-Agent", USER_AGENT);
+		con.setRequestProperty("Content-Length", Integer.toString(11416884));// 11416884
+
+		con.setRequestProperty("Accept", "application/json");
+		con.setRequestProperty("Content-Type", "application/json");
+//		*************QA*************
+		con.setRequestProperty("Accept-Language", lang);
+
+//		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
+		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=" + appid);
+
+//		con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
+		con.setRequestProperty("chrome-appId", "autodata-" + appid);
+
+//		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+		con.setRequestProperty("chrome-chrome-productKey", product_key);
+
+//		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+		con.setRequestProperty("X-Profile-Key", profile_Key);
+//		*************QA*************
+
+		con.setDoOutput(true);
+//		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+//		wr.writeBytes(BSBody);
+//		wr.flush();
+//		wr.close();
+		int responseCode = con.getResponseCode();
+		String outputString;
+		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+				&& !(responseCode == 500)) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			outputString = postData.toString();
+
+			outputString = formatJSON(environment, client, outputString);
+
+			con.disconnect();
+
+			System.out.println(s + " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
+//			SaveScratch(filePath_statusCode,
+//					client + ". " + s + " - Return data Size = " + len + "  - Return Status Code: " + responseCode);
+//			SaveScratch(filePath_return,
+//					client + ". " + s + " - Return data Size = " + len + "  - Return result = " + outputString);
+		} else {
+			// error shows: 400,404, 500, 503,
+			// write to txt file for acode or styleid and error code here:
+			//
+			outputString = "";
+			System.out.println(
+					s + " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
+//			SaveScratch(filePath_statusCode, client + ". " + s + " - Return data Size = " + " - 0."
+//					+ "  - Return Status Code: " + responseCode + " - Failed.");
+//			SaveScratch(filePath_return, client + ". " + s + " - Return data Size = 0  - Return result = empty!!!");
+		}
+		return outputString;
+	}
+
+	public static String getNewSourceCodeJsonGETVehiclesToSheet(String environment, String client, String vehicles_code,
+			String url1, String url2, String auth_key, int s, String lang, String appid, String product_key,
+			String profile_Key) throws Exception {
 		// POST method - works but lost data...20201121
 		// add auth_key in Headers
 		int wt = 2;
@@ -1489,7 +1598,7 @@ public class com_libs {
 		String sName, passOrfail, dateStamp, timeStamp;
 		final int CONNECTION_TIMEOUT = 1000 * 900;
 		final int DATARETREIVAL_TIMEOUT = 1000 * 900;
-		String urlString = url1 +"/"+ url2 + vehiclesS;
+		String urlString = url1 + "/" + url2 + vehiclesS;
 		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
 				+ "CompareBS_Vehicles_StatusCode.txt";
 		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
@@ -1965,4 +2074,30 @@ public class com_libs {
 		return yyyy_mm_dd;
 	}
 
+	public void SaveScratch(int i, String Acode, String ScratchText) {
+//		try {
+//			BufferedWriter out2 = new BufferedWriter(new FileWriter(dataDir
+//					+ "Acodes.txt", true));
+//			// out2.write("("+i+"): "+Acode+": ");
+//			out2.write(i + ". " + Acode + ": ");
+//			out2.newLine();
+//			out2.write(ScratchText);
+//			out2.newLine();
+//			out2.close();
+//		} catch (Exception e) {// Catch exception if any
+//			System.err.println("Error: " + e.getMessage());
+//		}
+	}
+
+	public void SaveAcode_Styleid(String path, String env, String client, String BS_Name, String Acode_or_Styleid) {
+		String pathAndFileName = path + env + "." + client + BS_Name + ".txt";
+		try {
+			BufferedWriter out2 = new BufferedWriter(new FileWriter(pathAndFileName, true));
+			out2.write(Acode_or_Styleid);
+			out2.newLine();
+			out2.close();
+		} catch (Exception e) {
+			System.err.println("Error: " + e.getMessage());
+		}
+	}
 }
