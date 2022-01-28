@@ -24,7 +24,7 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID {
 		String makeId = "";
 		String parameterString = "";
 		String PostTextSavePathFile = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + env + "_Primary.xls";
-		String acode_or_styleid_savePath = "C:\\1\\Eclipse\\Test Results\\CompareBS\\";
+//		String acode_or_styleid_savePath = "C:\\1\\Eclipse\\Test Results\\CompareBS\\";
 		String[] titleStringGetMakeModelWS = { "S/N", "URL_parameter", "serverTime", "error", "executionTimeMS",
 				"filtersObj", "Acode or YMM_id", "Year", "Make", "Client", "Model", "Styleid" };
 
@@ -37,8 +37,8 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID {
 			e.printStackTrace();
 		}
 
-//		com_libs comlibs = new com_libs();
-
+		String acode_or_styleid_savePath = prop.getProperty("CommonCompetitorsBS_data_auto_produce_path");
+		
 		String headerss = "";
 
 		String envURL = envClientTextURL;// QA
@@ -349,10 +349,6 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID {
 //		String TextUR = prop.getProperty(env + ".TextURL");
 //		String clients[] = prop.getProperty("clients");
 		String Clients[] = fetchOneDemArrayFromPropFile("clients", prop);
-//		String envKiaTextURL = "http://apior.autodatacorp.org/compare/v3/api/text";//QA 
-//		String client = "Kia";
-//		String Headers[] = fetchOneDemArrayFromPropFile(client+".Headers", prop);
-//			{ "", "", "", "", "" };
 		for (String client : Clients) {
 			String PrimaryURL = prop.getProperty(env + ".PrimaryURL");
 //			String PrimaryCodes[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + env + "." + client + "Prmary.txt"); 
