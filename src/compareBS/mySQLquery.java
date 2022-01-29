@@ -19,16 +19,15 @@ public class mySQLquery {
 		String Acode = "";
 		int ModelCodeLen = ModelCode.length();
 		String acode_or_ymmid;
-		if (ModelCodeLen==10) {
-			acode_or_ymmid="acode";
-		}else {
-			acode_or_ymmid="ymmid";
+		if (ModelCodeLen == 10) {
+			acode_or_ymmid = "acode";
+		} else {
+			acode_or_ymmid = "ymmid";
 		}
-		
-		
+
 		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection conn = DriverManager.getConnection(
-				"jdbc:mysql://lnoc-q1cp-xmy1.autodatacorp.org:3306", "qa_admin", "dund@s");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-q1cp-xmy1.autodatacorp.org:3306", "qa_admin",
+				"dund@s");
 		Statement stmt = conn.createStatement();
 		if (acode_or_ymmid.equalsIgnoreCase("acode")) {
 			// it's modelcode 10 digit Acode = USC90HYS17
@@ -36,7 +35,7 @@ public class mySQLquery {
 					+ "FROM globalvehicle_v111.globalvehicle WHERE WarehouseKeyStr LIKE  \"" + ModelCode + "%" + "\"";
 		} else {
 			// it's YMMID 5-6 digits ymmid = 35130
-			query = "SELECT DISTINCT vehicle_id AS \"Vehicle_id=Styleid\" FROM modelwalk_v113.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
+			query = "SELECT DISTINCT vehicle_id FROM modelwalk_v113.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
 					+ ModelCode + "\")";
 
 		}
@@ -53,15 +52,11 @@ public class mySQLquery {
 //			CountryCode = rs.getString("CountryCode");
 			if (acode_or_ymmid.equalsIgnoreCase("acode")) {
 				Acode = rs.getString("WarehouseKeyStr");
-			}else {
-//				Acode=rs.getString("vehicle_id");
-//				Long Acodexxx=Long.toString(rs.getLong("vehicle_id"));
-				String Acodexxx=rs.getString("Division_Name");
-				System.out.println(Acodexxx);
+			} else {
+				Acode = rs.getString("vehicle_id");//
+				System.out.println(Acode);
 			}
-		
-			
-			
+
 			if (Acode.length() > 13) {
 //				Acode = Acode.substring(0, 13);
 				System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
@@ -85,7 +80,7 @@ public class mySQLquery {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 //		USC90HYC012A0+STDTN-6AT
-		String Acodes[] = PullOneModelCodeToAcodes("USC90HYC02");//USC90HYC02,  35130
+		String Acodes[] = PullOneModelCodeToAcodes("35130");// USC90HYC02, 35130
 		int len = Acodes.length;
 		System.out.println("\nTotal Aocdes = " + len);
 		for (int i = 0; i < len; i++) {
