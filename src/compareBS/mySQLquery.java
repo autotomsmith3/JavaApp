@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class mySQLquery {
 
-	public static String[] PullOneModelCodeToAcodes(String ModelCode) throws Exception {
+	public static String[] PullOneModelCodeToAcodesOrStyleids(String ModelCode) throws Exception {
 //		int wSize = titleString.length;
 //		String[] jsonValue = new String[wSize];
 
@@ -25,7 +25,7 @@ public class mySQLquery {
 			acode_or_ymmid = "ymmid";
 		}
 
-		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver");
+		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
 		Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-q1cp-xmy1.autodatacorp.org:3306", "qa_admin",
 				"dund@s");
 		Statement stmt = conn.createStatement();
@@ -41,15 +41,10 @@ public class mySQLquery {
 		}
 
 		ResultSet rs = stmt.executeQuery(query);
-//		Acode = rs.getString("WarehouseKeyStr");
-//		String Acodexxx=rs.getString("Model_Year");
-//		System.out.println(Acodexxx);
 //		
 		int num = 0;
 		while (rs.next()) {
 			// do something with the extracted data...
-			// long id = rs.getLong("ID");
-//			CountryCode = rs.getString("CountryCode");
 			if (acode_or_ymmid.equalsIgnoreCase("acode")) {
 				Acode = rs.getString("WarehouseKeyStr");
 			} else {
@@ -69,18 +64,18 @@ public class mySQLquery {
 		}
 //		Save real size of String 
 		int len = num;
-		String[] AcodesReal = new String[len];
+		String[] AcodesOrStyleidsReal = new String[len];
 		for (int i = 0; i < len; i++) {
-			AcodesReal[i] = Acodes[i];
+			AcodesOrStyleidsReal[i] = Acodes[i];
 		}
 
-		return AcodesReal;
+		return AcodesOrStyleidsReal;
 	}
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 //		USC90HYC012A0+STDTN-6AT
-		String Acodes[] = PullOneModelCodeToAcodes("35130");// USC90HYC02, 35130
+		String Acodes[] = PullOneModelCodeToAcodesOrStyleids("35130");// can be: USC90HYC02, 35130
 		int len = Acodes.length;
 		System.out.println("\nTotal Aocdes = " + len);
 		for (int i = 0; i < len; i++) {
