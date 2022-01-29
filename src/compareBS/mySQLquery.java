@@ -21,7 +21,8 @@ public class mySQLquery {
 		Connection conn = DriverManager.getConnection(
 				"jdbc:mysql://lnoc-q1cp-xmy1.autodatacorp.org:3306/globalvehicle_v111", "qa_admin", "dund@s");
 		Statement stmt = conn.createStatement();
-		String query = "SELECT DISTINCT WarehouseKeyStr, CountryCode, CreatedDT,Gvuid FROM globalvehicle_v111.globalvehicle WHERE WarehouseKeyStr LIKE  'USD10GSS01%'";
+		String query = "SELECT DISTINCT WarehouseKeyStr, CountryCode, CreatedDT,Gvuid "
+				+ "FROM globalvehicle_v111.globalvehicle WHERE WarehouseKeyStr LIKE  \"" + ModelCode + "\"";
 		ResultSet rs = stmt.executeQuery(query);
 		int num = 0;
 		while (rs.next()) {
@@ -29,20 +30,37 @@ public class mySQLquery {
 			// long id = rs.getLong("ID");
 			CountryCode = rs.getString("CountryCode");
 			Acode = rs.getString("WarehouseKeyStr");
-			Acodes[num] = Acode;
-			num++;
+			if (Acode.length() > 13) {
+//				Acode = Acode.substring(0, 13);
+				System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
+			} else {
+				Acodes[num] = Acode;
+				num++;
+			}
 
-			System.out.println("CountryCode = " + CountryCode + ". Acode = " + Acode);
+			System.out.println(Acode);
 		}
-		return Acodes;
+//		Save real size of String 
+		int len = num;
+		String[] AcodesReal = new String[len];
+		for (int i = 0; i < len; i++) {
+			AcodesReal[i] = Acodes[i];
+		}
+
+		return AcodesReal;
 	}
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
+//		USC90HYC012A0+STDTN-6AT
+		String Acodes[] = PullOneModelCodeToAcodes("USC90HYC01%");
+		int len = Acodes.length;
+		System.out.println("\nTotal Aocdes = " + len);
+		for (int i = 0; i < len; i++) {
 
-		PullOneModelCodeToAcodes("USD10GSS01%");
+			System.out.println(Acodes[i]);
 
-//    		System.out.println("CountryCode = " + CountryCode + ". Acode = "+ Acode);
+		}
 	}
 
 }
