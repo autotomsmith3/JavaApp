@@ -9,26 +9,42 @@ import java.sql.Statement;
 
 public class mySQLquery {
 
-	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
+	public static String[] PullOneModelCodeToAcodes(String ModelCode) throws Exception {
+//		int wSize = titleString.length;
+//		String[] jsonValue = new String[wSize];
+
+		String[] Acodes = new String[500];
+
+		String CountryCode = "";
+		String Acode = "";
 		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = DriverManager.getConnection(
 				"jdbc:mysql://lnoc-q1cp-xmy1.autodatacorp.org:3306/globalvehicle_v111", "qa_admin", "dund@s");
 		Statement stmt = conn.createStatement();
 		String query = "SELECT DISTINCT WarehouseKeyStr, CountryCode, CreatedDT,Gvuid FROM globalvehicle_v111.globalvehicle WHERE WarehouseKeyStr LIKE  'USD10GSS01%'";
 		ResultSet rs = stmt.executeQuery(query);
+		int num = 0;
 		while (rs.next()) {
-//            long id = rs.getLong("ID");
-            String CountryCode=rs.getString("CountryCode");
-            String Acode = rs.getString("WarehouseKeyStr");
-             // do something with the extracted data...
-            
-    		System.out.println("CountryCode = " + CountryCode + ". Acode = "+ Acode);
-        }
-		
-		
-//		System.out.println("CountryCode = " + CountryCode + ". Acode = "+ Acode);
+			// do something with the extracted data...
+			// long id = rs.getLong("ID");
+			CountryCode = rs.getString("CountryCode");
+			Acode = rs.getString("WarehouseKeyStr");
+			Acodes[num] = Acode;
+			num++;
+
+			System.out.println("CountryCode = " + CountryCode + ". Acode = " + Acode);
+		}
+		return Acodes;
 	}
+
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+
+		PullOneModelCodeToAcodes("USD10GSS01%");
+
+//    		System.out.println("CountryCode = " + CountryCode + ". Acode = "+ Acode);
+	}
+
 }
 
 //		String sqlSelectAllPersons = "SELECT * FROM person";
