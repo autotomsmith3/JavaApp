@@ -17,7 +17,7 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data_cc_data
 	private static int noObj = 0;
 
 	public static void GetPrimary(String env, String client, String envClientTextURL, String headers[],
-			String BS_name_Vehicles, String BS_name_CommonCompetitors) throws Exception {
+			String BS_name_Vehicles, String BS_name_CommonCompetitors, String BS_name_Text) throws Exception {
 		String VehicleSetCode = "";
 		String LngCode = "";
 		String CountryCode = "";
@@ -49,11 +49,11 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data_cc_data
 		count++;
 		String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonGETPrimaryAndSaveModelCode_or_YMMID(env, client,
 				"", envURL, "", "", count, headers[0], headers[1], headers[2], headers[3]);
-		String jsonTextFrGetMakeModelWScopy = jsonTextFrGetMakeModelWS;
+//		String jsonTextFrGetMakeModelWScopy = jsonTextFrGetMakeModelWS;
 
 		GetPrimaryDetails(acode_or_styleid_savePath, env, client, BS_name_Vehicles, BS_name_CommonCompetitors,
-				PostTextSavePathFile, titleStringGetMakeModelWS, jsonTextFrGetMakeModelWS, envURL, parameterString,
-				count);
+				BS_name_Text, PostTextSavePathFile, titleStringGetMakeModelWS, jsonTextFrGetMakeModelWS, envURL,
+				parameterString, count);
 
 	}
 
@@ -174,9 +174,9 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data_cc_data
 		return sb.toString();
 	}
 
-	public static void GetPrimaryDetails(String path, String env, String client, String BS_Name, String BS_CC,
-			String wsResultfile, String[] titleString, String text, String URLString, String parameterS, int countNum)
-			throws IOException {
+	public static void GetPrimaryDetails(String path, String env, String client, String BS_Name_Vehicles, String BS_CC,
+			String BS_text, String wsResultfile, String[] titleString, String text, String URLString, String parameterS,
+			int countNum) throws IOException {
 //		com_libs.writeTitle(wsResultfile, titleString);
 		String serverTime = "";
 		String error = "";
@@ -191,6 +191,8 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data_cc_data
 		String modelYearId = "";
 
 		String[] temp = new String[30];
+		String textBodywithCode = "";
+
 		com_libs comlibs = new com_libs();
 
 		if (text.equals("")) {
@@ -281,12 +283,15 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data_cc_data
 //							Save to env.clientVehicles.txt
 //							jsonVa lue[6] = code;
 //							save Vehicles.txt acode or styleid one by one:
-							comlibs.SaveAcode_Styleid(path, env, client, BS_Name, code);
+
+							comlibs.SaveAcode_Styleid(path, env, client, BS_Name_Vehicles, code);
 							// from this one acode or styleid, save to: QA.ToyotaCACommonCompetitors.txt
 
 							comlibs.pull_Acodes_or_Styleids_From_MySQL_from_modelcode_or_ymmid_SaveAcodes_Styleids(path,
 									env, client, BS_CC, code);
 
+							comlibs.pull_Acodes_or_Styleids_From_MySQL_from_modelcode_or_ymmid_SaveAcodes_Styleids_SAVE_to_Text(
+									path, env, client, BS_text, code);
 						}
 					}
 				}
@@ -299,7 +304,7 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data_cc_data
 				temp[3] = "200 error";
 				System.out.println("S/N: " + countNum);
 				System.out.println("ERROR 200 ON : " + URLString);
-				comlibs.SaveAcode_Styleid(path, env, client, BS_Name, code);
+				comlibs.SaveAcode_Styleid(path, env, client, BS_Name_Vehicles, code);
 			}
 		}
 	}
@@ -332,7 +337,7 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data_cc_data
 	}
 
 	private static void Check_BS_Exist_To_Delete(String acode_or_styleid_savePath, String env, String client,
-			String BS_name_Vehicles, String BS_name_CommonCompetitors, String txt) {
+			String BS_name_Vehicles, String BS_name_CommonCompetitors, String BS_name_TextBodsy, String txt) {
 		// TODO Auto-generated method stub
 		// Delete Vehicles.txt file
 		String file_name = acode_or_styleid_savePath + env + "." + client + BS_name_Vehicles + txt;
@@ -343,6 +348,12 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data_cc_data
 		String cc_file_name = acode_or_styleid_savePath + env + "." + client + BS_name_CommonCompetitors + txt;
 		System.out.println("Checking CommonCompetitors.txt file...");
 		check_file_exist_to_delete(cc_file_name);
+
+		// Delete QA.KiaTextBodys.txt file
+		String text_file_name = acode_or_styleid_savePath + env + "." + client + BS_name_TextBodsy + txt;
+		System.out.println("Checking BS_name_TextBodsy.txt file...");
+		check_file_exist_to_delete(text_file_name);
+
 	}
 
 	private static void check_file_exist_to_delete(String file_name) {
@@ -379,15 +390,15 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data_cc_data
 
 		String BS_name_Vehicles = "Vehicles";
 		String BS_name_CommonCompetitors = "CommonCompetitors";
-
+		String BS_name_Text = "TextBodys";
 		String Clients[] = fetchOneDemArrayFromPropFile("clients", prop);
 		for (String client : Clients) {
 			String PrimaryURL = prop.getProperty(env + ".PrimaryURL");
 //			String PrimaryCodes[] = comlibs.loadTextFromDataFolder("empty", "./compareBS_data/" + env + "." + client + "Prmary.txt"); 
 			String Headers[] = fetchOneDemArrayFromPropFile(env + "." + client + ".Headers", prop);
 			Check_BS_Exist_To_Delete(acode_or_styleid_savePath, env, client, BS_name_Vehicles,
-					BS_name_CommonCompetitors, ".txt");
-			GetPrimary(env, client, PrimaryURL, Headers, BS_name_Vehicles, BS_name_CommonCompetitors);
+					BS_name_CommonCompetitors, BS_name_Text, ".txt");
+			GetPrimary(env, client, PrimaryURL, Headers, BS_name_Vehicles, BS_name_CommonCompetitors, BS_name_Text);
 		}
 		// jSonObjec_CPP_BuildDataExtractOrchestrationWS();
 		// // ******************************************************End of curly brace -

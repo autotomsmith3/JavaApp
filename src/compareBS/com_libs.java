@@ -2130,6 +2130,30 @@ public class com_libs {
 		}
 	}
 
+	public void SaveAcode_Styleid_for_text_body(String path, String env, String client, String BS_Name,
+			String[] Acodes_or_Styleids) {
+		String pathAndFileName = path + env + "." + client + BS_Name + ".txt";
+//		int Acodes_or_Styleids_len = Acodes_or_Styleids.length;
+		for (String Acode_or_Styleid : Acodes_or_Styleids) {
+
+			// TextBody added here
+//			Acode_or_Styleid = "asd===========fas" + Acode_or_Styleid	+ "asdfasdasdfasdsdfasdfffff====================fasdfasdfa";
+
+			
+			Acode_or_Styleid = "{\"vehicles\":[{\"code\":\""+Acode_or_Styleid+"\"}],\"include\": {\"vehicleDetails\": true,\"includeCategories\": true}}";
+			
+			
+			try {
+				BufferedWriter out2 = new BufferedWriter(new FileWriter(pathAndFileName, true));
+				out2.write(Acode_or_Styleid);
+				out2.newLine();
+				out2.close();
+			} catch (Exception e) {
+				System.err.println("Error: " + e.getMessage());
+			}
+		}
+	}
+
 	public void pull_Acodes_or_Styleids_From_MySQL_from_modelcode_or_ymmid_SaveAcodes_Styleids(String path, String env,
 			String client, String BS_Name_cc, String code) throws Exception {
 		// TODO Auto-generated method stub
@@ -2142,6 +2166,20 @@ public class com_libs {
 		// save to: QA.ToyotaCACommonCompetitors.txt = BS_Name_cc
 
 		SaveAcode_Styleid(path, env, client, BS_Name_cc, acodes_or_styleids);
+	}
+
+	public void pull_Acodes_or_Styleids_From_MySQL_from_modelcode_or_ymmid_SaveAcodes_Styleids_SAVE_to_Text(String path,
+			String env, String client, String BS_Name_Text, String code) throws Exception {
+		// TODO Auto-generated method stub
+//		String[] acodes_or_styleids=new String[500];
+		String textBodywithCode = "";
+		mySQLquery queryAcodesOrStyleids = new mySQLquery();
+		String[] acodes_or_styleids = queryAcodesOrStyleids.PullOneModelCodeToAcodesOrStyleids(code);
+		int code_len = acodes_or_styleids.length;
+		System.err.println("code_len: " + code_len);
+		// save to: QA.ToyotaCACommonCompetitors.txt = BS_Name_cc
+		textBodywithCode = "" + textBodywithCode + "";
+		SaveAcode_Styleid_for_text_body(path, env, client, BS_Name_Text, acodes_or_styleids);
 	}
 
 }
