@@ -2089,7 +2089,8 @@ public class com_libs {
 //		}
 	}
 
-	public void SaveAcode_StyleidGoodToAddCodeToFile(String path, String env, String client, String BS_Name, String Acode_or_Styleid) {
+	public void SaveAcode_StyleidGoodToAddCodeToFile(String path, String env, String client, String BS_Name,
+			String Acode_or_Styleid) {
 		String pathAndFileName = path + env + "." + client + BS_Name + ".txt";
 		try {
 			BufferedWriter out2 = new BufferedWriter(new FileWriter(pathAndFileName, true));
@@ -2100,7 +2101,7 @@ public class com_libs {
 			System.err.println("Error: " + e.getMessage());
 		}
 	}
-	
+
 	public void SaveAcode_Styleid(String path, String env, String client, String BS_Name, String Acode_or_Styleid) {
 		String pathAndFileName = path + env + "." + client + BS_Name + ".txt";
 		try {
@@ -2111,19 +2112,36 @@ public class com_libs {
 		} catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());
 		}
-	}	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}
+
+	public void SaveAcode_Styleid(String path, String env, String client, String BS_Name, String[] Acodes_or_Styleids) {
+		String pathAndFileName = path + env + "." + client + BS_Name + ".txt";
+//		int Acodes_or_Styleids_len = Acodes_or_Styleids.length;
+		for (String Acode_or_Styleid : Acodes_or_Styleids) {
+
+			try {
+				BufferedWriter out2 = new BufferedWriter(new FileWriter(pathAndFileName, true));
+				out2.write(Acode_or_Styleid);
+				out2.newLine();
+				out2.close();
+			} catch (Exception e) {
+				System.err.println("Error: " + e.getMessage());
+			}
+		}
+	}
+
+	public void pull_Acodes_or_Styleids_From_MySQL_from_modelcode_or_ymmid_SaveAcodes_Styleids(String path, String env,
+			String client, String BS_Name_cc, String code) throws Exception {
+		// TODO Auto-generated method stub
+//		String[] acodes_or_styleids=new String[500];
+
+		mySQLquery queryAcodesOrStyleids = new mySQLquery();
+		String[] acodes_or_styleids = queryAcodesOrStyleids.PullOneModelCodeToAcodesOrStyleids(code);
+		int code_len = acodes_or_styleids.length;
+		System.err.println("code_len: " + code_len);
+		// save to: QA.ToyotaCACommonCompetitors.txt = BS_Name_cc
+
+		SaveAcode_Styleid(path, env, client, BS_Name_cc, acodes_or_styleids);
+	}
+
 }

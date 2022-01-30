@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class mySQLquery {
 
-	public static String[] PullOneModelCodeToAcodesOrStyleids(String ModelCode) throws Exception {
+	public String[] PullOneModelCodeToAcodesOrStyleids(String ModelCode) throws Exception {
 //		int wSize = titleString.length;
 //		String[] jsonValue = new String[wSize];
 
@@ -75,14 +75,16 @@ public class mySQLquery {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 //		USC90HYC012A0+STDTN-6AT
-		String Acodes[] = PullOneModelCodeToAcodesOrStyleids("35130");// can be: USC90HYC02, 35130
-		int len = Acodes.length;
-		System.out.println("\nTotal Aocdes = " + len);
-		for (int i = 0; i < len; i++) {
-
-			System.out.println(Acodes[i]);
-
-		}
+		System.out.println("ignore now");
+		
+//		String Acodes[] = PullOneModelCodeToAcodesOrStyleids("35130");// can be: USC90HYC02, 35130
+//		int len = Acodes.length;
+//		System.out.println("\nTotal Aocdes = " + len);
+//		for (int i = 0; i < len; i++) {
+//
+//			System.out.println(Acodes[i]);
+//
+//		}
 	}
 
 }
