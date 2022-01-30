@@ -2139,10 +2139,9 @@ public class com_libs {
 			// TextBody added here
 //			Acode_or_Styleid = "asd===========fas" + Acode_or_Styleid	+ "asdfasdasdfasdsdfasdfffff====================fasdfasdfa";
 
-			
-			Acode_or_Styleid = "{\"vehicles\":[{\"code\":\""+Acode_or_Styleid+"\"}],\"include\": {\"vehicleDetails\": true,\"includeCategories\": true}}";
-			
-			
+			Acode_or_Styleid = "{\"vehicles\":[{\"code\":\"" + Acode_or_Styleid
+					+ "\"}],\"include\": {\"vehicleDetails\": true,\"includeCategories\": true}}";
+
 			try {
 				BufferedWriter out2 = new BufferedWriter(new FileWriter(pathAndFileName, true));
 				out2.write(Acode_or_Styleid);
