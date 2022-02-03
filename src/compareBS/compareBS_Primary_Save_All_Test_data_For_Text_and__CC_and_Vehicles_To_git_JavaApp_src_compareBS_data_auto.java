@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import java.util.Comparator;
 
-public class compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data_cc_data_Text_data {
+public class compareBS_Primary_Save_All_Test_data_For_Text_and__CC_and_Vehicles_To_git_JavaApp_src_compareBS_data_auto {
 	private static int blank = 0;
 	private static int noObj = 0;
 
@@ -31,7 +31,7 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data_cc_data
 
 		Properties prop = new Properties();
 		try {
-			prop.load(compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data_cc_data_Text_data.class.getClassLoader()
+			prop.load(compareBS_Primary_Save_All_Test_data_For_Text_and__CC_and_Vehicles_To_git_JavaApp_src_compareBS_data_auto.class.getClassLoader()
 					.getResourceAsStream("compareBS_data/compareBS_text.properties"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -379,7 +379,7 @@ public class compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data_cc_data
 
 		Properties prop = new Properties();
 		try {
-			prop.load(compareBS_Primary_Save_ModelCode_or_YMMID_for_Vehicles_data_cc_data_Text_data.class.getClassLoader()
+			prop.load(compareBS_Primary_Save_All_Test_data_For_Text_and__CC_and_Vehicles_To_git_JavaApp_src_compareBS_data_auto.class.getClassLoader()
 					.getResourceAsStream("./compareBS_data/compareBS_text.properties"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
