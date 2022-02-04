@@ -2113,7 +2113,17 @@ public class com_libs {
 			System.err.println("Error: " + e.getMessage());
 		}
 	}
-
+	public void SaveAcode_Styleid_when_error(String path, String env, String client, String BS_Name, String Acode_or_Styleid) {
+		String pathAndFileName =path +"Error_Occurred_"+ env + "." + client + BS_Name + ".txt";
+		try {
+			BufferedWriter out2 = new BufferedWriter(new FileWriter(pathAndFileName, true));
+			out2.write(Acode_or_Styleid);
+			out2.newLine();
+			out2.close();
+		} catch (Exception e) {
+			System.err.println("Error: " + e.getMessage());
+		}
+	}
 	public void SaveAcode_Styleid(String path, String env, String client, String BS_Name, String[] Acodes_or_Styleids) {
 		String pathAndFileName = path + env + "." + client + BS_Name + ".txt";
 //		int Acodes_or_Styleids_len = Acodes_or_Styleids.length;

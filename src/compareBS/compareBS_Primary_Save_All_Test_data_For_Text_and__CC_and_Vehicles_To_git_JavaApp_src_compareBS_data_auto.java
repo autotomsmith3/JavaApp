@@ -31,8 +31,9 @@ public class compareBS_Primary_Save_All_Test_data_For_Text_and__CC_and_Vehicles_
 
 		Properties prop = new Properties();
 		try {
-			prop.load(compareBS_Primary_Save_All_Test_data_For_Text_and__CC_and_Vehicles_To_git_JavaApp_src_compareBS_data_auto.class.getClassLoader()
-					.getResourceAsStream("compareBS_data/compareBS_text.properties"));
+			prop.load(
+					compareBS_Primary_Save_All_Test_data_For_Text_and__CC_and_Vehicles_To_git_JavaApp_src_compareBS_data_auto.class
+							.getClassLoader().getResourceAsStream("compareBS_data/compareBS_text.properties"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -203,7 +204,14 @@ public class compareBS_Primary_Save_All_Test_data_For_Text_and__CC_and_Vehicles_
 			temp[3] = "404 error";
 			System.out.println("S/N: " + countNum);
 			System.out.println("404 ERROR ON : " + URLString);
-			cPP.com_libs.writeToSheet(wsResultfile, temp);
+			System.out.println("\n\n Result.length()=0!!!\n\n path=" + path + ",  env=" + env + ",  client=" + client
+					+ ",  BS_Name_Vehicles=" + BS_Name_Vehicles + ",  BS_CC" + BS_CC + ",\r\n" + "			 BS_text="
+					+ BS_text + ",  wsResultfile=" + wsResultfile + ",  titleString,  text=" + text + ",  URLString="
+					+ URLString);
+			comlibs.SaveAcode_Styleid_when_error(path, env, client, BS_Name_Vehicles,
+					"countNum = " + countNum + ". path = " + path + ", env = " + env + ", client = " + client
+							+ ", BS_Name_Vehicles = " + BS_Name_Vehicles);
+			//cPP.com_libs.writeToSheet(wsResultfile, temp);
 		} else {
 			try {
 				JSONObject obj = new JSONObject(text);
@@ -220,7 +228,14 @@ public class compareBS_Primary_Save_All_Test_data_For_Text_and__CC_and_Vehicles_
 					temp[1] = URLString;
 					temp[2] = "";
 					temp[3] = "result [] object is blank";
-					cPP.com_libs.writeToSheet(wsResultfile, temp);
+					System.out.println("\n\n Result.length()=0!!!\n\n path=" + path + ",  env=" + env + ",  client="
+							+ client + ",  BS_Name_Vehicles=" + BS_Name_Vehicles + ",  BS_CC" + BS_CC + ",\r\n"
+							+ "			 BS_text=" + BS_text + ",  wsResultfile=" + wsResultfile
+							+ ",  titleString,  text=" + text + ",  URLString=" + URLString);
+					comlibs.SaveAcode_Styleid_when_error(path, env, client, BS_Name_Vehicles,
+							"countNum = " + countNum + ". path = " + path + ", env = " + env + ", client = " + client
+									+ ", BS_Name_Vehicles = " + BS_Name_Vehicles);
+					//cPP.com_libs.writeToSheet(wsResultfile, temp);
 					System.out.println("gvuid = " + "  " + " - Result [] object is blank. ");
 
 				} else {
@@ -302,9 +317,17 @@ public class compareBS_Primary_Save_All_Test_data_For_Text_and__CC_and_Vehicles_
 				temp[1] = URLString;
 				temp[2] = "";
 				temp[3] = "200 error";
+
+				System.out.println("\n\n Result.length()=0!!!\n\n path=" + path + ",  env=" + env + ",  client="
+						+ client + ",  BS_Name_Vehicles=" + BS_Name_Vehicles + ",  BS_CC" + BS_CC + ",\r\n"
+						+ "			 BS_text=" + BS_text + ",  wsResultfile=" + wsResultfile + ",  titleString,  text="
+						+ text + ",  URLString=" + URLString);
+
 				System.out.println("S/N: " + countNum);
 				System.out.println("ERROR 200 ON : " + URLString);
-				comlibs.SaveAcode_Styleid(path, env, client, BS_Name_Vehicles, code);
+				comlibs.SaveAcode_Styleid_when_error(path, env, client, BS_Name_Vehicles,
+						"countNum = " + countNum + ". path = " + path + ", env = " + env + ", client = " + client
+								+ ", BS_Name_Vehicles = " + BS_Name_Vehicles);
 			}
 		}
 	}
@@ -379,8 +402,9 @@ public class compareBS_Primary_Save_All_Test_data_For_Text_and__CC_and_Vehicles_
 
 		Properties prop = new Properties();
 		try {
-			prop.load(compareBS_Primary_Save_All_Test_data_For_Text_and__CC_and_Vehicles_To_git_JavaApp_src_compareBS_data_auto.class.getClassLoader()
-					.getResourceAsStream("./compareBS_data/compareBS_text.properties"));
+			prop.load(
+					compareBS_Primary_Save_All_Test_data_For_Text_and__CC_and_Vehicles_To_git_JavaApp_src_compareBS_data_auto.class
+							.getClassLoader().getResourceAsStream("./compareBS_data/compareBS_text.properties"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
