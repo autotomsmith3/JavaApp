@@ -2064,6 +2064,24 @@ public class com_libs {
 
 		return jsonString;
 	}
+	
+	public static String formatJSONObject(String env, String client, String jsonString) throws Exception {
+
+//		JsonParser parser = new JsonParser();
+//		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//
+//		JsonElement el = parser.parse(jsonString);
+//		jsonString = gson.toJson(el); // done
+
+		// if it's not already, convert to a JSON object
+		JSONObject jsonObj = new JSONObject(jsonString);
+		// To string method prints it with specified indentation
+//		System.out.println(jsonObject.toString(4));
+
+		jsonString = jsonObj.toString(4);
+
+		return jsonString;
+	}
 
 	public static String readFile(String path) throws IOException {
 		String sCurrentLine;
