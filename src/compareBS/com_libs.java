@@ -2030,7 +2030,8 @@ public class com_libs {
 	}
 
 	public static String formatJSON(String env, String client, String jsonString) throws Exception {
-
+		//This is format Json Object. All Compare APIs are Json Object not Array.
+		
 //		JsonParser parser = new JsonParser();
 //		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 //
@@ -2043,6 +2044,23 @@ public class com_libs {
 //		System.out.println(jsonObject.toString(4));
 
 		jsonString = jsonObject.toString(4);
+
+		return jsonString;
+	}
+	public static String formatJSONArray(String env, String client, String jsonString) throws Exception {
+
+//		JsonParser parser = new JsonParser();
+//		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//
+//		JsonElement el = parser.parse(jsonString);
+//		jsonString = gson.toJson(el); // done
+
+		// if it's not already, convert to a JSON object
+		JSONArray jsonArray = new JSONArray(jsonString);
+		// To string method prints it with specified indentation
+//		System.out.println(jsonObject.toString(4));
+
+		jsonString = jsonArray.toString(4);
 
 		return jsonString;
 	}
