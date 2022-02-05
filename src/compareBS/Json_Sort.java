@@ -65,8 +65,8 @@ public class Json_Sort {
 
 			@Override
 			public int compare(JSONObject o1, JSONObject o2) {
-				String v1 = (String) ((JSONObject) o1.get("attributes")).get("COMMERCIALNAME_E");
-				String v3 = (String) ((JSONObject) o2.get("attributes")).get("COMMERCIALNAME_E");
+				String v1 = (String) ((JSONObject) o1.get("attributes")).get(fieldToSort);
+				String v3 = (String) ((JSONObject) o2.get("attributes")).get(fieldToSort);
 				return v1.compareTo(v3);
 			}
 		}
@@ -187,13 +187,22 @@ public class Json_Sort {
 //		SortJsonArray(JsonArrayFilePath,sortfield);
 //		System.out.println("\nJsonArray Sorting is Completed:\n");
 
-		// JsonObject
+		// JsonObject - good
 		String JsonObjectFilePath = "C:\\Users\\Zhoul\\OneDrive - JD Power\\Meeting\\Compare\\Team Standup Meeting\\0_Automation_Important\\jsonObject.txt";
 		// jsonArray.txt - "ID" or "Name" - good.
 		// jsonObjectChangedToArray.txt - The "layerName" and "layerId" are good.
 		String sortfield = "COMMERCIALNAME_E";
 		SortJsonObject(JsonObjectFilePath, sortfield);
 		System.out.println("\nJsonArray Sorting is Completed:\n");
+		
+		
+//		// JsonObject
+//		String JsonObjectFilePath = "C:\\Users\\Zhoul\\OneDrive - JD Power\\Meeting\\Compare\\Team Standup Meeting\\0_Automation_Important\\13_QA.KiaUS_Vehicles_Returns_USD10KIS08_2022-01-27_Object.txt";
+//		// jsonArray.txt - "ID" or "Name" - good.
+//		// jsonObjectChangedToArray.txt - The "layerName" and "layerId" are good.
+//		String sortfield = "COMMERCIALNAME_E";
+//		SortJsonObject(JsonObjectFilePath, sortfield);
+//		System.out.println("\nJsonArray Sorting is Completed:\n");
 
 	}
 
