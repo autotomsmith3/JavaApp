@@ -904,7 +904,7 @@ public class com_libs {
 
 		final String USER_AGENT = "Mozilla/5.0";
 
-		String urlS = url1 + "/" + url2 + auth_key;
+		String urlS = url1 + "/" + url2 + "/" + auth_key;
 		URL obj = new URL(urlS);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setConnectTimeout(CONNECTION_TIMEOUT);
@@ -2030,8 +2030,8 @@ public class com_libs {
 	}
 
 	public static String formatJSON(String env, String client, String jsonString) throws Exception {
-		//This is format Json Object. All Compare APIs are Json Object not Array.
-		
+		// This is format Json Object. All Compare APIs are Json Object not Array.
+
 //		JsonParser parser = new JsonParser();
 //		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 //
@@ -2047,6 +2047,7 @@ public class com_libs {
 
 		return jsonString;
 	}
+
 	public static String formatJSONArray(String env, String client, String jsonString) throws Exception {
 
 //		JsonParser parser = new JsonParser();
@@ -2064,7 +2065,7 @@ public class com_libs {
 
 		return jsonString;
 	}
-	
+
 	public static String formatJSONObject(String env, String client, String jsonString) throws Exception {
 
 //		JsonParser parser = new JsonParser();
@@ -2149,8 +2150,10 @@ public class com_libs {
 			System.err.println("Error: " + e.getMessage());
 		}
 	}
-	public void SaveAcode_Styleid_when_error(String path, String env, String client, String BS_Name, String Acode_or_Styleid) {
-		String pathAndFileName =path +"Error_Occurred_"+ env + "." + client + BS_Name + ".txt";
+
+	public void SaveAcode_Styleid_when_error(String path, String env, String client, String BS_Name,
+			String Acode_or_Styleid) {
+		String pathAndFileName = path + "Error_Occurred_" + env + "." + client + BS_Name + ".txt";
 		try {
 			BufferedWriter out2 = new BufferedWriter(new FileWriter(pathAndFileName, true));
 			out2.write(Acode_or_Styleid);
@@ -2160,6 +2163,7 @@ public class com_libs {
 			System.err.println("Error: " + e.getMessage());
 		}
 	}
+
 	public void SaveAcode_Styleid(String path, String env, String client, String BS_Name, String[] Acodes_or_Styleids) {
 		String pathAndFileName = path + env + "." + client + BS_Name + ".txt";
 //		int Acodes_or_Styleids_len = Acodes_or_Styleids.length;
