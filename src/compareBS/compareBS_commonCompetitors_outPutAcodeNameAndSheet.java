@@ -146,7 +146,7 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 				int size = ccObj.length();
 
 //				==============featureDefinitionsObject==============
-
+//				==============featureDefinitionsObject==============
 				JSONObject featureDefinitionsObj = ccObj.getJSONObject("featureDefinitions");
 //				JSONObject featureDefinitionsObj = ccArr.JSONArray(0)("featureDefinitions");
 				size = featureDefinitionsObj.length();
@@ -240,6 +240,7 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 //				JSONArray result = obj.getJSONArray("result");
 //				int size = result.length();
 
+//				================vehiclesArray==============
 //				================vehiclesArray==============
 
 				JSONArray vehiclsArr = ccObj.getJSONArray("vehicles");
@@ -349,6 +350,9 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 
 						com_libs.writeToSheet(wsResultfile, temp);
 
+//						================mediaObject==============
+//						================mediaObject==============
+
 						JSONObject mediaObj = vehicles_0_Obj.getJSONObject("media");
 
 						int mediaObjsize = mediaObj.length();
@@ -385,11 +389,11 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 									temp[15] = "";
 									temp[16] = vehiclesCode;
 
-									temp[17] = trim;
-									temp[18] = year;
-									temp[19] = modelCode;
-									temp[20] = description;
-									temp[21] = vehicle_model;
+									temp[17] = "";
+									temp[18] = "";
+									temp[19] = "";
+									temp[20] = "";
+									temp[21] = "";
 									temp[22] = "mediaObj";
 									temp[23] = optionString;
 									temp[24] = "FRONT_3QTR_LEFT";
@@ -426,61 +430,57 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 
 						}
 						JSONObject pricingObj = vehicles_0_Obj.getJSONObject("pricing");
-						 destinationCharge = Integer.toString(pricingObj.getInt("destinationCharge"));
-						 msrp =   Integer.toString(pricingObj.getInt("msrp"));
-						 temp[0] = Integer.toString(countNum);
-							temp[1] = env;
-							temp[2] = client;
-							temp[3] = acodeStryleid;
-							temp[5] = "";
-							temp[6] = "";
-							temp[7] = "";
-							temp[8] = "";
-							temp[9] = "";
-							temp[10] = "vehicleObj_" + i;
-							temp[11] = "";
-							temp[12] = "";
-							temp[13] = "";
-							temp[14] = "";
-							temp[15] = "";
-							temp[16] = vehiclesCode;
+						destinationCharge = Integer.toString(pricingObj.getInt("destinationCharge"));
+						msrp = Integer.toString(pricingObj.getInt("msrp"));
+						temp[0] = Integer.toString(countNum);
+						temp[1] = env;
+						temp[2] = client;
+						temp[3] = acodeStryleid;
+						temp[5] = "";
+						temp[6] = "";
+						temp[7] = "";
+						temp[8] = "";
+						temp[9] = "";
+						temp[10] = "vehicleObj_" + i;
+						temp[11] = "";
+						temp[12] = "";
+						temp[13] = "";
+						temp[14] = "";
+						temp[15] = "";
+						temp[16] = vehiclesCode;
 
-							temp[17] = "";
-							temp[18] = "";
-							temp[19] = "";
-							temp[20] = "";
-							temp[21] = "";
-							temp[22] = "";
-							temp[23] = "";
-							temp[24] = "";
-							temp[25] = "";
-							temp[26] = "";
-							temp[27] = "";
-							temp[28] = "";
-							temp[29] = "";
-							temp[30] = "";
-							temp[31] = "pricing";
-							temp[32] = destinationCharge;
-							temp[33] = msrp;
-							temp[34] = "";
+						temp[17] = "";
+						temp[18] = "";
+						temp[19] = "";
+						temp[20] = "";
+						temp[21] = "";
+						temp[22] = "";
+						temp[23] = "";
+						temp[24] = "";
+						temp[25] = "";
+						temp[26] = "";
+						temp[27] = "";
+						temp[28] = "";
+						temp[29] = "";
+						temp[30] = "";
+						temp[31] = "pricing";
+						temp[32] = destinationCharge;
+						temp[33] = msrp;
+						temp[34] = "";
 
-							com_libs.writeToSheet(wsResultfile, temp);	
-						 
-						 
-						 
-						 
-						 JSONArray segmentsArr = vehicles_0_Obj.getJSONArray("segments");
-						int getJSONsize=segmentsArr.length();
-							
-							
+						com_libs.writeToSheet(wsResultfile, temp);
+
+						JSONArray segmentsArr = vehicles_0_Obj.getJSONArray("segments");
+						int getJSONsize = segmentsArr.length();
+
 						for (int p = 0; p < getJSONsize; p++) {
-							segments=segmentsArr.getString(p);
-							
+							segments = segmentsArr.getString(p);
+
 							temp[31] = "";
 							temp[32] = "";
 							temp[33] = "";
 							temp[34] = segments;
-							com_libs.writeToSheet(wsResultfile, temp);	
+							com_libs.writeToSheet(wsResultfile, temp);
 						}
 					}
 
