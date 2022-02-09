@@ -278,8 +278,12 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 						try {
 							Vehicles_features_MFR_CODE = featuresObj.getString("MFR_CODE");
 						} catch (Exception ex) {
-							Vehicles_features_MFR_CODE = "null! error?";
-							System.out.println("error occurs!");
+							if (env.equalsIgnoreCase("QA")) {
+								Vehicles_features_MFR_CODE = "null! error?";
+							}else {
+								Vehicles_features_MFR_CODE = "";
+								System.out.println("Staging and Prod have not added MFR_CODE in RCRM!");
+							}
 						}
 
 						Vehicles_features_WHEEL_BASE = featuresObj.getString("WHEEL_BASE");
