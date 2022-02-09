@@ -22,10 +22,10 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 		String year = "";
 		String makeId = "";
 		String parameterString = "";
-		String PostTextSavePathFile = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + env
+		String cc_SavePathFile = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + env
 				+ "_Common-CompetitorsSheet.xls";
 //		String acode_or_styleid_savePath = "C:\\1\\Eclipse\\Test Results\\CompareBS\\";
-		String[] titleStringGetMakeModelWS = { "S/N", "Env", "Client", "Acode or Styleid", "URL 404 error",
+		String[] titleStringGetCommon_CompetitorsWS = { "S/N", "Env", "Client", "Acode or Styleid", "URL 404 error",
 				"featureDefinitionsObj", "f_DRIVE_TYPE", "f_WHEEL_BASE", "f_BODY_TYPE", "Empty_01", "vehiclesArr",
 				"featuresObj", "DRIVE_TYPE", "MFR_CODE", "WHEEL_BASE", "BODY_TYPE", "Code", "trim", "year", "modelCode",
 				"description", "model", "mediaObj", "mediaSubObj", "mediaSubValues", "code", "name", "imageType", "url",
@@ -58,13 +58,13 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 			String jsonCommonCompetitorsWS = com_libs.getNewSourceCodeJsonGETcommonCompetitors(env, client,
 					commonCompetitorsCode, envURL, commonCompetitorsCode, "common-competitors", count, headers[0],
 					headers[1], headers[2], headers[3]);
-			PostTextDetails(env, client, commonCompetitorsCode, PostTextSavePathFile, titleStringGetMakeModelWS,
+			GetCommon_CompetitorsDetails(env, client, commonCompetitorsCode, cc_SavePathFile, titleStringGetCommon_CompetitorsWS,
 					jsonCommonCompetitorsWS, "URLString", "parameterS", count);
 		}
 
 	}
 
-	public static void PostTextDetails(String env, String client, String acodeStryleid, String wsResultfile,
+	public static void GetCommon_CompetitorsDetails(String env, String client, String acodeStryleid, String wsResultfile,
 			String[] titleString, String text, String URLString, String parameterS, int countNum) throws IOException {
 		com_libs.writeTitle(wsResultfile, titleString);
 		String serverTime = "";
@@ -152,10 +152,7 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 				size = featureDefinitionsObj.length();
 
 				if (size > 3) {
-//					Exceeds below: 
-//					1. DRIVE_TYPEStr
-//					2. WHEEL_BASEStr
-//					3. BODY_TYPEStr
+
 					blank++;
 					temp[0] = Integer.toString(countNum);
 					temp[1] = env;
@@ -171,13 +168,6 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 					com_libs.Wait(waitTime);
 
 				}
-
-//				for (int ii = 0; ii < size; ii++) {
-//					Exceeds below: 
-//					DRIVE_TYPEStr
-//					WHEEL_BASEStr
-//					BODY_TYPEStr
-//				}
 
 //					DRIVE_TYPEStr
 				JSONArray DRIVE_TYPEArr = featureDefinitionsObj.getJSONArray("DRIVE_TYPE");
@@ -232,13 +222,6 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 
 					System.out.println("iii=" + iii + " - BODY_TYPEStr = " + BODY_TYPEStr);
 				}
-
-//				serverTime = featureDefinitionsObj.getString("featureDefinitions");
-//				error = Boolean.toString(obj.getBoolean("error"));
-//				executionTimeMS = Long.toString(obj.getLong("executionTimeMS"));
-//
-//				JSONArray result = obj.getJSONArray("result");
-//				int size = result.length();
 
 //				================vehiclesArray==============
 //				================vehiclesArray==============
@@ -410,25 +393,18 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 
 									com_libs.writeToSheet(wsResultfile, temp);
 //									
-//									
-//									
-//									
-//									
-//									
-//									
-//									
 								}
 //								
-//								
-//								
+
 							}
 
 //							
-//							
-//						
-//							
 
 						}
+
+//						================PricingObject==============
+//						================PricingObject==============						
+
 						JSONObject pricingObj = vehicles_0_Obj.getJSONObject("pricing");
 						destinationCharge = Integer.toString(pricingObj.getInt("destinationCharge"));
 						msrp = Integer.toString(pricingObj.getInt("msrp"));
@@ -482,34 +458,13 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 							temp[34] = segments;
 							com_libs.writeToSheet(wsResultfile, temp);
 						}
+						//
 					}
-
-//				
-//					
-//					
-//					
-//					
-//					
-//					
-//					
-//					
-//					
-//					
-//					
-//					
+					//
 
 				}
+				//
 
-//				
-//				
-//				
-//				
-//				
-//				
-//				
-//				
-//				
-//				
 			} catch (Exception ex) {
 				System.out.println("error occurs!");
 				noObj++;
