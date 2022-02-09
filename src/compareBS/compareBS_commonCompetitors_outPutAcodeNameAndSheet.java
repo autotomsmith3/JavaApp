@@ -22,8 +22,7 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 		String year = "";
 		String makeId = "";
 		String parameterString = "";
-		String cc_SavePathFile = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + env
-				+ "_Common-CompetitorsSheet.xls";
+		String cc_SavePathFile = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + env + "_Common-CompetitorsSheet.xls";
 //		String acode_or_styleid_savePath = "C:\\1\\Eclipse\\Test Results\\CompareBS\\";
 		String[] titleStringGetCommon_CompetitorsWS = { "S/N", "Env", "Client", "Acode or Styleid", "URL 404 error",
 				"featureDefinitionsObj", "f_DRIVE_TYPE", "f_WHEEL_BASE", "f_BODY_TYPE", "Empty_01", "vehiclesArr",
@@ -58,14 +57,15 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 			String jsonCommonCompetitorsWS = com_libs.getNewSourceCodeJsonGETcommonCompetitors(env, client,
 					commonCompetitorsCode, envURL, commonCompetitorsCode, "common-competitors", count, headers[0],
 					headers[1], headers[2], headers[3]);
-			GetCommon_CompetitorsDetails(env, client, commonCompetitorsCode, cc_SavePathFile, titleStringGetCommon_CompetitorsWS,
-					jsonCommonCompetitorsWS, "URLString", "parameterS", count);
+			GetCommon_CompetitorsDetails(env, client, commonCompetitorsCode, cc_SavePathFile,
+					titleStringGetCommon_CompetitorsWS, jsonCommonCompetitorsWS, "URLString", "parameterS", count);
 		}
 
 	}
 
-	public static void GetCommon_CompetitorsDetails(String env, String client, String acodeStryleid, String wsResultfile,
-			String[] titleString, String text, String URLString, String parameterS, int countNum) throws IOException {
+	public static void GetCommon_CompetitorsDetails(String env, String client, String acodeStryleid,
+			String wsResultfile, String[] titleString, String text, String URLString, String parameterS, int countNum)
+			throws IOException {
 		com_libs.writeTitle(wsResultfile, titleString);
 		String serverTime = "";
 		String error = "";
@@ -278,12 +278,8 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 						try {
 							Vehicles_features_MFR_CODE = featuresObj.getString("MFR_CODE");
 						} catch (Exception ex) {
-							if (env.equalsIgnoreCase("QA")) {
-								Vehicles_features_MFR_CODE = "null! error?";
-							}else {
-								Vehicles_features_MFR_CODE = "";
-								System.out.println("Staging and Prod have not added MFR_CODE in RCRM!");
-							}
+							Vehicles_features_MFR_CODE = "0_null! error?";
+							System.out.println("This client has not been added MFR_CODE in RCRM! So this will fail.");
 						}
 
 						Vehicles_features_WHEEL_BASE = featuresObj.getString("WHEEL_BASE");
