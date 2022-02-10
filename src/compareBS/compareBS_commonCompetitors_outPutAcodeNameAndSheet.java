@@ -344,9 +344,9 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 							JSONArray mediaOptionArr = mediaObj.names();
 							int mediaSize = mediaOptionArr.length();
 							for (int n = 0; n < mediaSize; n++) {
-								String optionString = mediaOptionArr.getString(n);
+								String optionString = mediaOptionArr.getString(n); 				// SWP - this is how to get dynomic object
 								System.out.println("optionString=\n" + optionString);
-								JSONObject mediasubObj = mediaObj.getJSONObject(optionString);// SWP
+								JSONObject mediasubObj = mediaObj.getJSONObject(optionString);	// SWP - this is how to get dynomic object
 								int mediasubObjsize = mediasubObj.length();
 
 								for (int o = 0; o < mediasubObjsize; o++) {

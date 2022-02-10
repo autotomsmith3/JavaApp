@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 //import cPP.JSONParser;
 
-public class compareBS_image {
+public class compareBS_imageOld {
 	private static int blank = 0;
 	private static int noObj = 0;
 
@@ -23,7 +23,7 @@ public class compareBS_image {
 		String parameterString = "";
 		Properties prop = new Properties();
 		try {
-			prop.load(compareBS_image.class.getClassLoader().getResourceAsStream("compareBS_data/compareBS_text.properties"));
+			prop.load(compareBS_imageOld.class.getClassLoader().getResourceAsStream("compareBS_data/compareBS_text.properties"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,18 +41,18 @@ public class compareBS_image {
 		int testDataTotal = modelParameter.length;
 		int parametersize = modelParameter[testDataTotal - 1].length;
 
-		String PostTextSavePathFile = "C:\\1\\Eclipse\\Test Results\\ComopareBS\\text\\CompareBS_image.xls";
+		String PostTextSavePathFile = "C:\\1\\Eclipse\\Test Results\\CompareBS\\CompareBS_image.xls";
 		// String jSONText = "";
 		// jSONParser(jSONText);// start with { (curly brace - object) OK
 		String[] titleStringGetMakeModelWS = { "S/N", "URL_parameter", "serverTime", "error", "executionTimeMS",
-				"filtersObj","vehiclesArray", "priceObj", "make", "modelsObj", "modelYearId", "model"};
+				"resultObj", "id", "make", "modelsObj", "modelYearId", "model"};
 		;
 		// /makemodel/{VehicleSetCode}/{LngCode}/{CountryCode}/{year}
 		// DEV: http://lnoc-dvcp-xws1:8080/model-walk/rest/makemodel/BASE/EN/US/2016
 		// QA: http://lnoc-q1cp-xws1:8080/model-walk/rest/makemodel/BASE/EN/US/2016
 		// QA: http://lnoc-q1cp-xws1:8080/model-walk/rest/makemodel/STYLEID/EN/US/2017
-		String envURL = "http://qa1-compare-api.gm-test.autodata.tech/compare/v2/api/text";//QA
-//		String envURL = "https://compare.api.staging.chromedata.com/compare/v3/api/models/primary";//Staging
+		String envURL = "http://apior.autodatacorp.org/compare/v3/api/image";//QA
+//		String envURL = "https://compare.api.chromedata.com/compare/v2/api/image";//Prod
 		// int imageNums = 56;// default=34
 		int count = 0;
 		for (int Num = 0; Num <= testDataTotal - 1; Num++) {
@@ -66,19 +66,19 @@ public class compareBS_image {
 			parameterString = VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
 			String getMakeModelURL = envURL;// + VehicleSetCode + "/" + LngCode + "/" + CountryCode + "/" + year;
 			// getSourceCodeJson(String urlParameters, String url1, String url2, String auth_key)
-			 String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonGETPrimary();
-			 String jsonTextFrGetMakeModelWS = com_libs.getNewSourceCodeJsonGETPrimary();
+			 String jsonTextFrGetMakeModelWS = com_libs.getImageNewSourceCodeJson(text_Body, envURL,"","");
+
 //			String filepath = "H:\\My Documents\\CompareService\\QA\\Testing\\Test Data\\makemodel.txt";
 //			String jsonTextFrGetMakeModelWS = readFile(filepath);
 
-			 GetPrimaryDetails(PostTextSavePathFile, titleStringGetMakeModelWS, jsonTextFrGetMakeModelWS,
+			PostTextDetails(PostTextSavePathFile, titleStringGetMakeModelWS, jsonTextFrGetMakeModelWS,
 					getMakeModelURL, parameterString, count);
 
 			// }
 		}
 	}
 
-	public static void GetPrimaryDetails(String wsResultfile, String[] titleString, String text, String URLString,
+	public static void PostTextDetails(String wsResultfile, String[] titleString, String text, String URLString,
 			String parameterS, int countNum) throws IOException {
 		com_libs.writeTitle(wsResultfile, titleString);
 		String serverTime = "";
@@ -103,9 +103,9 @@ public class compareBS_image {
 		} else {
 			try {
 				JSONObject obj = new JSONObject(text);
-				serverTime = obj.getString("serverTime");
-				error = Boolean.toString(obj.getBoolean("error"));
-				executionTimeMS = Long.toString(obj.getLong("executionTimeMS"));
+//				serverTime = obj.getString("serverTime");
+//				error = Boolean.toString(obj.getBoolean("error"));
+//				executionTimeMS = Long.toString(obj.getLong("executionTimeMS"));
 
 				JSONArray result = obj.getJSONArray("result");
 				int size = result.length();

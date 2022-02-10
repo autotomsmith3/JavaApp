@@ -710,7 +710,120 @@ public class com_libs {
 		}
 		return outputString;
 	}
+	public static String getNewSourceCodeJsonPostImage(String environment, String client, String BSBody,  String cc_code,
+			String url1, String url2, String auth_key, int s_number, String lang, String appid, String product_key,
+			String profile_Key) throws Exception {
+		// POST method - works but lost data...20201121
+		// add auth_key in Headers
+		int wt = 2;
+		String sName, passOrfail, dateStamp, timeStamp;
+		final int CONNECTION_TIMEOUT = 1000 * 900;
+		final int DATARETREIVAL_TIMEOUT = 1000 * 900;
+		
+		BSBody="{\"vehicles\":[{\"code\": \""+BSBody+"\"}],\"include\": {\"vehicleDetails\": true,\"includeCategories\": true}}";
+		
+		String acode_or_styleid = cc_code.replace("/", "");
 
+		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
+				+ "CompareBS_Image_StatusCode.txt";
+		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + s_number + "_" + environment + "."
+				+ client + "_Image_Returns_" + acode_or_styleid + ".txt";
+
+		Calendar cal = Calendar.getInstance();
+		cal.getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		SimpleDateFormat sdfmt = new SimpleDateFormat("yyyy-MM-dd");
+		timeStamp = sdf.format(cal.getTime());
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+		Date d = new Date();
+		dateStamp = df.format(d);
+		timeStamp = dateStamp + "  " + timeStamp;
+		filePath_statusCode = filePath_statusCode.replace(".txt", "");
+		filePath_statusCode = filePath_statusCode + "_" + sdfmt.format(d) + ".txt";
+
+		filePath_return = filePath_return.replace(".txt", "");
+		filePath_return = filePath_return + "_" + sdfmt.format(d) + ".txt";
+
+		final String USER_AGENT = "Mozilla/5.0";
+
+		String urlS = url1;
+		URL obj = new URL(urlS);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setConnectTimeout(CONNECTION_TIMEOUT);
+		con.setReadTimeout(DATARETREIVAL_TIMEOUT);
+
+		con.setRequestMethod("POST");// for daaSNI is "POST"
+		con.setRequestProperty("User-Agent", USER_AGENT);
+		con.setRequestProperty("Content-Length", Integer.toString(11416884));// 11416884
+
+		con.setRequestProperty("Accept", "application/json");
+		con.setRequestProperty("Content-Type", "application/json");
+//		*************QA*************
+		con.setRequestProperty("Accept-Language", lang);
+
+//		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
+		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=" + appid);
+
+//		con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
+		con.setRequestProperty("chrome-appId", "autodata-" + appid);
+
+//		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+		con.setRequestProperty("chrome-chrome-productKey", product_key);
+
+//		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+		con.setRequestProperty("X-Profile-Key", profile_Key);
+//		*************QA*************
+
+		con.setDoOutput(true);
+		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+		wr.writeBytes(BSBody);
+		wr.flush();
+		wr.close();
+		int responseCode = con.getResponseCode();
+		String outputString;
+//		String acode_or_styleid = cc_code.replace("/","");
+
+//		acode_or_styleid = getSubText(acode_or_styleid, '"');// "\"" - "
+//		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + sdfmt.format(d) + ".txt";
+
+		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+				&& !(responseCode == 500)) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			outputString = postData.toString();
+			con.disconnect();
+			outputString = formatJSON(environment, client, outputString);
+			System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "
+					+ responseCode);
+			SaveScratch(filePath_statusCode, client + ". " + cc_code + ". " + s_number + ". " + " - Return data Size = "
+					+ len + "  - Return Status Code: " + responseCode);
+			SaveScratch(filePath_return, outputString);
+		} else {
+			// error shows: 400,404, 500, 503,
+			// write to txt file for acode or styleid and error code here:
+			//
+			outputString = "";
+			System.out.println(client + ". " + s_number
+					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
+			SaveScratch(filePath_statusCode, client + ". " + cc_code + ". " + s_number + ". " + " - Return data Size = "
+					+ "- 0." + "  - Return Status Code: " + responseCode + " - Failed.");
+			SaveScratch(filePath_return, client + ". " + cc_code + ". " + s_number + ". "
+					+ " - Return data Size = 0  - Return result = empty!!!");
+		}
+		return outputString;
+	}
 	public static String getNewSourceCodeJsonGETcommonCompetitorsToCompare(String environment, String client,
 			String cc_code, String url1, String url2, String auth_key, int s_number, String lang, String appid,
 			String product_key, String profile_Key, String preDateFolder, String currentDateFolder) throws Exception {
@@ -2231,4 +2344,94 @@ public class com_libs {
 		SaveAcode_Styleid_for_text_body(path, env, client, BS_Name_Text, acodes_or_styleids);
 	}
 
+	public static String getImageNewSourceCodeJson(String urlParameters, String url1, String url2, String auth_key)
+			throws Exception {
+		// POST method - works but lost data...20201121
+		// add auth_key in Headers
+		int wt=20;
+		final String USER_AGENT = "Mozilla/5.0";
+		URL obj = new URL(url1 + url2);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+		con.setConnectTimeout(1000 * 600);
+		con.setReadTimeout(1000 * 600);
+
+		con.setRequestMethod("POST");// for daaSNI is "POST"
+//		con.setRequestProperty("User-Agent", USER_AGENT);
+		con.setRequestProperty("Accept", "application/json");
+		con.setRequestProperty("Content-Type", "application/json");
+//		con.setRequestProperty("Content-Length", Integer.toString(11416884));//11416884
+		
+////		*************QA*************
+//		con.setRequestProperty("Accept-Language", "en-CA");
+//		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
+//		con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
+//		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+//		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+////		*************QA*************
+		
+//		*************Prod*************
+		con.setRequestProperty("Accept-Language", "en-CA");
+		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
+//		con.setRequestProperty("chrome-appId", "autodata-5zebsDfR5vg7qIyN9FUM6E5O");
+//		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+//		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+//		*************Prod*************		
+		
+//		con.setRequestProperty("auth_key", auth_key);
+//		// con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+//		// //Original
+//		con.setRequestProperty("Accept-Language", "en-US,fr-CA;q=0.7,en;q=0.3");
+		// Send post request en-US,fr-CA;q=0.7,en;q=0.3
+		con.setDoOutput(true);
+		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+		wr.writeBytes(urlParameters);
+		wr.flush();
+		wr.close();
+		int responseCode = con.getResponseCode();
+		String outputString;
+		if (!(responseCode == 404) && !(responseCode == 400)&& !(responseCode == 401) && !(responseCode == 503) && !(responseCode == 500)) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+//			while (in.ready()) {
+//				outputString=in.readLine();
+////				  System.out.println(in.readLine()+" - End\n\n"); 
+//					System.out.println( outputString+"\n\nNot end!!! \n\n");
+//			}
+//			
+//			System.out.println( "End!!! \n\n");
+//			
+//			System.out.println( " \n\n");
+//			
+
+//			StringBuilder response = new StringBuilder();
+//			String responseLine = null;
+//			while ((responseLine = in.readLine()) != null) {
+//				response.append(responseLine.trim());
+//			}
+//			String xx = response.toString();
+//			int len = xx.length();
+//			if (len <= 72433) {
+//				System.out.println("Still not resolved!!! Short return=72433. Now return=" + len);
+//			} else {
+//				System.out.println("Good!!! Now return >=72433. See return >=" + len);
+//			}
+		
+			
+
+			while ((inputLine = in.readLine()) != null) {
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			outputString = postData.toString();
+			con.disconnect();
+		} else {
+			outputString = "";
+		}
+		return outputString;
+	}
 }
