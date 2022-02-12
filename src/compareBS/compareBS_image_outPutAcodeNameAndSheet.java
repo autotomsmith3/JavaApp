@@ -50,7 +50,7 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 				"DRIVERS_FRONT_WHEEL_name", "DRIVERS_FRONT_WHEEL_imageType", "DRIVERS_FRONT_WHEEL_url",
 				"NAVIGATION_SYSTEMObj", "NAVIGATION_SYSTEM_code", "NAVIGATION_SYSTEM_name",
 				"NAVIGATION_SYSTEM_imageType", "NAVIGATION_SYSTEM_url", "colorsObj", "AvailableColorsArr", "Available#",
-				"code", "name", "mediaObj", "primary", "family" };
+				"code", "name", "mediaObj", "primary", "family","PrcingObj","destintionCharge","msrp" };
 		Properties prop = new Properties();
 		try {
 			prop.load(compareBS_image_outPutAcodeNameAndSheet.class.getClassLoader()
@@ -730,7 +730,7 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 
 							x = 113;
 //							String colorsObj 
-							//fails here 2
+							// fails here 2
 							JSONObject colorObjStr = vehiclesArr.getJSONObject(i).getJSONObject("colors"); // get
 																											// exteriors
 							int colorsSize = colorObjStr.length();
@@ -748,7 +748,7 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 										temp[114] = exteriorsStr;
 
 										temp[115] = "[" + b + "]";
-										//fails here	
+										// fails here
 										temp[116] = exteriorArr.getJSONObject(b).getString("code");
 										temp[117] = exteriorArr.getJSONObject(b).getString("name");
 
@@ -769,7 +769,7 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 										}
 
 										temp[120] = exteriorArr.getJSONObject(b).getString("family");
-										
+
 										temp[0] = Integer.toString(countNum);
 										temp[1] = env;
 										temp[2] = client;
@@ -788,23 +788,14 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 										temp[14] = team014;
 										temp[15] = team015;
 										temp[16] = team016;
-										
+
 										temp[121] = "";
 										temp[122] = "";
 										temp[123] = "";
 										temp[124] = "";
 										temp[125] = "";
 										temp[126] = "";
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
+
 										System.out.println("\n temp[113]=" + temp[113] + "\n temp[114]=" + temp[114]
 												+ "\n temp[115]=" + temp[115] + "\n temp[116]=" + temp[116]
 												+ "\n temp[117]=" + temp[117]);
@@ -813,16 +804,16 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 									}
 
 									System.out.println("xxx");
-								}							
+								}
 
 								System.out.println("xxx");
 
 							}
-							
+
 							x = 121;
 //							String colorsObj 
 							JSONObject pricingObjStr = vehiclesArr.getJSONObject(i).getJSONObject("pricing"); // get
-																											// exteriors
+																												// exteriors
 							int pricingSize = pricingObjStr.length();
 							for (int zz = 0; zz < pricingSize; zz++) {
 								if (pricingSize > 1) {
@@ -837,7 +828,7 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 								}
 
 							}
-							
+
 							temp[0] = Integer.toString(countNum);
 							temp[1] = env;
 							temp[2] = client;
@@ -976,45 +967,36 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 							temp[118] = "";
 							temp[119] = "";
 							temp[120] = "";
-				
+
 							System.out.println("xxx");
 
 							com_libs.writeToSheet(wsResultfile, temp);
 							System.out.println("make=");
 
 						}
-						
+
 //						colors
 //						
-//						segments
-//						features
-//						pricing
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
+
+//						
+//						
 
 					}
+
+//					segments
+//					
+//					
+
+//					features
+
+//					
+//					
+
+//					pricing
+
+//					
+//					
+//					
 
 				}
 
