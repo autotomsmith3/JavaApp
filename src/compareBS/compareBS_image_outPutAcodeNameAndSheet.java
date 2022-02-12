@@ -50,7 +50,8 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 				"DRIVERS_FRONT_WHEEL_name", "DRIVERS_FRONT_WHEEL_imageType", "DRIVERS_FRONT_WHEEL_url",
 				"NAVIGATION_SYSTEMObj", "NAVIGATION_SYSTEM_code", "NAVIGATION_SYSTEM_name",
 				"NAVIGATION_SYSTEM_imageType", "NAVIGATION_SYSTEM_url", "colorsObj", "AvailableColorsArr", "Available#",
-				"code", "name", "mediaObj", "primary", "family","PrcingObj","destintionCharge","msrp" };
+				"code", "name", "mediaObj", "primary", "family", "PrcingObj", "destintionCharge", "msrp", "segmentsArr",
+				"segments" };
 		Properties prop = new Properties();
 		try {
 			prop.load(compareBS_image_outPutAcodeNameAndSheet.class.getClassLoader()
@@ -199,7 +200,7 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 		String team110 = "";
 		String team111 = "";
 		String team112 = "";
-
+		int x = 0;
 		String[] temp = new String[135];
 		if (text.equals("")) {
 			blank++;
@@ -440,7 +441,7 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 							temp[15] = team015;
 							temp[16] = team016;
 							temp[17] = optionString;
-							int x = 12;
+							x = 12;
 							try {
 								x = x + 5; // 16
 								temp[x + 1] = "REAR"; // 17
@@ -728,275 +729,279 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 
 							}
 
-							x = 113;
-//							String colorsObj 
-							// fails here 2
-							JSONObject colorObjStr = vehiclesArr.getJSONObject(i).getJSONObject("colors"); // get
-																											// exteriors
-							int colorsSize = colorObjStr.length();
-							for (int z = 0; z < colorsSize; z++) {
-								JSONArray colorsArr = colorObjStr.names();
-								int colorArrSize = colorsArr.length();
-								for (int a = 0; a < colorArrSize; a++) {
-									String exteriorsStr = colorsArr.getString(z);// get exterior Arrary name;
-
-									JSONArray exteriorArr = colorObjStr.getJSONArray(exteriorsStr);// .getJSONObject(exteriorsStr);//.getJSONObject(exteriorsStr);
-									int exteriorSize = exteriorArr.length();
-									for (int b = 0; b < exteriorSize; b++) {
-										temp[113] = "colors";
-
-										temp[114] = exteriorsStr;
-
-										temp[115] = "[" + b + "]";
-										// fails here
-										temp[116] = exteriorArr.getJSONObject(b).getString("code");
-										temp[117] = exteriorArr.getJSONObject(b).getString("name");
-
-										JSONObject colorsObj_exteriorsArr_mediaObj = exteriorArr.getJSONObject(b)
-												.getJSONObject("media");
-										int cSize = colorsObj_exteriorsArr_mediaObj.length();
-										temp[118] = colorsObj_exteriorsArr_mediaObj.getString("primary");
-										for (int bb = 0; bb < cSize; bb++) {
-											if (cSize > 1) {
-												temp[118] = "mediaObj>1, need to handel!";
-												temp[119] = colorsObj_exteriorsArr_mediaObj.getString("primary");
-
-											} else {
-												temp[118] = "primary";
-												temp[119] = colorsObj_exteriorsArr_mediaObj.getString("primary");
-											}
-
-										}
-
-										temp[120] = exteriorArr.getJSONObject(b).getString("family");
-
-										temp[0] = Integer.toString(countNum);
-										temp[1] = env;
-										temp[2] = client;
-										temp[3] = acodeStryleid;
-										temp[4] = "";
-										temp[5] = "vehiclesArr";
-										temp[6] = "[" + i + "]";
-										temp[7] = team007;
-										temp[8] = team008;
-										temp[9] = team009;
-										temp[10] = "has media";
-										temp[11] = team011;
-										temp[12] = team012;
-										temp[13] = team013;
-
-										temp[14] = team014;
-										temp[15] = team015;
-										temp[16] = team016;
-
-										temp[121] = "";
-										temp[122] = "";
-										temp[123] = "";
-										temp[124] = "";
-										temp[125] = "";
-										temp[126] = "";
-
-										System.out.println("\n temp[113]=" + temp[113] + "\n temp[114]=" + temp[114]
-												+ "\n temp[115]=" + temp[115] + "\n temp[116]=" + temp[116]
-												+ "\n temp[117]=" + temp[117]);
-										com_libs.writeToSheet(wsResultfile, temp);
-
-									}
-
-									System.out.println("xxx");
-								}
-
-								System.out.println("xxx");
-
-							}
-
-							x = 121;
-//							String colorsObj 
-							JSONObject pricingObjStr = vehiclesArr.getJSONObject(i).getJSONObject("pricing"); // get
-																												// exteriors
-							int pricingSize = pricingObjStr.length();
-							for (int zz = 0; zz < pricingSize; zz++) {
-								if (pricingSize > 1) {
-									temp[121] = "pricingObj>1, need to handel!";
-									temp[122] = Integer.toString(pricingObjStr.getInt("destinationCharge"));
-									temp[123] = Integer.toString(pricingObjStr.getInt("msrp"));
-
-								} else {
-									temp[121] = "pricing";
-									temp[122] = Integer.toString(pricingObjStr.getInt("destinationCharge"));
-									temp[123] = Integer.toString(pricingObjStr.getInt("msrp"));
-								}
-
-							}
-
-							temp[0] = Integer.toString(countNum);
-							temp[1] = env;
-							temp[2] = client;
-							temp[3] = acodeStryleid;
-							temp[4] = "";
-							temp[5] = "vehiclesArr";
-							temp[6] = "[" + i + "]";
-							temp[7] = team007;
-							temp[8] = team008;
-							temp[9] = team009;
-							temp[10] = "has media";
-							temp[11] = team011;
-							temp[12] = team012;
-							temp[13] = team013;
-
-							temp[14] = team014;
-							temp[15] = team015;
-							temp[16] = team016;
-							temp[17] = "";
-
-							temp[18] = "";
-							temp[19] = "";
-							temp[20] = "";
-							temp[21] = "";
-
-							temp[22] = "";
-							temp[23] = "";
-							temp[24] = "";
-							;
-							temp[25] = "";
-
-							temp[26] = "";
-							temp[27] = "";
-							temp[28] = "";
-							temp[29] = "";
-
-							temp[30] = "";
-							temp[31] = "";
-							temp[32] = "";
-							temp[33] = "";
-
-							temp[34] = "";
-							temp[35] = "";
-							temp[36] = "";
-							temp[37] = "";
-
-							temp[38] = "";
-							temp[39] = "";
-							temp[40] = "";
-							temp[41] = "";
-
-							temp[42] = "";
-							temp[43] = "";
-							temp[44] = "";
-							temp[45] = "";
-
-							temp[46] = "";
-							temp[47] = "";
-							temp[48] = "";
-							temp[49] = "";
-
-							temp[50] = "";
-							temp[51] = "";
-							temp[52] = "";
-							temp[53] = "";
-
-							temp[54] = "";
-							temp[55] = "";
-							temp[56] = "";
-							temp[57] = "";
-
-							temp[58] = "";
-							temp[59] = "";
-							temp[60] = "";
-							temp[61] = "";
-
-							temp[62] = "";
-							temp[63] = "";
-							temp[64] = "";
-							temp[65] = "";
-
-							temp[66] = "";
-							temp[67] = "";
-							temp[68] = "";
-							temp[69] = "";
-
-							temp[70] = "";
-							temp[71] = "";
-							temp[72] = "";
-							temp[73] = "";
-
-							temp[74] = "";
-							temp[75] = "";
-							temp[76] = "";
-							temp[77] = "";
-
-							temp[78] = "";
-							temp[80] = "";
-							temp[81] = "";
-							temp[82] = "";
-							temp[83] = "";
-							temp[84] = "";
-							temp[85] = "";
-							temp[86] = "";
-							temp[87] = "";
-							temp[88] = "";
-							temp[89] = "";
-							temp[90] = "";
-							temp[91] = "";
-							temp[92] = "";
-							temp[93] = "";
-							temp[94] = "";
-							temp[95] = "";
-							temp[96] = "";
-							temp[97] = "";
-							temp[98] = "";
-							temp[99] = "";
-							temp[100] = "";
-							temp[101] = "";
-							temp[102] = "";
-							temp[103] = "";
-							temp[104] = "";
-							temp[105] = "";
-							temp[106] = "";
-							temp[107] = "";
-							temp[108] = "";
-							temp[109] = "";
-							temp[110] = "";
-							temp[111] = "";
-							temp[112] = "";
-							temp[113] = "";
-							temp[114] = "";
-							temp[115] = "";
-							temp[116] = "";
-							temp[117] = "";
-							temp[118] = "";
-							temp[119] = "";
-							temp[120] = "";
-
-							System.out.println("xxx");
-
-							com_libs.writeToSheet(wsResultfile, temp);
-							System.out.println("make=");
-
 						}
-
-//						colors
-//						
-
-//						
-//						
 
 					}
 
+//					colors
+//					
+					x = 113;
+//					String colorsObj 
+					// fails here 2
+					JSONObject colorObjStr = vehiclesArr.getJSONObject(0).getJSONObject("colors"); // get
+																									// exteriors
+					int colorsSize = colorObjStr.length();
+					for (int z = 0; z < colorsSize; z++) {
+						JSONArray colorsArr = colorObjStr.names();
+						int colorArrSize = colorsArr.length();
+						for (int a = 0; a < colorArrSize; a++) {
+							String exteriorsStr = colorsArr.getString(z);// get exterior Arrary name;
+
+							JSONArray exteriorArr = colorObjStr.getJSONArray(exteriorsStr);// .getJSONObject(exteriorsStr);//.getJSONObject(exteriorsStr);
+							int exteriorSize = exteriorArr.length();
+							for (int b = 0; b < exteriorSize; b++) {
+								temp[113] = "colors";
+
+								temp[114] = exteriorsStr;
+
+								temp[115] = "[" + b + "]";
+								// fails here
+								temp[116] = exteriorArr.getJSONObject(b).getString("code");
+								temp[117] = exteriorArr.getJSONObject(b).getString("name");
+
+								JSONObject colorsObj_exteriorsArr_mediaObj = exteriorArr.getJSONObject(b)
+										.getJSONObject("media");
+								int cSize = colorsObj_exteriorsArr_mediaObj.length();
+								temp[118] = colorsObj_exteriorsArr_mediaObj.getString("primary");
+								for (int bb = 0; bb < cSize; bb++) {
+									if (cSize > 1) {
+										temp[118] = "mediaObj>1, need to handel!";
+										temp[119] = colorsObj_exteriorsArr_mediaObj.getString("primary");
+
+									} else {
+										temp[118] = "primary";
+										temp[119] = colorsObj_exteriorsArr_mediaObj.getString("primary");
+									}
+
+								}
+
+								temp[120] = exteriorArr.getJSONObject(b).getString("family");
+
+								temp[0] = Integer.toString(countNum);
+								temp[1] = env;
+								temp[2] = client;
+								temp[3] = acodeStryleid;
+								temp[4] = "";
+								temp[5] = "vehiclesArr";
+								temp[6] = "[" + i + "]";
+								temp[7] = team007;
+								temp[8] = team008;
+								temp[9] = team009;
+								temp[10] = "has media";
+								temp[11] = team011;
+								temp[12] = team012;
+								temp[13] = team013;
+
+								temp[14] = team014;
+								temp[15] = team015;
+								temp[16] = team016;
+
+								temp[121] = "";
+								temp[122] = "";
+								temp[123] = "";
+								temp[124] = "";
+								temp[125] = "";
+								temp[126] = "";
+
+								System.out.println("\n temp[113]=" + temp[113] + "\n temp[114]=" + temp[114]
+										+ "\n temp[115]=" + temp[115] + "\n temp[116]=" + temp[116] + "\n temp[117]="
+										+ temp[117]);
+								com_libs.writeToSheet(wsResultfile, temp);
+
+							}
+
+							System.out.println("xxx");
+						}
+
+						System.out.println("xxx");
+
+					}
+
+					x = 121;
+//					String colorsObj 
+					JSONObject pricingObjStr = vehiclesArr.getJSONObject(i).getJSONObject("pricing"); // get
+																										// exteriors
+					int pricingSize = pricingObjStr.length();
+					for (int zz = 0; zz < pricingSize; zz++) {
+						if (pricingSize > 2) {
+							temp[121] = "pricingObj>1, need to handel!";
+							temp[122] = Integer.toString(pricingObjStr.getInt("destinationCharge"));
+							temp[123] = Integer.toString(pricingObjStr.getInt("msrp"));
+
+						} else {
+							temp[121] = "pricing";
+							temp[122] = Integer.toString(pricingObjStr.getInt("destinationCharge"));
+							temp[123] = Integer.toString(pricingObjStr.getInt("msrp"));
+						}
+
+					}
+
+					temp[0] = Integer.toString(countNum);
+					temp[1] = env;
+					temp[2] = client;
+					temp[3] = acodeStryleid;
+					temp[4] = "";
+					temp[5] = "vehiclesArr";
+					temp[6] = "[" + i + "]";
+					temp[7] = team007;
+					temp[8] = team008;
+					temp[9] = team009;
+					temp[10] = "has media";
+					temp[11] = team011;
+					temp[12] = team012;
+					temp[13] = team013;
+
+					temp[14] = team014;
+					temp[15] = team015;
+					temp[16] = team016;
+					temp[17] = "";
+
+					temp[18] = "";
+					temp[19] = "";
+					temp[20] = "";
+					temp[21] = "";
+
+					temp[22] = "";
+					temp[23] = "";
+					temp[24] = "";
+					;
+					temp[25] = "";
+
+					temp[26] = "";
+					temp[27] = "";
+					temp[28] = "";
+					temp[29] = "";
+
+					temp[30] = "";
+					temp[31] = "";
+					temp[32] = "";
+					temp[33] = "";
+
+					temp[34] = "";
+					temp[35] = "";
+					temp[36] = "";
+					temp[37] = "";
+
+					temp[38] = "";
+					temp[39] = "";
+					temp[40] = "";
+					temp[41] = "";
+
+					temp[42] = "";
+					temp[43] = "";
+					temp[44] = "";
+					temp[45] = "";
+
+					temp[46] = "";
+					temp[47] = "";
+					temp[48] = "";
+					temp[49] = "";
+
+					temp[50] = "";
+					temp[51] = "";
+					temp[52] = "";
+					temp[53] = "";
+
+					temp[54] = "";
+					temp[55] = "";
+					temp[56] = "";
+					temp[57] = "";
+
+					temp[58] = "";
+					temp[59] = "";
+					temp[60] = "";
+					temp[61] = "";
+
+					temp[62] = "";
+					temp[63] = "";
+					temp[64] = "";
+					temp[65] = "";
+
+					temp[66] = "";
+					temp[67] = "";
+					temp[68] = "";
+					temp[69] = "";
+
+					temp[70] = "";
+					temp[71] = "";
+					temp[72] = "";
+					temp[73] = "";
+
+					temp[74] = "";
+					temp[75] = "";
+					temp[76] = "";
+					temp[77] = "";
+
+					temp[78] = "";
+					temp[79] = "";
+					temp[80] = "";
+					temp[81] = "";
+					temp[82] = "";
+					temp[83] = "";
+					temp[84] = "";
+					temp[85] = "";
+					temp[86] = "";
+					temp[87] = "";
+					temp[88] = "";
+					temp[89] = "";
+					temp[90] = "";
+					temp[91] = "";
+					temp[92] = "";
+					temp[93] = "";
+					temp[94] = "";
+					temp[95] = "";
+					temp[96] = "";
+					temp[97] = "";
+					temp[98] = "";
+					temp[99] = "";
+					temp[100] = "";
+					temp[101] = "";
+					temp[102] = "";
+					temp[103] = "";
+					temp[104] = "";
+					temp[105] = "";
+					temp[106] = "";
+					temp[107] = "";
+					temp[108] = "";
+					temp[109] = "";
+					temp[110] = "";
+					temp[111] = "";
+					temp[112] = "";
+					temp[113] = "";
+					temp[114] = "";
+					temp[115] = "";
+					temp[116] = "";
+					temp[117] = "";
+					temp[118] = "";
+					temp[119] = "";
+					temp[120] = "";
+
 //					segments
 //					
-//					
+					x = 124;
 
-//					features
+					JSONArray segmentsArr = vehiclesArr.getJSONObject(i).getJSONArray("segments"); // get
+																									// exteriors
+					int segmentsArrSize = segmentsArr.length();
+					for (int zzz = 0; zzz < segmentsArrSize; zzz++) {
+						if (segmentsArrSize > 2) {
+							temp[124] = "segmentsArrSize >2, need to handel!";
+							temp[125] = segmentsArr.getString(zzz);
 
-//					
-//					
+						} else {
+							temp[124] = "[" + zzz + "]";
+//							String segArr=segmentsArr.getString(zzz);
 
-//					pricing
+							temp[125] = segmentsArr.getString(zzz);
+//	
+						}
 
-//					
-//					
-//					
+					}
+
+					System.out.println("xxx");
+
+					com_libs.writeToSheet(wsResultfile, temp);
+					System.out.println("make=");
 
 				}
 
