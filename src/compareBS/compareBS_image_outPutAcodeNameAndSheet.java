@@ -28,25 +28,29 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 				"vehiclesObj#", "code", "year", "description", "mediaObj", "currentColor", "variation", "trim",
 				"modelCode", "model", "make", "mediaOptName", "REARObj", "REAR_code", "REAR_name", "REAR_imageType",
 				"REAR_url", "REAR_SEATSObj", "REAR_SEATS_code", "REAR_SEATS_name", "REAR_SEATS_imageType",
-				"REAR_SEATS_url", "FRONT_3QTR_LEFTObj", "FRONT_3QTR_LEFT_code", "FRONT_3QTR_LEFT_name",
-				"FRONT_3QTR_LEFT_imageType", "FRONT_3QTR_LEFT_url", "FRONTObj", "FRONT_code", "FRONT_name",
-				"FRONT_imageType", "FRONT_url", "FRONT_3QTR_RIGHTObj", "FRONT_3QTR_RIGHT_code", "FRONT_3QTR_RIGHT_name",
-				"FRONT_3QTR_RIGHT_imageType", "FRONT_3QTR_RIGHT_url", "SIDE_PROFILE_RIGHTObj",
-				"SIDE_PROFILE_RIGHT_code", "SIDE_PROFILE_RIGHT_name", "SIDE_PROFILE_RIGHT_imageType",
-				"SIDE_PROFILE_RIGHT_url", "FULL_DASHBOARDObj", "FULL_DASHBOARD_code", "FULL_DASHBOARD_name",
-				"FULL_DASHBOARD_imageType", "FULL_DASHBOARD_url", "DRIVERS_SEATObj", "DRIVERS_SEAT_code",
-				"DRIVERS_SEAT_name", "DRIVERS_SEAT_imageType", "DRIVERS_SEAT_url", "DRIVERS_DASHBOARDObj",
-				"DRIVERS_DASHBOARD_code", "DRIVERS_DASHBOARD_name", "DRIVERS_DASHBOARD_imageType",
-				"DRIVERS_DASHBOARD_url", "SIDE_PROFILE_LEFTObj", "SIDE_PROFILE_LEFT_code", "SIDE_PROFILE_LEFT_name",
-				"SIDE_PROFILE_LEFT_imageType", "SIDE_PROFILE_LEFT_url", "ENGINE_BAYObj", "ENGINE_BAY_code",
-				"ENGINE_BAY_name", "ENGINE_BAY_imageType", "ENGINE_BAY_url", "REAR_3QTR_RIGHTObj",
-				"REAR_3QTR_RIGHT_code", "REAR_3QTR_RIGHT_code", "REAR_3QTR_RIGHT_name", "REAR_3QTR_RIGHT_imageType",
-				"REAR_3QTR_RIGHT_url", "PASSENGER_DASHBOARDObj", "PASSENGER_DASHBOARD_code", "PASSENGER_DASHBOARD_name",
-				"PASSENGER_DASHBOARD_imageType", "PASSENGER_DASHBOARD_url", "STEREOObj", "STEREO_code", "STEREO_name",
-				"STEREO_imageType", "STEREO_url", "TRUNK_OPENObj", "TRUNK_OPEN_code", "TRUNK_OPEN_name",
-				"TRUNK_OPEN_imageType", "TRUNK_OPEN_url", "CENTER_CONSOLEObj", "CENTER_CONSOLE_code",
-				"CENTER_CONSOLE_name", "CENTER_CONSOLE_imageType", "CENTER_CONSOLE_url", "REAR_3QTR_LEFTObj",
-				"REAR_3QTR_LEFT_code", "REAR_3QTR_LEFT_name", "REAR_3QTR_LEFT_imageType", "REAR_3QTR_LEFT_url" };
+				"REAR_SEATS_url", "SIDE_PROFILE_RIGHTObj", "SIDE_PROFILE_RIGHT_code", "SIDE_PROFILE_RIGHT_name",
+				"SIDE_PROFILE_RIGHT_imageType", "SIDE_PROFILE_RIGHT_url", "FULL_DASHBOARDObj", "FULL_DASHBOARD_code",
+				"FULL_DASHBOARD_name", "FULL_DASHBOARD_imageType", "FULL_DASHBOARD_url", "FRONT_3QTR_LEFTObj",
+				"FRONT_3QTR_LEFT_code", "FRONT_3QTR_LEFT_name", "FRONT_3QTR_LEFT_imageType", "FRONT_3QTR_LEFT_url",
+				"FRONTObj", "FRONT_code", "FRONT_name", "FRONT_imageType", "FRONT_url", "DRIVERS_SEATObj",
+				"DRIVERS_SEAT_code", "DRIVERS_SEAT_name", "DRIVERS_SEAT_imageType", "DRIVERS_SEAT_url",
+				"DRIVERS_DASHBOARDObj", "DRIVERS_DASHBOARD_code", "DRIVERS_DASHBOARD_name",
+				"DRIVERS_DASHBOARD_imageType", "DRIVERS_DASHBOARD_url", "SIDE_PROFILE_LEFTObj",
+				"SIDE_PROFILE_LEFT_code", "SIDE_PROFILE_LEFT_name", "SIDE_PROFILE_LEFT_imageType",
+				"SIDE_PROFILE_LEFT_url", "ENGINE_BAYObj", "ENGINE_BAY_code", "ENGINE_BAY_name", "ENGINE_BAY_imageType",
+				"ENGINE_BAY_url", "REAR_3QTR_RIGHTObj", "REAR_3QTR_RIGHT_code", "REAR_3QTR_RIGHT_name",
+				"REAR_3QTR_RIGHT_imageType", "REAR_3QTR_RIGHT_url", "FRONT_3QTR_RIGHTObj", "FRONT_3QTR_RIGHT_code",
+				"FRONT_3QTR_RIGHT_name", "FRONT_3QTR_RIGHT_imageType", "FRONT_3QTR_RIGHT_url", "PASSENGER_DASHBOARDObj",
+				"PASSENGER_DASHBOARD_code", "PASSENGER_DASHBOARD_name", "PASSENGER_DASHBOARD_imageType",
+				"PASSENGER_DASHBOARD_url", "STEREOObj", "STEREO_code", "STEREO_name", "STEREO_imageType", "STEREO_url",
+				"TRUNK_OPENObj", "TRUNK_OPEN_code", "TRUNK_OPEN_name", "TRUNK_OPEN_imageType", "TRUNK_OPEN_url",
+				"CENTER_CONSOLEObj", "CENTER_CONSOLE_code", "CENTER_CONSOLE_name", "CENTER_CONSOLE_imageType",
+				"CENTER_CONSOLE_url", "REAR_3QTR_LEFTObj", "REAR_3QTR_LEFT_code", "REAR_3QTR_LEFT_name",
+				"REAR_3QTR_LEFT_imageType", "REAR_3QTR_LEFT_url", "DRIVERS_FRONT_WHEELObj", "DRIVERS_FRONT_WHEEL_code",
+				"DRIVERS_FRONT_WHEEL_name", "DRIVERS_FRONT_WHEEL_imageType", "DRIVERS_FRONT_WHEEL_url",
+				"NAVIGATION_SYSTEMObj", "NAVIGATION_SYSTEM_code", "NAVIGATION_SYSTEM_name",
+				"NAVIGATION_SYSTEM_imageType", "NAVIGATION_SYSTEM_url", "colorsObj", "AvailableColorsArr", "Available#",
+				"code", "name", "mediaObj", "primary", "family" };
 		Properties prop = new Properties();
 		try {
 			prop.load(compareBS_image_outPutAcodeNameAndSheet.class.getClassLoader()
@@ -356,9 +360,53 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 						temp[77] = "";
 
 						temp[78] = "";
-						temp[79] = "";
 						temp[80] = "";
 						temp[81] = "";
+						temp[82] = "";
+						temp[83] = "";
+						temp[84] = "";
+						temp[85] = "";
+						temp[86] = "";
+						temp[87] = "";
+						temp[88] = "";
+						temp[89] = "";
+						temp[90] = "";
+						temp[91] = "";
+						temp[92] = "";
+						temp[93] = "";
+						temp[94] = "";
+						temp[95] = "";
+						temp[96] = "";
+						temp[97] = "";
+						temp[98] = "";
+						temp[99] = "";
+						temp[100] = "";
+						temp[101] = "";
+						temp[102] = "";
+						temp[103] = "";
+						temp[104] = "";
+						temp[105] = "";
+						temp[106] = "";
+						temp[107] = "";
+						temp[108] = "";
+						temp[109] = "";
+						temp[110] = "";
+						temp[111] = "";
+						temp[112] = "";
+						temp[113] = "";
+						temp[114] = "";
+						temp[115] = "";
+						temp[116] = "";
+						temp[117] = "";
+						temp[118] = "";
+						temp[119] = "";
+						temp[120] = "";
+						temp[121] = "";
+						temp[122] = "";
+						temp[123] = "";
+						temp[124] = "";
+						temp[125] = "";
+						temp[126] = "";
 						com_libs.writeToSheet(wsResultfile, temp);
 
 					}
@@ -391,222 +439,580 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 							temp[14] = team014;
 							temp[15] = team015;
 							temp[16] = team016;
+							temp[17] = optionString;
+							int x = 12;
 							try {
-								temp[17] = "null";
-								temp[18] = "null";
-								temp[19] = "null";
-								temp[20] = "null";
+								x = x + 5; // 16
+								temp[x + 1] = "REAR"; // 17
+								temp[x + 2] = mediasubObj.getJSONObject("REAR").getString("code"); // 19
+								temp[x + 3] = mediasubObj.getJSONObject("REAR").getString("name"); // 20
+								temp[x + 4] = mediasubObj.getJSONObject("REAR").getString("imageType"); // 21
+								temp[x + 5] = mediasubObj.getJSONObject("REAR").getString("url"); // 22
 							} catch (Exception e) {
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
+								temp[x + 6] = "null";
+							}
+
+							try {
+								x = x + 5;
+								temp[x + 1] = "REAR_SEATS";
+								temp[x + 2] = mediasubObj.getJSONObject("REAR_SEATS").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("REAR_SEATS").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("REAR_SEATS").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("REAR_SEATS").getString("url");
+							} catch (Exception e) {
+								temp[x + 1] = "REAR_SEATS";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
+
+							}
+							try {
+								x = x + 5;
+								temp[x + 1] = "SIDE_PROFILE_RIGHT";
+								temp[x + 2] = mediasubObj.getJSONObject("SIDE_PROFILE_RIGHT").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("SIDE_PROFILE_RIGHT").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("SIDE_PROFILE_RIGHT").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("SIDE_PROFILE_RIGHT").getString("url");
+							} catch (Exception e) {
+								temp[x + 1] = "SIDE_PROFILE_RIGHT";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
+
+							}
+							try {
+								x = x + 5;
+								temp[x + 1] = "FULL_DASHBOARD";
+								temp[x + 2] = mediasubObj.getJSONObject("FULL_DASHBOARD").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("FULL_DASHBOARD").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("FULL_DASHBOARD").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("FULL_DASHBOARD").getString("url");
+							} catch (Exception e) {
+								temp[x + 1] = "FULL_DASHBOARD";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
+
+							}
+							try {
+								x = x + 5;
+								temp[x + 1] = "FRONT_3QTR_LEFT";
+								temp[x + 2] = mediasubObj.getJSONObject("FRONT_3QTR_LEFT").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("FRONT_3QTR_LEFT").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("FRONT_3QTR_LEFT").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("FRONT_3QTR_LEFT").getString("url");
+							} catch (Exception e) {
+								temp[x + 1] = "FRONT_3QTR_LEFT";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
+
+							}
+							try {
+								x = x + 5;
+								temp[x + 1] = "FRONT";
+								temp[x + 2] = mediasubObj.getJSONObject("FRONT").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("FRONT").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("FRONT").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("FRONT").getString("url");
+							} catch (Exception e) {
+								temp[x + 1] = "FRONT";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
+
+							}
+							try {
+								x = x + 5;
+								temp[x + 1] = "DRIVERS_SEAT";
+								temp[x + 2] = mediasubObj.getJSONObject("DRIVERS_SEAT").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("DRIVERS_SEAT").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("DRIVERS_SEAT").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("DRIVERS_SEAT").getString("url");
+							} catch (Exception e) {
+								temp[x + 1] = "DRIVERS_SEAT";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
+
+							}
+							try {
+								x = x + 5;
+								temp[x + 1] = "DRIVERS_DASHBOARD";
+								temp[x + 2] = mediasubObj.getJSONObject("DRIVERS_DASHBOARD").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("DRIVERS_DASHBOARD").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("DRIVERS_DASHBOARD").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("DRIVERS_DASHBOARD").getString("url");
+							} catch (Exception e) {
+								temp[x + 1] = "DRIVERS_DASHBOARD";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
+							}
+							try {
+								x = x + 5;
+								temp[x + 1] = "SIDE_PROFILE_LEFT";
+								temp[x + 2] = mediasubObj.getJSONObject("SIDE_PROFILE_LEFT").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("SIDE_PROFILE_LEFT").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("SIDE_PROFILE_LEFT").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("SIDE_PROFILE_LEFT").getString("url");
+							} catch (Exception e) {
+								temp[x + 1] = "SIDE_PROFILE_LEFT";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
+
+							}
+							try {
+								x = x + 5;
+								temp[x + 1] = "ENGINE_BAY";
+								temp[x + 2] = mediasubObj.getJSONObject("ENGINE_BAY").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("ENGINE_BAY").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("ENGINE_BAY").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("ENGINE_BAY").getString("url");
+							} catch (Exception e) {
+								temp[x + 1] = "ENGINE_BAY";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
+
+							}
+							try {
+								x = x + 5;
+								temp[x + 1] = "REAR_3QTR_RIGHT";
+								temp[x + 2] = mediasubObj.getJSONObject("REAR_3QTR_RIGHT").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("REAR_3QTR_RIGHT").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("REAR_3QTR_RIGHT").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("REAR_3QTR_RIGHT").getString("url");
+							} catch (Exception e) {
+								temp[x + 1] = "REAR_3QTR_RIGHT";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
+
+							}
+							try {
+								x = x + 5;
+								temp[x + 1] = "FRONT_3QTR_RIGHT";
+								temp[x + 2] = mediasubObj.getJSONObject("FRONT_3QTR_RIGHT").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("FRONT_3QTR_RIGHT").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("FRONT_3QTR_RIGHT").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("FRONT_3QTR_RIGHT").getString("url");
+							} catch (Exception e) {
+								temp[x + 1] = "FRONT_3QTR_RIGHT";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
+
+							}
+							try {
+								x = x + 5;
+								temp[x + 1] = "PASSENGER_DASHBOARD";
+								temp[x + 2] = mediasubObj.getJSONObject("PASSENGER_DASHBOARD").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("PASSENGER_DASHBOARD").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("PASSENGER_DASHBOARD").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("PASSENGER_DASHBOARD").getString("url");
+							} catch (Exception e) {
+								temp[x + 1] = "PASSENGER_DASHBOARD";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
 
 							}
 
 							try {
-								temp[21] = mediasubObj.getJSONObject("REAR_SEATS").getString("code");
-								temp[22] = mediasubObj.getJSONObject("REAR_SEATS").getString("name");
-								temp[23] = mediasubObj.getJSONObject("REAR_SEATS").getString("imageType");
-								temp[24] = mediasubObj.getJSONObject("REAR_SEATS").getString("url");
+								x = x + 5;
+								temp[x + 1] = "STEREO";
+								temp[x + 2] = mediasubObj.getJSONObject("STEREO").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("STEREO").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("STEREO").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("STEREO").getString("url");
 							} catch (Exception e) {
-
-								temp[21] = "null";
-								temp[22] = "null";
-								temp[23] = "null";
-								temp[24] = "null";
+								temp[x + 1] = "STEREO";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
 
 							}
 							try {
-								temp[25] = mediasubObj.getJSONObject("SIDE_PROFILE_RIGHT").getString("code");
-								temp[26] = mediasubObj.getJSONObject("SIDE_PROFILE_RIGHT").getString("name");
-								temp[27] = mediasubObj.getJSONObject("SIDE_PROFILE_RIGHT").getString("imageType");
-								temp[28] = mediasubObj.getJSONObject("SIDE_PROFILE_RIGHT").getString("url");
+								x = x + 5;
+								temp[x + 1] = "TRUNK_OPEN";
+								temp[x + 2] = mediasubObj.getJSONObject("TRUNK_OPEN").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("TRUNK_OPEN").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("TRUNK_OPEN").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("TRUNK_OPEN").getString("url");
 							} catch (Exception e) {
-
-								temp[25] = "null";
-								temp[26] = "null";
-								temp[27] = "null";
-								temp[28] = "null";
+								temp[x + 1] = "TRUNK_OPEN";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
 
 							}
 							try {
-								temp[29] = mediasubObj.getJSONObject("FULL_DASHBOARD").getString("code");
-								temp[30] = mediasubObj.getJSONObject("FULL_DASHBOARD").getString("name");
-								temp[31] = mediasubObj.getJSONObject("FULL_DASHBOARD").getString("imageType");
-								temp[32] = mediasubObj.getJSONObject("FULL_DASHBOARD").getString("url");
+								x = x + 5;
+								temp[x + 1] = "CENTER_CONSOLE";
+								temp[x + 2] = mediasubObj.getJSONObject("CENTER_CONSOLE").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("CENTER_CONSOLE").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("CENTER_CONSOLE").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("CENTER_CONSOLE").getString("url");
 							} catch (Exception e) {
-
-								temp[29] = "null";
-								temp[30] = "null";
-								temp[31] = "null";
-								temp[32] = "null";
+								temp[x + 1] = "CENTER_CONSOLE";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
 
 							}
 							try {
-								temp[33] = mediasubObj.getJSONObject("FRONT_3QTR_LEFT").getString("code");
-								temp[34] = mediasubObj.getJSONObject("FRONT_3QTR_LEFT").getString("name");
-								temp[35] = mediasubObj.getJSONObject("FRONT_3QTR_LEFT").getString("imageType");
-								temp[36] = mediasubObj.getJSONObject("FRONT_3QTR_LEFT").getString("url");
+								x = x + 5;
+								temp[x + 1] = "REAR_3QTR_LEFT";
+								temp[x + 2] = mediasubObj.getJSONObject("REAR_3QTR_LEFT").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("REAR_3QTR_LEFT").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("REAR_3QTR_LEFT").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("REAR_3QTR_LEFT").getString("url");
 							} catch (Exception e) {
-
-								temp[33] = "null";
-								temp[34] = "null";
-								temp[35] = "null";
-								temp[36] = "null";
-
-							}
-							try {
-								temp[37] = mediasubObj.getJSONObject("FRONT").getString("code");
-								temp[38] = mediasubObj.getJSONObject("FRONT").getString("name");
-								temp[39] = mediasubObj.getJSONObject("FRONT").getString("imageType");
-								temp[40] = mediasubObj.getJSONObject("FRONT").getString("url");
-							} catch (Exception e) {
-
-								temp[37] = "null";
-								temp[38] = "null";
-								temp[39] = "null";
-								temp[40] = "null";
-
-							}
-							try {
-								temp[41] = mediasubObj.getJSONObject("DRIVERS_SEAT").getString("code");
-								temp[42] = mediasubObj.getJSONObject("DRIVERS_SEAT").getString("name");
-								temp[43] = mediasubObj.getJSONObject("DRIVERS_SEAT").getString("imageType");
-								temp[44] = mediasubObj.getJSONObject("DRIVERS_SEAT").getString("url");
-							} catch (Exception e) {
-
-								temp[41] = "null";
-								temp[42] = "null";
-								temp[43] = "null";
-								temp[44] = "null";
-
-							}
-							try {
-								temp[45] = mediasubObj.getJSONObject("DRIVERS_DASHBOARD").getString("code");
-								temp[46] = mediasubObj.getJSONObject("DRIVERS_DASHBOARD").getString("name");
-								temp[47] = mediasubObj.getJSONObject("DRIVERS_DASHBOARD").getString("imageType");
-								temp[48] = mediasubObj.getJSONObject("DRIVERS_DASHBOARD").getString("url");
-							} catch (Exception e) {
-								temp[45] = "null";
-								temp[46] = "null";
-								temp[47] = "null";
-								temp[48] = "null";
-
-							}
-							try {
-								temp[49] = mediasubObj.getJSONObject("SIDE_PROFILE_LEFT").getString("code");
-								temp[50] = mediasubObj.getJSONObject("SIDE_PROFILE_LEFT").getString("name");
-								temp[51] = mediasubObj.getJSONObject("SIDE_PROFILE_LEFT").getString("imageType");
-								temp[52] = mediasubObj.getJSONObject("SIDE_PROFILE_LEFT").getString("url");
-							} catch (Exception e) {
-
-								temp[49] = "null";
-								temp[50] = "null";
-								temp[51] = "null";
-								temp[52] = "null";
-
-							}
-							try {
-								temp[53] = mediasubObj.getJSONObject("ENGINE_BAY").getString("code");
-								temp[54] = mediasubObj.getJSONObject("ENGINE_BAY").getString("name");
-								temp[55] = mediasubObj.getJSONObject("ENGINE_BAY").getString("imageType");
-								temp[56] = mediasubObj.getJSONObject("ENGINE_BAY").getString("url");
-							} catch (Exception e) {
-								temp[53] = "null";
-								temp[54] = "null";
-								temp[55] = "null";
-								temp[56] = "null";
-
-							}
-							try {
-								temp[57] = mediasubObj.getJSONObject("REAR_3QTR_RIGHT").getString("code");
-								temp[58] = mediasubObj.getJSONObject("REAR_3QTR_RIGHT").getString("name");
-								temp[59] = mediasubObj.getJSONObject("REAR_3QTR_RIGHT").getString("imageType");
-								temp[60] = mediasubObj.getJSONObject("REAR_3QTR_RIGHT").getString("url");
-							} catch (Exception e) {
-								temp[57] = "null";
-								temp[58] = "null";
-								temp[59] = "null";
-								temp[60] = "null";
-
-							}
-							try {
-								temp[61] = mediasubObj.getJSONObject("FRONT_3QTR_RIGHT").getString("code");
-								temp[62] = mediasubObj.getJSONObject("FRONT_3QTR_RIGHT").getString("name");
-								temp[63] = mediasubObj.getJSONObject("FRONT_3QTR_RIGHT").getString("imageType");
-								temp[64] = mediasubObj.getJSONObject("FRONT_3QTR_RIGHT").getString("url");
-							} catch (Exception e) {
-
-								temp[61] = "null";
-								temp[62] = "null";
-								temp[63] = "null";
-								temp[64] = "null";
-
-							}
-							try {
-								temp[65] = mediasubObj.getJSONObject("PASSENGER_DASHBOARD").getString("code");
-								temp[66] = mediasubObj.getJSONObject("PASSENGER_DASHBOARD").getString("name");
-								temp[67] = mediasubObj.getJSONObject("PASSENGER_DASHBOARD").getString("imageType");
-								temp[68] = mediasubObj.getJSONObject("PASSENGER_DASHBOARD").getString("url");
-							} catch (Exception e) {
-								temp[65] = "null";
-								temp[66] = "null";
-								temp[67] = "null";
-								temp[68] = "null";
+								temp[x + 1] = "REAR_3QTR_LEFT";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
 
 							}
 
 							try {
-								temp[69] = mediasubObj.getJSONObject("STEREO").getString("code");
-								temp[70] = mediasubObj.getJSONObject("STEREO").getString("name");
-								temp[71] = mediasubObj.getJSONObject("STEREO").getString("imageType");
-								temp[72] = mediasubObj.getJSONObject("STEREO").getString("url");
+								x = x + 5;
+								temp[x + 1] = "DRIVERS_FRONT_WHEEL";
+								temp[x + 2] = mediasubObj.getJSONObject("DRIVERS_FRONT_WHEEL").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("DRIVERS_FRONT_WHEEL").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("DRIVERS_FRONT_WHEEL").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("DRIVERS_FRONT_WHEEL").getString("url");
 							} catch (Exception e) {
-								temp[69] = "null";
-								temp[70] = "null";
-								temp[71] = "null";
-								temp[72] = "null";
+								temp[x + 1] = "DRIVERS_FRONT_WHEEL";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null";
 
 							}
 							try {
-								temp[73] = mediasubObj.getJSONObject("TRUNK_OPEN").getString("code");
-								temp[74] = mediasubObj.getJSONObject("TRUNK_OPEN").getString("name");
-								temp[75] = mediasubObj.getJSONObject("TRUNK_OPEN").getString("imageType");
-								temp[76] = mediasubObj.getJSONObject("TRUNK_OPEN").getString("url");
+								x = x + 5;
+								temp[x + 1] = "NAVIGATION_SYSTEM";
+								temp[x + 2] = mediasubObj.getJSONObject("NAVIGATION_SYSTEM").getString("code");
+								temp[x + 3] = mediasubObj.getJSONObject("NAVIGATION_SYSTEM").getString("name");
+								temp[x + 4] = mediasubObj.getJSONObject("NAVIGATION_SYSTEM").getString("imageType");
+								temp[x + 5] = mediasubObj.getJSONObject("NAVIGATION_SYSTEM").getString("url"); // [112]
 							} catch (Exception e) {
-								temp[73] = "null";
-								temp[74] = "null";
-								temp[75] = "null";
-								temp[76] = "null";
+								temp[x + 1] = "NAVIGATION_SYSTEM";
+								temp[x + 2] = "null";
+								temp[x + 3] = "null";
+								temp[x + 4] = "null";
+								temp[x + 5] = "null"; // [112]
 
 							}
-							try {
-								temp[77] = mediasubObj.getJSONObject("CENTER_CONSOLE").getString("code");
-								temp[78] = mediasubObj.getJSONObject("CENTER_CONSOLE").getString("name");
-								temp[79] = mediasubObj.getJSONObject("CENTER_CONSOLE").getString("imageType");
-								temp[80] = mediasubObj.getJSONObject("CENTER_CONSOLE").getString("url");
-							} catch (Exception e) {
-								temp[77] = "null";
-								temp[78] = "null";
-								temp[79] = "null";
-								temp[80] = "null";
+
+							x = 113;
+//							String colorsObj 
+							//fails here 2
+							JSONObject colorObjStr = vehiclesArr.getJSONObject(i).getJSONObject("colors"); // get
+																											// exteriors
+							int colorsSize = colorObjStr.length();
+							for (int z = 0; z < colorsSize; z++) {
+								JSONArray colorsArr = colorObjStr.names();
+								int colorArrSize = colorsArr.length();
+								for (int a = 0; a < colorArrSize; a++) {
+									String exteriorsStr = colorsArr.getString(z);// get exterior Arrary name;
+
+									JSONArray exteriorArr = colorObjStr.getJSONArray(exteriorsStr);// .getJSONObject(exteriorsStr);//.getJSONObject(exteriorsStr);
+									int exteriorSize = exteriorArr.length();
+									for (int b = 0; b < exteriorSize; b++) {
+										temp[113] = "colors";
+
+										temp[114] = exteriorsStr;
+
+										temp[115] = "[" + b + "]";
+										//fails here	
+										temp[116] = exteriorArr.getJSONObject(b).getString("code");
+										temp[117] = exteriorArr.getJSONObject(b).getString("name");
+
+										JSONObject colorsObj_exteriorsArr_mediaObj = exteriorArr.getJSONObject(b)
+												.getJSONObject("media");
+										int cSize = colorsObj_exteriorsArr_mediaObj.length();
+										temp[118] = colorsObj_exteriorsArr_mediaObj.getString("primary");
+										for (int bb = 0; bb < cSize; bb++) {
+											if (cSize > 1) {
+												temp[118] = "mediaObj>1, need to handel!";
+												temp[119] = colorsObj_exteriorsArr_mediaObj.getString("primary");
+
+											} else {
+												temp[118] = "primary";
+												temp[119] = colorsObj_exteriorsArr_mediaObj.getString("primary");
+											}
+
+										}
+
+										temp[120] = exteriorArr.getJSONObject(b).getString("family");
+										
+										temp[0] = Integer.toString(countNum);
+										temp[1] = env;
+										temp[2] = client;
+										temp[3] = acodeStryleid;
+										temp[4] = "";
+										temp[5] = "vehiclesArr";
+										temp[6] = "[" + i + "]";
+										temp[7] = team007;
+										temp[8] = team008;
+										temp[9] = team009;
+										temp[10] = "has media";
+										temp[11] = team011;
+										temp[12] = team012;
+										temp[13] = team013;
+
+										temp[14] = team014;
+										temp[15] = team015;
+										temp[16] = team016;
+										
+										temp[121] = "";
+										temp[122] = "";
+										temp[123] = "";
+										temp[124] = "";
+										temp[125] = "";
+										temp[126] = "";
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										System.out.println("\n temp[113]=" + temp[113] + "\n temp[114]=" + temp[114]
+												+ "\n temp[115]=" + temp[115] + "\n temp[116]=" + temp[116]
+												+ "\n temp[117]=" + temp[117]);
+										com_libs.writeToSheet(wsResultfile, temp);
+
+									}
+
+									System.out.println("xxx");
+								}							
+
+								System.out.println("xxx");
 
 							}
-							try {
-								temp[81] = mediasubObj.getJSONObject("REAR_3QTR_LEFT").getString("code");
-								temp[82] = mediasubObj.getJSONObject("REAR_3QTR_LEFT").getString("name");
-								temp[83] = mediasubObj.getJSONObject("REAR_3QTR_LEFT").getString("imageType");
-								temp[84] = mediasubObj.getJSONObject("REAR_3QTR_LEFT").getString("url");
-							} catch (Exception e) {
+							
+							x = 121;
+//							String colorsObj 
+							JSONObject pricingObjStr = vehiclesArr.getJSONObject(i).getJSONObject("pricing"); // get
+																											// exteriors
+							int pricingSize = pricingObjStr.length();
+							for (int zz = 0; zz < pricingSize; zz++) {
+								if (pricingSize > 1) {
+									temp[121] = "pricingObj>1, need to handel!";
+									temp[122] = Integer.toString(pricingObjStr.getInt("destinationCharge"));
+									temp[123] = Integer.toString(pricingObjStr.getInt("msrp"));
 
-								temp[81] = "null";
-								temp[82] = "null";
-								temp[83] = "null";
-								temp[84] = "null";
+								} else {
+									temp[121] = "pricing";
+									temp[122] = Integer.toString(pricingObjStr.getInt("destinationCharge"));
+									temp[123] = Integer.toString(pricingObjStr.getInt("msrp"));
+								}
 
 							}
+							
+							temp[0] = Integer.toString(countNum);
+							temp[1] = env;
+							temp[2] = client;
+							temp[3] = acodeStryleid;
+							temp[4] = "";
+							temp[5] = "vehiclesArr";
+							temp[6] = "[" + i + "]";
+							temp[7] = team007;
+							temp[8] = team008;
+							temp[9] = team009;
+							temp[10] = "has media";
+							temp[11] = team011;
+							temp[12] = team012;
+							temp[13] = team013;
+
+							temp[14] = team014;
+							temp[15] = team015;
+							temp[16] = team016;
+							temp[17] = "";
+
+							temp[18] = "";
+							temp[19] = "";
+							temp[20] = "";
+							temp[21] = "";
+
+							temp[22] = "";
+							temp[23] = "";
+							temp[24] = "";
+							;
+							temp[25] = "";
+
+							temp[26] = "";
+							temp[27] = "";
+							temp[28] = "";
+							temp[29] = "";
+
+							temp[30] = "";
+							temp[31] = "";
+							temp[32] = "";
+							temp[33] = "";
+
+							temp[34] = "";
+							temp[35] = "";
+							temp[36] = "";
+							temp[37] = "";
+
+							temp[38] = "";
+							temp[39] = "";
+							temp[40] = "";
+							temp[41] = "";
+
+							temp[42] = "";
+							temp[43] = "";
+							temp[44] = "";
+							temp[45] = "";
+
+							temp[46] = "";
+							temp[47] = "";
+							temp[48] = "";
+							temp[49] = "";
+
+							temp[50] = "";
+							temp[51] = "";
+							temp[52] = "";
+							temp[53] = "";
+
+							temp[54] = "";
+							temp[55] = "";
+							temp[56] = "";
+							temp[57] = "";
+
+							temp[58] = "";
+							temp[59] = "";
+							temp[60] = "";
+							temp[61] = "";
+
+							temp[62] = "";
+							temp[63] = "";
+							temp[64] = "";
+							temp[65] = "";
+
+							temp[66] = "";
+							temp[67] = "";
+							temp[68] = "";
+							temp[69] = "";
+
+							temp[70] = "";
+							temp[71] = "";
+							temp[72] = "";
+							temp[73] = "";
+
+							temp[74] = "";
+							temp[75] = "";
+							temp[76] = "";
+							temp[77] = "";
+
+							temp[78] = "";
+							temp[80] = "";
+							temp[81] = "";
+							temp[82] = "";
+							temp[83] = "";
+							temp[84] = "";
+							temp[85] = "";
+							temp[86] = "";
+							temp[87] = "";
+							temp[88] = "";
+							temp[89] = "";
+							temp[90] = "";
+							temp[91] = "";
+							temp[92] = "";
+							temp[93] = "";
+							temp[94] = "";
+							temp[95] = "";
+							temp[96] = "";
+							temp[97] = "";
+							temp[98] = "";
+							temp[99] = "";
+							temp[100] = "";
+							temp[101] = "";
+							temp[102] = "";
+							temp[103] = "";
+							temp[104] = "";
+							temp[105] = "";
+							temp[106] = "";
+							temp[107] = "";
+							temp[108] = "";
+							temp[109] = "";
+							temp[110] = "";
+							temp[111] = "";
+							temp[112] = "";
+							temp[113] = "";
+							temp[114] = "";
+							temp[115] = "";
+							temp[116] = "";
+							temp[117] = "";
+							temp[118] = "";
+							temp[119] = "";
+							temp[120] = "";
+				
+							System.out.println("xxx");
 
 							com_libs.writeToSheet(wsResultfile, temp);
 							System.out.println("make=");
 
 						}
+						
+//						colors
+//						
+//						segments
+//						features
+//						pricing
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 
 					}
 
