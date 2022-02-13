@@ -77,6 +77,7 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 
 		for (String imageCode : imageCodes) {
 			count++;
+			System.out.println("\nClient = " + client+"\n");
 			String jsonImageWS = com_libs.getNewSourceCodeJsonPostImage(env, client, imageCode, imageCode, PostImageURL,
 					"image", imageCode, count, headers[0], headers[1], headers[2], headers[3]);
 			PostImage(env, client, imageCode, cc_SavePathFile, titleStringPostImageWS, jsonImageWS, "URLString",
