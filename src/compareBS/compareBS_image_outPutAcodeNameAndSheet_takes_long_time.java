@@ -10,7 +10,7 @@ import java.util.Properties;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class compareBS_image_outPutAcodeNameAndSheet {
+public class compareBS_image_outPutAcodeNameAndSheet_takes_long_time {
 	private static int blank = 0;
 	private static int noObj = 0;
 
@@ -54,7 +54,7 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 				"segments" };
 		Properties prop = new Properties();
 		try {
-			prop.load(compareBS_image_outPutAcodeNameAndSheet.class.getClassLoader()
+			prop.load(compareBS_image_outPutAcodeNameAndSheet_takes_long_time.class.getClassLoader()
 					.getResourceAsStream("compareBS_data/compareBS_text.properties"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -1052,7 +1052,7 @@ public class compareBS_image_outPutAcodeNameAndSheet {
 
 		Properties prop = new Properties();
 		try {
-			prop.load(compareBS_image_outPutAcodeNameAndSheet.class.getClassLoader()
+			prop.load(compareBS_image_outPutAcodeNameAndSheet_takes_long_time.class.getClassLoader()
 					.getResourceAsStream("./compareBS_data/compareBS_text.properties"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
