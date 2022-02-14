@@ -22,7 +22,7 @@ public class compareBS_image_outPutAcodeNameAndSheet_takes_long_time {
 		String year = "";
 		String makeId = "";
 		String parameterString = "";
-		String cc_SavePathFile = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + env + "_ImageSheet.xls";
+		String cc_SavePathFile = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + env + "_" + client + "_ImageSheet.xls";
 //		String acode_or_styleid_savePath = "C:\\1\\Eclipse\\Test Results\\CompareBS\\";
 		String[] titleStringPostImageWS = { "S/N", "Env", "Client", "acodeStryleid", "URL404error", "vehiclesArr",
 				"vehiclesObj#", "code", "year", "description", "mediaObj", "currentColor", "variation", "trim",
@@ -77,7 +77,7 @@ public class compareBS_image_outPutAcodeNameAndSheet_takes_long_time {
 
 		for (String imageCode : imageCodes) {
 			count++;
-			System.out.println("\nClient = " + client+"\n");
+			System.out.println("\nClient = " + client + "\n");
 			String jsonImageWS = com_libs.getNewSourceCodeJsonPostImage(env, client, imageCode, imageCode, PostImageURL,
 					"image", imageCode, count, headers[0], headers[1], headers[2], headers[3]);
 			PostImage(env, client, imageCode, cc_SavePathFile, titleStringPostImageWS, jsonImageWS, "URLString",
@@ -89,12 +89,7 @@ public class compareBS_image_outPutAcodeNameAndSheet_takes_long_time {
 	public static void PostImage(String env, String client, String acodeStryleid, String wsResultfile,
 			String[] titleString, String text, String URLString, String parameterS, int countNum) throws IOException {
 		com_libs.writeTitle(wsResultfile, titleString);
-		String team001 = "";
-		String team002 = "";
-		String team003 = "";
-		String team004 = "";
-		String team005 = "";
-		String team006 = "";
+
 		String team007 = "";
 		String team008 = "";
 		String team009 = "";
@@ -105,102 +100,7 @@ public class compareBS_image_outPutAcodeNameAndSheet_takes_long_time {
 		String team014 = "";
 		String team015 = "";
 		String team016 = "";
-		String team017 = "";
-		String team018 = "";
-		String team019 = "";
-		String team020 = "";
-		String team021 = "";
-		String team022 = "";
-		String team023 = "";
-		String team024 = "";
-		String team025 = "";
-		String team026 = "";
-		String team027 = "";
-		String team028 = "";
-		String team029 = "";
-		String team030 = "";
-		String team031 = "";
-		String team032 = "";
-		String team033 = "";
-		String team034 = "";
-		String team035 = "";
-		String team036 = "";
-		String team037 = "";
-		String team038 = "";
-		String team039 = "";
-		String team040 = "";
-		String team041 = "";
-		String team042 = "";
-		String team043 = "";
-		String team044 = "";
-		String team045 = "";
-		String team046 = "";
-		String team047 = "";
-		String team048 = "";
-		String team049 = "";
-		String team050 = "";
-		String team051 = "";
-		String team052 = "";
-		String team053 = "";
-		String team054 = "";
-		String team055 = "";
-		String team056 = "";
-		String team057 = "";
-		String team058 = "";
-		String team059 = "";
-		String team060 = "";
-		String team061 = "";
-		String team062 = "";
-		String team063 = "";
-		String team064 = "";
-		String team065 = "";
-		String team066 = "";
-		String team067 = "";
-		String team068 = "";
-		String team069 = "";
-		String team070 = "";
-		String team071 = "";
-		String team072 = "";
-		String team073 = "";
-		String team074 = "";
-		String team075 = "";
-		String team076 = "";
-		String team077 = "";
-		String team078 = "";
-		String team079 = "";
-		String team080 = "";
-		String team081 = "";
-		String team082 = "";
-		String team083 = "";
-		String team084 = "";
-		String team085 = "";
-		String team086 = "";
-		String team087 = "";
-		String team088 = "";
-		String team089 = "";
-		String team090 = "";
-		String team091 = "";
-		String team092 = "";
-		String team093 = "";
-		String team094 = "";
-		String team095 = "";
-		String team096 = "";
-		String team097 = "";
-		String team098 = "";
-		String team099 = "";
-		String team100 = "";
-		String team101 = "";
-		String team102 = "";
-		String team103 = "";
-		String team104 = "";
-		String team105 = "";
-		String team106 = "";
-		String team107 = "";
-		String team108 = "";
-		String team109 = "";
-		String team110 = "";
-		String team111 = "";
-		String team112 = "";
+//		
 		int x = 0;
 		String[] temp = new String[135];
 		if (text.equals("")) {
@@ -285,130 +185,10 @@ public class compareBS_image_outPutAcodeNameAndSheet_takes_long_time {
 						temp[16] = team016;
 						temp[17] = "";
 
-						temp[18] = "";
-						temp[19] = "";
-						temp[20] = "";
-						temp[21] = "";
+						for (int p0 = 18; p0 <= 126; p0++) {
+							temp[p0] = "";
+						}
 
-						temp[22] = "";
-						temp[23] = "";
-						temp[24] = "";
-						;
-						temp[25] = "";
-
-						temp[26] = "";
-						temp[27] = "";
-						temp[28] = "";
-						temp[29] = "";
-
-						temp[30] = "";
-						temp[31] = "";
-						temp[32] = "";
-						temp[33] = "";
-
-						temp[34] = "";
-						temp[35] = "";
-						temp[36] = "";
-						temp[37] = "";
-
-						temp[38] = "";
-						temp[39] = "";
-						temp[40] = "";
-						temp[41] = "";
-
-						temp[42] = "";
-						temp[43] = "";
-						temp[44] = "";
-						temp[45] = "";
-
-						temp[46] = "";
-						temp[47] = "";
-						temp[48] = "";
-						temp[49] = "";
-
-						temp[50] = "";
-						temp[51] = "";
-						temp[52] = "";
-						temp[53] = "";
-
-						temp[54] = "";
-						temp[55] = "";
-						temp[56] = "";
-						temp[57] = "";
-
-						temp[58] = "";
-						temp[59] = "";
-						temp[60] = "";
-						temp[61] = "";
-
-						temp[62] = "";
-						temp[63] = "";
-						temp[64] = "";
-						temp[65] = "";
-
-						temp[66] = "";
-						temp[67] = "";
-						temp[68] = "";
-						temp[69] = "";
-
-						temp[70] = "";
-						temp[71] = "";
-						temp[72] = "";
-						temp[73] = "";
-
-						temp[74] = "";
-						temp[75] = "";
-						temp[76] = "";
-						temp[77] = "";
-
-						temp[78] = "";
-						temp[80] = "";
-						temp[81] = "";
-						temp[82] = "";
-						temp[83] = "";
-						temp[84] = "";
-						temp[85] = "";
-						temp[86] = "";
-						temp[87] = "";
-						temp[88] = "";
-						temp[89] = "";
-						temp[90] = "";
-						temp[91] = "";
-						temp[92] = "";
-						temp[93] = "";
-						temp[94] = "";
-						temp[95] = "";
-						temp[96] = "";
-						temp[97] = "";
-						temp[98] = "";
-						temp[99] = "";
-						temp[100] = "";
-						temp[101] = "";
-						temp[102] = "";
-						temp[103] = "";
-						temp[104] = "";
-						temp[105] = "";
-						temp[106] = "";
-						temp[107] = "";
-						temp[108] = "";
-						temp[109] = "";
-						temp[110] = "";
-						temp[111] = "";
-						temp[112] = "";
-						temp[113] = "";
-						temp[114] = "";
-						temp[115] = "";
-						temp[116] = "";
-						temp[117] = "";
-						temp[118] = "";
-						temp[119] = "";
-						temp[120] = "";
-						temp[121] = "";
-						temp[122] = "";
-						temp[123] = "";
-						temp[124] = "";
-						temp[125] = "";
-						temp[126] = "";
 						com_libs.writeToSheet(wsResultfile, temp);
 
 					}
@@ -855,127 +635,10 @@ public class compareBS_image_outPutAcodeNameAndSheet_takes_long_time {
 					temp[14] = team014;
 					temp[15] = team015;
 					temp[16] = team016;
-					temp[17] = "";
 
-					temp[18] = "";
-					temp[19] = "";
-					temp[20] = "";
-					temp[21] = "";
-
-					temp[22] = "";
-					temp[23] = "";
-					temp[24] = "";
-					;
-					temp[25] = "";
-
-					temp[26] = "";
-					temp[27] = "";
-					temp[28] = "";
-					temp[29] = "";
-
-					temp[30] = "";
-					temp[31] = "";
-					temp[32] = "";
-					temp[33] = "";
-
-					temp[34] = "";
-					temp[35] = "";
-					temp[36] = "";
-					temp[37] = "";
-
-					temp[38] = "";
-					temp[39] = "";
-					temp[40] = "";
-					temp[41] = "";
-
-					temp[42] = "";
-					temp[43] = "";
-					temp[44] = "";
-					temp[45] = "";
-
-					temp[46] = "";
-					temp[47] = "";
-					temp[48] = "";
-					temp[49] = "";
-
-					temp[50] = "";
-					temp[51] = "";
-					temp[52] = "";
-					temp[53] = "";
-
-					temp[54] = "";
-					temp[55] = "";
-					temp[56] = "";
-					temp[57] = "";
-
-					temp[58] = "";
-					temp[59] = "";
-					temp[60] = "";
-					temp[61] = "";
-
-					temp[62] = "";
-					temp[63] = "";
-					temp[64] = "";
-					temp[65] = "";
-
-					temp[66] = "";
-					temp[67] = "";
-					temp[68] = "";
-					temp[69] = "";
-
-					temp[70] = "";
-					temp[71] = "";
-					temp[72] = "";
-					temp[73] = "";
-
-					temp[74] = "";
-					temp[75] = "";
-					temp[76] = "";
-					temp[77] = "";
-
-					temp[78] = "";
-					temp[79] = "";
-					temp[80] = "";
-					temp[81] = "";
-					temp[82] = "";
-					temp[83] = "";
-					temp[84] = "";
-					temp[85] = "";
-					temp[86] = "";
-					temp[87] = "";
-					temp[88] = "";
-					temp[89] = "";
-					temp[90] = "";
-					temp[91] = "";
-					temp[92] = "";
-					temp[93] = "";
-					temp[94] = "";
-					temp[95] = "";
-					temp[96] = "";
-					temp[97] = "";
-					temp[98] = "";
-					temp[99] = "";
-					temp[100] = "";
-					temp[101] = "";
-					temp[102] = "";
-					temp[103] = "";
-					temp[104] = "";
-					temp[105] = "";
-					temp[106] = "";
-					temp[107] = "";
-					temp[108] = "";
-					temp[109] = "";
-					temp[110] = "";
-					temp[111] = "";
-					temp[112] = "";
-					temp[113] = "";
-					temp[114] = "";
-					temp[115] = "";
-					temp[116] = "";
-					temp[117] = "";
-					temp[118] = "";
-					temp[119] = "";
-					temp[120] = "";
+					for (int p = 17; p <= 120; p++) {
+						temp[p] = "";
+					}
 
 //					segments
 //					
