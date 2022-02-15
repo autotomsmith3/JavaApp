@@ -443,10 +443,10 @@ public class com_libs {
 				+ currentDateFolder + "\\" + environment + "." + client + "CompareBS_Text_StatusCode";
 		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "text" + "\\"
 				+ currentDateFolder + "\\" + s_number + "_" + environment + "." + client + "CompareBS_Text_Returns.txt";
-
+		String subpreDateFolder=preDateFolder.substring(0,10);
 		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "text"
 				+ "\\" + preDateFolder + "\\" + s_number + "_" + environment + "." + client + "CompareBS_Text_Returns_"
-				+ acode_or_styleid + "_" + preDateFolder + ".txt";
+				+ acode_or_styleid + "_" + subpreDateFolder + ".txt";
 
 		filePath_statusCode = filePath_statusCode + "_" + currentDateFolder + "_CompareTo_" + preDateFolder + ".txt";
 
@@ -842,10 +842,10 @@ public class com_libs {
 		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "common_competitors"
 				+ "\\" + currentDateFolder + "\\" + s_number + "_" + environment + "." + client + "_"
 				+ "CompareBS_CommonCompetitors_Returns.txt";
-
+		String subpreDateFolder=preDateFolder.substring(0,10);
 		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\"
 				+ "common_competitors" + "\\" + preDateFolder + "\\" + s_number + "_" + environment + "." + client
-				+ "_CompareBS_CommonCompetitors_Returns_" + acode_or_styleid + "_" + preDateFolder + ".txt";
+				+ "_CompareBS_CommonCompetitors_Returns_" + acode_or_styleid + "_" + subpreDateFolder + ".txt";
 		filePath_statusCode = filePath_statusCode + "_" + currentDateFolder + "_" + "Compared_To_" + preDateFolder
 				+ ".txt";
 
@@ -1006,10 +1006,10 @@ public class com_libs {
 				+ "\\" + currentDateFolder + "\\" + environment + "." + client + "_CompareBS_Vehicles_StatusCode";
 		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "vehicles" + "\\"
 				+ currentDateFolder + "\\" + s_number + "_" + environment + "." + client + "_" + "Vehicles_Returns.txt";
-
+		String subpreDateFolder=preDateFolder.substring(0,10);
 		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "vehicles"
 				+ "\\" + preDateFolder + "\\" + s_number + "_" + environment + "." + client + "_Vehicles_Returns_"
-				+ acode_or_styleid + "_" + preDateFolder + ".txt";
+				+ acode_or_styleid + "_" + subpreDateFolder + ".txt";
 		filePath_statusCode = filePath_statusCode + "_" + currentDateFolder + "_" + "Compared_To_" + preDateFolder
 				+ ".txt";
 
