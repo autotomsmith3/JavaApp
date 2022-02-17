@@ -183,7 +183,7 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 					temp[5] = "featureDefinitions";
 					temp[6] = DRIVE_TYPEStr;
 					com_libs.writeToSheet(wsResultfile, temp);
-					System.out.println("iii=" + iii + " - DRIVE_TYPEStr = " + DRIVE_TYPEStr);
+//					System.out.println("iii=" + iii + " - DRIVE_TYPEStr = " + DRIVE_TYPEStr);
 				}
 //					WHEEL_BASEStr
 				JSONArray WHEEL_BASEArr = featureDefinitionsObj.getJSONArray("WHEEL_BASE");
@@ -201,7 +201,7 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 					temp[7] = WHEEL_BASEStr;
 					com_libs.writeToSheet(wsResultfile, temp);
 
-					System.out.println("iii=" + iii + " - WHEEL_BASEStr = " + WHEEL_BASEStr);
+//					System.out.println("iii=" + iii + " - WHEEL_BASEStr = " + WHEEL_BASEStr);
 				}
 //					BODY_TYPEStr;
 				JSONArray BODY_TYPEArr = featureDefinitionsObj.getJSONArray("BODY_TYPE");
@@ -220,7 +220,7 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 					temp[8] = BODY_TYPEStr;
 					com_libs.writeToSheet(wsResultfile, temp);
 
-					System.out.println("iii=" + iii + " - BODY_TYPEStr = " + BODY_TYPEStr);
+//					System.out.println("iii=" + iii + " - BODY_TYPEStr = " + BODY_TYPEStr);
 				}
 
 //				================vehiclesArray==============
@@ -265,7 +265,7 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 					temp[10] = "vehicleObj is empty";
 
 					com_libs.writeToSheet(wsResultfile, temp);
-					System.out.println("gvuid = " + "  " + " - Result [] object is blank. ");
+//					System.out.println("gvuid = " + "  " + " - Result [] object is blank. ");
 
 				} else {
 
@@ -279,7 +279,7 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 							Vehicles_features_MFR_CODE = featuresObj.getString("MFR_CODE");
 						} catch (Exception ex) {
 							Vehicles_features_MFR_CODE = "0_null! error?";
-							System.out.println("This client has not been added MFR_CODE in RCRM! So this will fail.");
+//							System.out.println("This client has not been added MFR_CODE in RCRM! So this will fail.");
 						}
 
 						Vehicles_features_WHEEL_BASE = featuresObj.getString("WHEEL_BASE");
@@ -345,7 +345,7 @@ public class compareBS_commonCompetitors_outPutAcodeNameAndSheet {
 							int mediaSize = mediaOptionArr.length();
 							for (int n = 0; n < mediaSize; n++) {
 								String optionString = mediaOptionArr.getString(n); 				// SWP - this is how to get dynomic object
-								System.out.println("optionString=\n" + optionString);
+//								System.out.println("optionString=\n" + optionString);
 								JSONObject mediasubObj = mediaObj.getJSONObject(optionString);	// SWP - this is how to get dynomic object
 								int mediasubObjsize = mediasubObj.length();
 

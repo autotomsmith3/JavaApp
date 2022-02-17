@@ -700,11 +700,31 @@ public class com_libs {
 			// error shows: 400,404, 500, 503,
 			// write to txt file for acode or styleid and error code here:
 			//
+			String errorStreamJson="";
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			errorStreamJson = postData.toString();
+			con.disconnect();	
+			
+			
 			outputString = "";
 			System.out.println(client + ". " + s_number
-					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
+					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode + ". ErrorStream = "+errorStreamJson);
 			SaveScratch(filePath_statusCode, client + ". " + cc_code + ". " + s_number + ". " + " - Return data Size = "
-					+ "- 0." + "  - Return Status Code: " + responseCode + " - Failed.");
+					+ "- 0." + "  - Return Status Code: " + responseCode  + ". ErrorStream = "+errorStreamJson);
 			SaveScratch(filePath_return, client + ". " + cc_code + ". " + s_number + ". "
 					+ " - Return data Size = 0  - Return result = empty!!!");
 		}
