@@ -443,7 +443,7 @@ public class com_libs {
 				+ currentDateFolder + "\\" + environment + "." + client + "CompareBS_Text_StatusCode";
 		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "text" + "\\"
 				+ currentDateFolder + "\\" + s_number + "_" + environment + "." + client + "CompareBS_Text_Returns.txt";
-		String subpreDateFolder=preDateFolder.substring(0,10);
+		String subpreDateFolder = preDateFolder.substring(0, 10);
 		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "text"
 				+ "\\" + preDateFolder + "\\" + s_number + "_" + environment + "." + client + "CompareBS_Text_Returns_"
 				+ acode_or_styleid + "_" + subpreDateFolder + ".txt";
@@ -700,8 +700,8 @@ public class com_libs {
 			// error shows: 400,404, 500, 503,
 			// write to txt file for acode or styleid and error code here:
 			//
-			String errorStreamJson="";
-			
+			String[] errorStreamJson;
+
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
 			String inputLine;
 			StringBuffer postData = new StringBuffer();
@@ -716,21 +716,24 @@ public class com_libs {
 				}
 			}
 			in.close();
-			errorStreamJson = postData.toString();
-			con.disconnect();	
-			
-			
+			String errorStream = postData.toString();
+			con.disconnect();
+
+			errorStreamJson = GetJsonErrorDetails(errorStream);
+
 			outputString = "";
 			System.out.println(client + ". " + s_number
-					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode + ". ErrorStream = "+errorStreamJson);
+					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode
+					+ ". ErrorCode = " + errorStreamJson[2]);
 			SaveScratch(filePath_statusCode, client + ". " + cc_code + ". " + s_number + ". " + " - Return data Size = "
-					+ "- 0." + "  - Return Status Code: " + responseCode  + ". ErrorStream = "+errorStreamJson);
+					+ "- 0." + "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
 			SaveScratch(filePath_return, client + ". " + cc_code + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!");
+					+ " - Return data Size = 0  - Return result = empty!!!"+ ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
-	public static String getNewSourceCodeJsonPostImage(String environment, String client, String BSBody,  String cc_code,
+
+	public static String getNewSourceCodeJsonPostImage(String environment, String client, String BSBody, String cc_code,
 			String url1, String url2, String auth_key, int s_number, String lang, String appid, String product_key,
 			String profile_Key) throws Exception {
 		// POST method - works but lost data...20201121
@@ -739,9 +742,10 @@ public class com_libs {
 		String sName, passOrfail, dateStamp, timeStamp;
 		final int CONNECTION_TIMEOUT = 1000 * 900;
 		final int DATARETREIVAL_TIMEOUT = 1000 * 900;
-		
-		BSBody="{\"vehicles\":[{\"code\": \""+BSBody+"\"}],\"include\": {\"vehicleDetails\": true,\"includeCategories\": true}}";
-		
+
+		BSBody = "{\"vehicles\":[{\"code\": \"" + BSBody
+				+ "\"}],\"include\": {\"vehicleDetails\": true,\"includeCategories\": true}}";
+
 		String acode_or_styleid = cc_code.replace("/", "");
 
 		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
@@ -844,6 +848,7 @@ public class com_libs {
 		}
 		return outputString;
 	}
+
 	public static String getNewSourceCodeJsonGETcommonCompetitorsToCompare(String environment, String client,
 			String cc_code, String url1, String url2, String auth_key, int s_number, String lang, String appid,
 			String product_key, String profile_Key, String preDateFolder, String currentDateFolder) throws Exception {
@@ -862,7 +867,7 @@ public class com_libs {
 		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "common_competitors"
 				+ "\\" + currentDateFolder + "\\" + s_number + "_" + environment + "." + client + "_"
 				+ "CompareBS_CommonCompetitors_Returns.txt";
-		String subpreDateFolder=preDateFolder.substring(0,10);
+		String subpreDateFolder = preDateFolder.substring(0, 10);
 		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\"
 				+ "common_competitors" + "\\" + preDateFolder + "\\" + s_number + "_" + environment + "." + client
 				+ "_CompareBS_CommonCompetitors_Returns_" + acode_or_styleid + "_" + subpreDateFolder + ".txt";
@@ -980,7 +985,27 @@ public class com_libs {
 			// error shows: 400,404, 500, 503,
 			// write to txt file for acode or styleid and error code here:
 			//
+			String[] errorStreamJson;
 			outputString = "";
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			String errorStream = postData.toString();
+			con.disconnect();
+
+			errorStreamJson = GetJsonErrorDetails(errorStream);
 
 			inputString = readFile(inputfilePath_statusCode);
 			if (inputString.contains("Return result = empty")) {
@@ -988,15 +1013,13 @@ public class com_libs {
 						+ " - Failed! Previous one contains empty result!, return Status Code = " + responseCode);
 				SaveScratch(filePath_statusCode,
 						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
-								+ "  - Return Status Code: " + responseCode
-								+ " - Failed! Previous return is also empty! - Passed!");
+								+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
 
 			} else {
 
 				SaveScratch(filePath_statusCode,
 						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
-								+ "  - Return Status Code: " + responseCode
-								+ " - Failed. Previous retrun does not conturn empty!! - Failed");
+								+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
 
 			}
 
@@ -1004,7 +1027,7 @@ public class com_libs {
 					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
 
 			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!");
+					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 
@@ -1026,7 +1049,7 @@ public class com_libs {
 				+ "\\" + currentDateFolder + "\\" + environment + "." + client + "_CompareBS_Vehicles_StatusCode";
 		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "vehicles" + "\\"
 				+ currentDateFolder + "\\" + s_number + "_" + environment + "." + client + "_" + "Vehicles_Returns.txt";
-		String subpreDateFolder=preDateFolder.substring(0,10);
+		String subpreDateFolder = preDateFolder.substring(0, 10);
 		String inputfilePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "\\" + "vehicles"
 				+ "\\" + preDateFolder + "\\" + s_number + "_" + environment + "." + client + "_Vehicles_Returns_"
 				+ acode_or_styleid + "_" + subpreDateFolder + ".txt";
@@ -2368,7 +2391,7 @@ public class com_libs {
 			throws Exception {
 		// POST method - works but lost data...20201121
 		// add auth_key in Headers
-		int wt=20;
+		int wt = 20;
 		final String USER_AGENT = "Mozilla/5.0";
 		URL obj = new URL(url1 + url2);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -2381,7 +2404,7 @@ public class com_libs {
 		con.setRequestProperty("Accept", "application/json");
 		con.setRequestProperty("Content-Type", "application/json");
 //		con.setRequestProperty("Content-Length", Integer.toString(11416884));//11416884
-		
+
 ////		*************QA*************
 //		con.setRequestProperty("Accept-Language", "en-CA");
 //		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
@@ -2389,7 +2412,7 @@ public class com_libs {
 //		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
 //		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
 ////		*************QA*************
-		
+
 //		*************Prod*************
 		con.setRequestProperty("Accept-Language", "en-CA");
 		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
@@ -2397,7 +2420,7 @@ public class com_libs {
 //		con.setRequestProperty("chrome-chrome-productKey", "comparev3");
 //		con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
 //		*************Prod*************		
-		
+
 //		con.setRequestProperty("auth_key", auth_key);
 //		// con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 //		// //Original
@@ -2410,7 +2433,8 @@ public class com_libs {
 		wr.close();
 		int responseCode = con.getResponseCode();
 		String outputString;
-		if (!(responseCode == 404) && !(responseCode == 400)&& !(responseCode == 401) && !(responseCode == 503) && !(responseCode == 500)) {
+		if (!(responseCode == 404) && !(responseCode == 400) && !(responseCode == 401) && !(responseCode == 503)
+				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
 			StringBuffer postData = new StringBuffer();
@@ -2438,8 +2462,6 @@ public class com_libs {
 //			} else {
 //				System.out.println("Good!!! Now return >=72433. See return >=" + len);
 //			}
-		
-			
 
 			while ((inputLine = in.readLine()) != null) {
 				if (!inputLine.isEmpty()) {
@@ -2453,5 +2475,45 @@ public class com_libs {
 			outputString = "";
 		}
 		return outputString;
+	}
+
+	public static String[] GetJsonErrorDetails(String text) throws IOException {
+//		com_libs.writeTitle(wsResultfile, titleString);
+		String status_0 = "";
+		String error_1 = "";
+		String code_2 = "";
+		String message_3 = "";
+//		String timestamp_4 = "";
+
+		String[] temp = new String[3];
+		if (text.equals("")) {
+//			blank++;
+//			temp[0] = Integer.toString(countNum);
+//			temp[1] = env;
+//			temp[2] = client;
+//			temp[3] = acodeStryleid;
+//			temp[4] = "404 error";
+//			System.out.println("S/N: " + countNum);
+			System.out.println("404 ERROR ON : " + text);
+//			com_libs.writeToSheet(wsResultfile, temp);
+		} else {
+			try {
+
+				JSONObject ccObj = new JSONObject(text);
+
+				int size = ccObj.length();
+
+				temp[0] = Integer.toString(ccObj.getInt("status"));
+				temp[1] = ccObj.getString("error");
+				temp[2] = ccObj.getString("code");
+				temp[3] = ccObj.getString("message");
+//				temp[4] = ccObj.getString("timestamp");
+				System.out.println(" try fails !!! ");
+			} catch (Exception e) {
+
+				System.out.println(" try fails !!! ");
+			}
+		}
+		return temp;
 	}
 }
