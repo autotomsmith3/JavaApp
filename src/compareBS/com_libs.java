@@ -307,13 +307,36 @@ public class com_libs {
 			// error shows: 400,404, 500, 503,
 			// write to txt file for acode or styleid and error code here:
 			//
+			String[] errorStreamJson;
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			String errorStream = postData.toString();
+			con.disconnect();
+
+			errorStreamJson = GetJsonErrorDetails(errorStream);
+
 			outputString = "";
 			System.out.println(client + ". " + s_number
-					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
-			SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = " + "- 0." + "  - Return Status Code: " + responseCode + " - Failed.");
+					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode
+					+ ". ErrorCode = " + errorStreamJson[2]);
+			SaveScratch(filePath_statusCode,
+					client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
+							+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
 			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!");
+					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
@@ -421,12 +444,34 @@ public class com_libs {
 			// write to txt file for acode or styleid and error code here:
 			//
 			outputString = "";
+			String[] errorStreamJson;
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			String errorStream = postData.toString();
+			con.disconnect();
+
+			errorStreamJson = GetJsonErrorDetails(errorStream);
+
 			System.out.println(client + ". " + s_number
-					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
-			SaveScratch(filePath_statusCode, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = " + "- 0." + "  - Return Status Code: " + responseCode + " - Failed.");
+					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode
+					+ ". ErrorCode = " + errorStreamJson[2]);
+			SaveScratch(filePath_statusCode,
+					client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
+							+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
 			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!");
+					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
@@ -570,30 +615,50 @@ public class com_libs {
 			// write to txt file for acode or styleid and error code here:
 			//
 			outputString = "";
+			String[] errorStreamJson;
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			String errorStream = postData.toString();
+			con.disconnect();
+
+			errorStreamJson = GetJsonErrorDetails(errorStream);
 
 			inputString = readFile(inputfilePath_statusCode);
 			if (inputString.contains("Return result = empty")) {
 				System.out.println(client + ". " + s_number + ". " + acode_or_styleid
-						+ " - Failed! Previous one contains empty result!, return Status Code = " + responseCode);
+						+ " - Failed! Previous one contains empty result!, return Status Code = " + responseCode
+						+ ". ErrorCode = " + errorStreamJson[2]);
 				SaveScratch(filePath_statusCode,
 						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
-								+ "  - Return Status Code: " + responseCode
-								+ " - Failed! Previous return is also empty! - Passed!");
+								+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
 
 			} else {
 
 				SaveScratch(filePath_statusCode,
 						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
-								+ "  - Return Status Code: " + responseCode
-								+ " - Failed. Previous retrun does not conturn empty!! - Failed");
+								+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
 
 			}
 
 			System.out.println(client + ". " + s_number + ". " + acode_or_styleid
-					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
+					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode
+					+ ". ErrorCode = " + errorStreamJson[2]);
 
 			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!");
+					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
@@ -728,7 +793,7 @@ public class com_libs {
 			SaveScratch(filePath_statusCode, client + ". " + cc_code + ". " + s_number + ". " + " - Return data Size = "
 					+ "- 0." + "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
 			SaveScratch(filePath_return, client + ". " + cc_code + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!"+ ". ErrorCode = " + errorStreamJson[2]);
+					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
@@ -839,12 +904,35 @@ public class com_libs {
 			// write to txt file for acode or styleid and error code here:
 			//
 			outputString = "";
+
+			String[] errorStreamJson;
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			String errorStream = postData.toString();
+			con.disconnect();
+
+			errorStreamJson = GetJsonErrorDetails(errorStream);
+
 			System.out.println(client + ". " + s_number
-					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
+					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode
+					+ ". ErrorCode = " + errorStreamJson[2]);
 			SaveScratch(filePath_statusCode, client + ". " + cc_code + ". " + s_number + ". " + " - Return data Size = "
-					+ "- 0." + "  - Return Status Code: " + responseCode + " - Failed.");
+					+ "- 0." + "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
 			SaveScratch(filePath_return, client + ". " + cc_code + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!");
+					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
@@ -1169,29 +1257,50 @@ public class com_libs {
 			//
 			outputString = "";
 
+			String[] errorStreamJson;
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			String errorStream = postData.toString();
+			con.disconnect();
+
+			errorStreamJson = GetJsonErrorDetails(errorStream);
+
 			inputString = readFile(inputfilePath_statusCode);
 			if (inputString.contains("Return result = empty")) {
 				System.out.println(client + ". " + s_number + ". " + acode_or_styleid
-						+ " - Failed! Previous one contains empty result!, return Status Code = " + responseCode);
+						+ " - Failed! Previous one contains empty result!, return Status Code = " + responseCode
+						+ ". ErrorCode = " + errorStreamJson[2]);
 				SaveScratch(filePath_statusCode,
 						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
-								+ "  - Return Status Code: " + responseCode
-								+ " - Failed! Previous return is also empty! - Passed!");
+								+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
 
 			} else {
 
 				SaveScratch(filePath_statusCode,
 						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
-								+ "  - Return Status Code: " + responseCode
-								+ " - Failed. Previous retrun does not conturn empty!! - Failed");
+								+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
 
 			}
 
 			System.out.println(client + ". " + s_number + ". " + acode_or_styleid
-					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
+					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode
+					+ ". ErrorCode = " + errorStreamJson[2]);
 
 			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!");
+					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 
@@ -1300,12 +1409,35 @@ public class com_libs {
 			// write to txt file for acode or styleid and error code here:
 			//
 			outputString = "";
+
+			String[] errorStreamJson;
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			String errorStream = postData.toString();
+			con.disconnect();
+
+			errorStreamJson = GetJsonErrorDetails(errorStream);
 			System.out.println(client + ". " + s_number
-					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
-			SaveScratch(filePath_statusCode, client + ". " + vehicles_code + ". " + s_number + ". "
-					+ " - Return data Size = " + "- 0." + "  - Return Status Code: " + responseCode + " - Failed.");
+					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode
+					+ ". ErrorCode = " + errorStreamJson[2]);
+			SaveScratch(filePath_statusCode,
+					client + ". " + vehicles_code + ". " + s_number + ". " + " - Return data Size = " + "- 0."
+							+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
 			SaveScratch(filePath_return, client + ". " + vehicles_code + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!");
+					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
