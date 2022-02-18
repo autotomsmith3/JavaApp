@@ -1509,8 +1509,8 @@ public class com_libs {
 //		wr.close();
 		int responseCode = con.getResponseCode();
 		String outputString;
-		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
-				&& !(responseCode == 500)) {
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 405) && !(responseCode == 400)
+				&& !(responseCode == 503) && !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
 			StringBuffer postData = new StringBuffer();
@@ -1541,11 +1541,34 @@ public class com_libs {
 			// write to txt file for acode or styleid and error code here:
 			//
 			outputString = "";
-			System.out.println(
-					s + " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
+
+			String[] errorStreamJson;
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			String errorStream = postData.toString();
+			con.disconnect();
+
+			errorStreamJson = GetJsonErrorDetails(errorStream);
+
+			System.out.println(s + " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = "
+					+ responseCode + ". ErrorCode = " + errorStreamJson[2]);
 			SaveScratch(filePath_statusCode, client + ". " + s + " - Return data Size = " + " - 0."
-					+ "  - Return Status Code: " + responseCode + " - Failed.");
-			SaveScratch(filePath_return, client + ". " + s + " - Return data Size = 0  - Return result = empty!!!");
+					+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
+			SaveScratch(filePath_return, client + ". " + s + " - Return data Size = 0  - Return result = empty!!!"
+					+ ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
@@ -1617,7 +1640,7 @@ public class com_libs {
 //		wr.close();
 		int responseCode = con.getResponseCode();
 		String outputString;
-		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+		if (!(responseCode == 404)  && !(responseCode == 403) && !(responseCode == 405)&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
@@ -1648,9 +1671,30 @@ public class com_libs {
 			// error shows: 400,404, 500, 503,
 			// write to txt file for acode or styleid and error code here:
 			//
+			String[] errorStreamJson;
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			String errorStream = postData.toString();
+			con.disconnect();
+
+			errorStreamJson = GetJsonErrorDetails(errorStream);
+
 			outputString = "";
-			System.out.println(
-					s + " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
+			System.out.println(s + " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = "
+					+ responseCode + errorStreamJson[2]);
 //			SaveScratch(filePath_statusCode, client + ". " + s + " - Return data Size = " + " - 0."
 //					+ "  - Return Status Code: " + responseCode + " - Failed.");
 //			SaveScratch(filePath_return, client + ". " + s + " - Return data Size = 0  - Return result = empty!!!");
