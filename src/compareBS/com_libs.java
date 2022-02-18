@@ -153,8 +153,9 @@ public class com_libs {
 
 		int responseCode = con.getResponseCode();
 		String outputString;
-		if (!(responseCode == 404) && !(responseCode == 400) && !(responseCode == 401) && !(responseCode == 402)
-				&& !(responseCode == 403) && !(responseCode == 503) && !(responseCode == 500)) {
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF8"));
 			String inputLine;
 			StringBuffer postData = new StringBuffer();
@@ -194,7 +195,9 @@ public class com_libs {
 
 		int responseCode = con.getResponseCode();
 		String outputString;
-		if (!(responseCode == 404) && !(responseCode == 400) && !(responseCode == 503) && !(responseCode == 500)) {
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF8"));
 			String inputLine;
 			StringBuffer postData = new StringBuffer();
@@ -278,7 +281,8 @@ public class com_libs {
 		String outputString;
 		String acode_or_styleid = BSBody.substring(22, 35);
 		acode_or_styleid = getSubText(acode_or_styleid, '"');// "\"" - "
-		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
@@ -331,12 +335,14 @@ public class com_libs {
 			outputString = "";
 			System.out.println(client + ". " + s_number
 					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode
-					+ ". ErrorCode = " + errorStreamJson[2]);
+					+ ". StatusCode = " + errorStreamJson[0] + ". ErrorCode = " + errorStreamJson[2]);
 			SaveScratch(filePath_statusCode,
 					client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
 							+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
-			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
+			SaveScratch(filePath_return,
+					client + ". " + acode_or_styleid + ". " + s_number + ". "
+							+ " - Return data Size = 0  - Return result = empty!!!" + ". StatusCode = "
+							+ errorStreamJson[0] + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
@@ -410,7 +416,8 @@ public class com_libs {
 		acode_or_styleid = getSubText(acode_or_styleid, '"');// "\"" - "
 		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + sdfmt.format(d) + ".txt";
 
-		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
@@ -470,8 +477,10 @@ public class com_libs {
 			SaveScratch(filePath_statusCode,
 					client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
 							+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
-			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
+			SaveScratch(filePath_return,
+					client + ". " + acode_or_styleid + ". " + s_number + ". "
+							+ " - Return data Size = 0  - Return result = empty!!!" + ". StatusCode = "
+							+ errorStreamJson[0] + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
@@ -539,7 +548,8 @@ public class com_libs {
 //		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + sdfmt.format(d) + ".txt";//currentDateFolder
 		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + currentDateFolder + ".txt";
 
-		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
@@ -640,7 +650,7 @@ public class com_libs {
 			if (inputString.contains("Return result = empty")) {
 				System.out.println(client + ". " + s_number + ". " + acode_or_styleid
 						+ " - Failed! Previous one contains empty result!, return Status Code = " + responseCode
-						+ ". ErrorCode = " + errorStreamJson[2]);
+						+ ". StatusCode = " + errorStreamJson[0] + ". ErrorCode = " + errorStreamJson[2]);
 				SaveScratch(filePath_statusCode,
 						client + ". " + acode_or_styleid + ". " + s_number + ". " + " - Return data Size = " + "- 0."
 								+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
@@ -657,8 +667,10 @@ public class com_libs {
 					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode
 					+ ". ErrorCode = " + errorStreamJson[2]);
 
-			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
+			SaveScratch(filePath_return,
+					client + ". " + acode_or_styleid + ". " + s_number + ". "
+							+ " - Return data Size = 0  - Return result = empty!!!" + ". StatusCode = "
+							+ errorStreamJson[0] + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
@@ -737,7 +749,8 @@ public class com_libs {
 //		acode_or_styleid = getSubText(acode_or_styleid, '"');// "\"" - "
 //		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + sdfmt.format(d) + ".txt";
 
-		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
@@ -792,8 +805,10 @@ public class com_libs {
 					+ ". ErrorCode = " + errorStreamJson[2]);
 			SaveScratch(filePath_statusCode, client + ". " + cc_code + ". " + s_number + ". " + " - Return data Size = "
 					+ "- 0." + "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
-			SaveScratch(filePath_return, client + ". " + cc_code + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
+			SaveScratch(filePath_return,
+					client + ". " + cc_code + ". " + s_number + ". "
+							+ " - Return data Size = 0  - Return result = empty!!!" + ". StatusCode = "
+							+ errorStreamJson[0] + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
@@ -875,7 +890,8 @@ public class com_libs {
 //		acode_or_styleid = getSubText(acode_or_styleid, '"');// "\"" - "
 //		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + sdfmt.format(d) + ".txt";
 
-		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
@@ -931,8 +947,10 @@ public class com_libs {
 					+ ". ErrorCode = " + errorStreamJson[2]);
 			SaveScratch(filePath_statusCode, client + ". " + cc_code + ". " + s_number + ". " + " - Return data Size = "
 					+ "- 0." + "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
-			SaveScratch(filePath_return, client + ". " + cc_code + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
+			SaveScratch(filePath_return,
+					client + ". " + cc_code + ". " + s_number + ". "
+							+ " - Return data Size = 0  - Return result = empty!!!" + ". StatusCode = "
+							+ errorStreamJson[0] + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
@@ -1002,7 +1020,8 @@ public class com_libs {
 
 		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + currentDateFolder + ".txt";
 
-		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
@@ -1114,8 +1133,10 @@ public class com_libs {
 			System.out.println(client + ". " + s_number + ". " + acode_or_styleid
 					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
 
-			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
+			SaveScratch(filePath_return,
+					client + ". " + acode_or_styleid + ". " + s_number + ". "
+							+ " - Return data Size = 0  - Return result = empty!!!" + ". StatusCode = "
+							+ errorStreamJson[0] + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 
@@ -1184,7 +1205,8 @@ public class com_libs {
 
 		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + currentDateFolder + ".txt";
 
-		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
@@ -1299,8 +1321,10 @@ public class com_libs {
 					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode
 					+ ". ErrorCode = " + errorStreamJson[2]);
 
-			SaveScratch(filePath_return, client + ". " + acode_or_styleid + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
+			SaveScratch(filePath_return,
+					client + ". " + acode_or_styleid + ". " + s_number + ". "
+							+ " - Return data Size = 0  - Return result = empty!!!" + ". StatusCode = "
+							+ errorStreamJson[0] + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 
@@ -1380,7 +1404,8 @@ public class com_libs {
 //		acode_or_styleid = getSubText(acode_or_styleid, '"');// "\"" - "
 //		filePath_return = filePath_return + "_" + acode_or_styleid + "_" + sdfmt.format(d) + ".txt";
 
-		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
@@ -1436,8 +1461,10 @@ public class com_libs {
 			SaveScratch(filePath_statusCode,
 					client + ". " + vehicles_code + ". " + s_number + ". " + " - Return data Size = " + "- 0."
 							+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
-			SaveScratch(filePath_return, client + ". " + vehicles_code + ". " + s_number + ". "
-					+ " - Return data Size = 0  - Return result = empty!!!" + ". ErrorCode = " + errorStreamJson[2]);
+			SaveScratch(filePath_return,
+					client + ". " + vehicles_code + ". " + s_number + ". "
+							+ " - Return data Size = 0  - Return result = empty!!!" + errorStreamJson[0]
+							+ ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
@@ -1509,8 +1536,9 @@ public class com_libs {
 //		wr.close();
 		int responseCode = con.getResponseCode();
 		String outputString;
-		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 405) && !(responseCode == 400)
-				&& !(responseCode == 503) && !(responseCode == 500)) {
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
 			StringBuffer postData = new StringBuffer();
@@ -1568,7 +1596,7 @@ public class com_libs {
 			SaveScratch(filePath_statusCode, client + ". " + s + " - Return data Size = " + " - 0."
 					+ "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
 			SaveScratch(filePath_return, client + ". " + s + " - Return data Size = 0  - Return result = empty!!!"
-					+ ". ErrorCode = " + errorStreamJson[2]);
+					+ ". StatusCode = " + errorStreamJson[0] + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
@@ -1640,7 +1668,8 @@ public class com_libs {
 //		wr.close();
 		int responseCode = con.getResponseCode();
 		String outputString;
-		if (!(responseCode == 404)  && !(responseCode == 403) && !(responseCode == 405)&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
@@ -1694,7 +1723,7 @@ public class com_libs {
 
 			outputString = "";
 			System.out.println(s + " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = "
-					+ responseCode + errorStreamJson[2]);
+					+ responseCode + ". errorCode = " + errorStreamJson[2]);
 //			SaveScratch(filePath_statusCode, client + ". " + s + " - Return data Size = " + " - 0."
 //					+ "  - Return Status Code: " + responseCode + " - Failed.");
 //			SaveScratch(filePath_return, client + ". " + s + " - Return data Size = 0  - Return result = empty!!!");
@@ -1768,7 +1797,8 @@ public class com_libs {
 //		wr.close();
 		int responseCode = con.getResponseCode();
 		String outputString;
-		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
@@ -1882,7 +1912,8 @@ public class com_libs {
 		wr.close();
 		int responseCode = con.getResponseCode();
 		String outputString;
-		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
@@ -1987,7 +2018,8 @@ public class com_libs {
 //		wr.close();
 		int responseCode = con.getResponseCode();
 		String outputString;
-		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
@@ -2017,12 +2049,35 @@ public class com_libs {
 			// write to txt file for acode or styleid and error code here:
 			//
 			outputString = "";
+
+			String[] errorStreamJson;
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//				System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			String errorStream = postData.toString();
+			con.disconnect();
+
+			errorStreamJson = GetJsonErrorDetails(errorStream);
+
 			System.out.println(client + ". " + s_number
 					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode);
 			SaveScratch(filePath_statusCode, client + ". " + BSBody + ". " + s_number + " - Return data Size = "
-					+ " - 0." + "  - Return Status Code: " + responseCode + " - Failed.");
+					+ " - 0." + "  - Return Status Code: " + responseCode + ". ErrorCode = " + errorStreamJson[2]);
 			SaveScratch(filePath_return,
-					client + ". " + BSBody + ". " + s_number + " - Return data Size = 0  - Return result = empty!!!");
+					client + ". " + BSBody + ". " + s_number + " - Return data Size = 0  - Return result = empty!!!"
+							+ ". StatusCode = " + errorStreamJson[0] + ". ErrorCode = " + errorStreamJson[2]);
 		}
 		return outputString;
 	}
@@ -2094,7 +2149,8 @@ public class com_libs {
 		wr.close();
 		int responseCode = con.getResponseCode();
 		String outputString;
-		if (!(responseCode == 404) && !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
@@ -2153,7 +2209,8 @@ public class com_libs {
 
 		int responseCode = con.getResponseCode();
 		String outputString;
-		if (!(responseCode == 404) && !(responseCode == 400) && !(responseCode == 403) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF8"));
 			String inputLine;
@@ -2609,7 +2666,8 @@ public class com_libs {
 		wr.close();
 		int responseCode = con.getResponseCode();
 		String outputString;
-		if (!(responseCode == 404) && !(responseCode == 400) && !(responseCode == 401) && !(responseCode == 503)
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
 				&& !(responseCode == 500)) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
