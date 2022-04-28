@@ -25,6 +25,7 @@
 {"vehicles":[{"code":"USD20KIS041E0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"USD20KIS071A0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"USD20KIS071B0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"USD20KIS071C0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"USD20KIS051A0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"USD20KIS051B0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"USD20KIS051C0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
