@@ -1,5 +1,6 @@
 {"vehicles":[{"code":"USD20GSS022A0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"USD20GSS022B0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"USD20GSS022C0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"USD20GSS011A0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"USD20GSS011B0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"USD20GSS012A0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
