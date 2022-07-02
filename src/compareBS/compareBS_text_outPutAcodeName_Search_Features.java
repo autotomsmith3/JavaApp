@@ -88,8 +88,7 @@ public class compareBS_text_outPutAcodeName_Search_Features {
 
 		for (String Text_Body : TextBodys) {
 			count++;
-			String searchItemsfilePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + env + "."
-					+ client + "CompareBS_Text_SearchItems_Returns.txt";
+			String searchItemsfilePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + "SearchItems_Returns.txt";
 			String jsonTextFrPostTextWS = com_libs.getNewSourceCodeJsonPostTextOutPutAcodeName(env, client, Text_Body, envURL, "",
 					"", count, headers[0], headers[1], headers[2], headers[3]);
 			System.out.println("stop here!!!");
