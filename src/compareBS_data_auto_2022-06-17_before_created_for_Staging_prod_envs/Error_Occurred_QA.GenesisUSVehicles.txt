@@ -1,1 +1,0 @@
-countNum = 1. path = C:\Users\Zhoul\git\JavaApp\src\compareBS_data_auto\, env = QA, client = GenesisUS, BS_Name_Vehicles = Vehicles
