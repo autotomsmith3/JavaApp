@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class mySQLquery {
 
-	public String[] PullOneModelCodeToAcodesOrStyleids(String ModelCode) throws Exception {
+	public static String[] PullOneModelCodeToAcodesOrStyleids_From_CPP_QA_DB(String ModelCode) throws Exception {
 //		int wSize = titleString.length;
 //		String[] jsonValue = new String[wSize];
 
@@ -72,19 +72,97 @@ public class mySQLquery {
 		return AcodesOrStyleidsReal;
 	}
 
+	public static String[] PullOneModelCodeToAcodesOrStyleids(String ModelCode) throws Exception {
+//		int wSize = titleString.length;
+//		String[] jsonValue = new String[wSize];
+
+		String[] Acodes = new String[500];
+		String query = "";
+		String CountryCode = "";
+		String Acode = "";
+		int ModelCodeLen = ModelCode.length();
+		String acode_or_ymmid;
+		Statement stmt = null;
+		if (ModelCodeLen == 10) {
+			acode_or_ymmid = "acode";
+			//Connect From Staging CPP DB:
+			Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+			Connection conn = DriverManager.getConnection("jdbc:mysql://LNOC-PPCP-XMY1.autodatacorp.org:3306",
+					"cpp_readonly", "test123"); // Staging CPP MySQL DB
+			stmt = conn.createStatement();
+		} else {
+			acode_or_ymmid = "ymmid";
+			//Connect From QA CPP DB: no longer update since June 2022
+			Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+			Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-q1cp-xmy1.autodatacorp.org:3306",
+					"qa_admin", "dund@s");
+			stmt = conn.createStatement();
+		}
+
+//		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+//		Connection conn = DriverManager.getConnection("jdbc:mysql://LNOC-PPCP-XMY1.autodatacorp.org:3306",
+//				"cpp_readonly", "test123"); // Staging CPP MySQL DB
+//		Statement stmt = conn.createStatement();
+		if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+			// it's modelcode 10 digit Acode = USD30ACC18
+			query = "SELECT DISTINCT WarehouseKeyStr, CountryCode, GVUID,CreatedDT "
+					+ "FROM globalvehicle.globalvehicle WHERE WarehouseKeyStr LIKE  \"" + ModelCode + "%" + "\"";
+		} else {
+			// it's YMMID 5-6 digits ymmid = 35130
+			query = "SELECT DISTINCT vehicle_id FROM modelwalk_v113.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
+					+ ModelCode + "\")";
+
+		}
+
+		ResultSet rs = stmt.executeQuery(query);
+//		
+		int num = 0;
+		while (rs.next()) {
+			// do something with the extracted data...
+			if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+				Acode = rs.getString("WarehouseKeyStr");
+			} else {
+				Acode = rs.getString("vehicle_id");//
+				System.out.println(Acode);
+			}
+
+			if (Acode.length() > 13) {
+//				Acode = Acode.substring(0, 13);
+				System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
+			} else {
+				Acodes[num] = Acode;
+				num++;
+			}
+
+			System.out.println(Acode);
+		}
+//		Save real size of String 
+		int len = num;
+		String[] AcodesOrStyleidsReal = new String[len];
+		for (int i = 0; i < len; i++) {
+			AcodesOrStyleidsReal[i] = Acodes[i];
+		}
+
+		return AcodesOrStyleidsReal;
+	}
+
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-//		USC90HYC012A0+STDTN-6AT
+		String Acode = "USC90HYC012A0+STDTN-6AT";// USD30ACC18
 		System.out.println("ignore now");
-		
-//		String Acodes[] = PullOneModelCodeToAcodesOrStyleids("35130");// can be: USC90HYC02, 35130
-//		int len = Acodes.length;
-//		System.out.println("\nTotal Aocdes = " + len);
-//		for (int i = 0; i < len; i++) {
-//
-//			System.out.println(Acodes[i]);
-//
-//		}
+
+		String Acodes[];
+
+//		Acodes = PullOneModelCodeToAcodesOrStyleids("35130");
+		Acodes = PullOneModelCodeToAcodesOrStyleids("35047"); //no return currently: 35676, has return: 35047
+		// can be: USC90HYC02, 35130
+		int len = Acodes.length;
+		System.out.println("\nTotal Aocdes = " + len);
+		for (int i = 0; i < len; i++) {
+
+			System.out.println(Acodes[i]);
+
+		}
 	}
 
 }
