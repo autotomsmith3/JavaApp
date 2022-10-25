@@ -159,7 +159,7 @@ public class mySQLquery {
 		return AcodesOrStyleidsReal;
 	}
 
-	public static String[] PullOneModelCodeToAcodesOrStyleids(String env, String client, String ModelCode)
+	public static String[] PullOneModelCodeToAcodesOrStyleids_From_CPP_Model_Walk_get_Styleids(String env, String client, String ModelCode)
 			throws Exception {
 //		int wSize = titleString.length;
 //		String[] jsonValue = new String[wSize];
@@ -248,7 +248,63 @@ public class mySQLquery {
 		}
 		return AcodesOrStyleidsReal;
 	}
+	public static String[] PullOneModelCodeToAcodesOrStyleids(String env, String client, String ModelCode)
+			throws Exception {
+//		int wSize = titleString.length;
+//		String[] jsonValue = new String[wSize];
 
+		String[] Acodes = new String[500];
+		String query = "";
+		String CountryCode = "";
+		String Acode = "";
+		int ModelCodeLen = ModelCode.length();
+		String acode_or_ymmid;
+		Statement stmt = null;
+
+		String[] AcodesOrStyleidsReal = new String[100];
+
+		if (ModelCodeLen == 10) {
+			acode_or_ymmid = "acode";
+			// Connect From Staging CPP DB:
+			Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+			Connection conn = DriverManager.getConnection("jdbc:mysql://LNOC-PPCP-XMY1.autodatacorp.org:3306",
+					"cpp_readonly", "test123"); // Staging CPP MySQL DB
+			stmt = conn.createStatement();
+		} else {
+			acode_or_ymmid = "ymmid";
+			// Connect From QA CPP DB: no longer update since June 2022
+			Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+			Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-q1cp-xmy1.autodatacorp.org:3306",
+					"qa_admin", "dund@s");
+			stmt = conn.createStatement();
+		}
+
+//		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+//		Connection conn = DriverManager.getConnection("jdbc:mysql://LNOC-PPCP-XMY1.autodatacorp.org:3306",
+//				"cpp_readonly", "test123"); // Staging CPP MySQL DB
+//		Statement stmt = conn.createStatement();
+		if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+			// it's modelcode 10 digit Acode = USD30ACC18. This model walk service would not include Discontinued trims (confirmed). 
+			String cppModelWalkURL = "https://cpp-stable.autodatacorp.org/model-walk/rest/trims/ORDERING/EN";
+
+			AcodesOrStyleidsReal = GetStyleidWSFromYmmid(env, client, cppModelWalkURL, ModelCode);
+
+//			AcodesOrStyleidsReal = new String[len];
+//			for (int i = 0; i < len; i++) {
+//				AcodesOrStyleidsReal[i] = Acodes[i];
+//			}
+		} else {
+			// it's YMMID 5-6 digits ymmid = 35130
+
+//			get styleids from cpp model walk service. This model walk service would not include Discontinued trims (confirmed). 
+//			String env = "Prod";
+
+			String cppModelWalkURL = "https://cpp-stable.autodatacorp.org/model-walk/rest/trims/STYLEID/EN";
+
+			AcodesOrStyleidsReal = GetStyleidWSFromYmmid(env, client, cppModelWalkURL, ModelCode);
+		}
+		return AcodesOrStyleidsReal;
+	}
 	public static String[] GetStyleidWSFromYmmid(String env, String client, String cppModelWalkURL, String ymmid)
 			throws Exception {
 		String country = GetCountryCodeFromClientName(client);
