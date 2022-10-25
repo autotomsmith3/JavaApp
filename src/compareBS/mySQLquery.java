@@ -233,9 +233,9 @@ public class mySQLquery {
 		return AcodesOrStyleidsReal;
 	}
 
-	public static void GetStyleidWSFromYmmid(String env, String client, String cppModelWalkURL, String headers[],
-			String country, String ymmid) throws Exception {
-
+	public static String[] GetStyleidWSFromYmmid(String env, String client, String cppModelWalkURL, String ymmid)
+			throws Exception {
+		String country = GetCountryCodeFromClientName(client);
 		Properties prop = new Properties();
 		try {
 			prop.load(compareBS_commonCompetitors_outPutAcodeName.class.getClassLoader()
@@ -247,12 +247,12 @@ public class mySQLquery {
 
 		String envURL = cppModelWalkURL + "/" + country + "/" + ymmid;// QA
 
-		String jsonModelWalkWS = getStyleidsFromYmmid(env, client, ymmid, envURL, "", "getStyleidFromYmmid", 1, "", "",
-				"", "");
-
+		String[] jsonModelWalkWSStyleids = getStyleidsFromYmmid(env, client, ymmid, envURL, "", "getStyleidFromYmmid",
+				1, "", "", "", "");
+		return jsonModelWalkWSStyleids;
 	}
 
-	public static String getStyleidsFromYmmid(String environment, String client, String cc_code, String url1,
+	public static String[] getStyleidsFromYmmid(String environment, String client, String cc_code, String url1,
 			String url2, String auth_key, int s_number, String lang, String appid, String product_key,
 			String profile_Key) throws Exception {
 
@@ -284,7 +284,7 @@ public class mySQLquery {
 		filePath_return = filePath_return + "_" + sdfmt.format(d) + ".txt";
 
 		final String USER_AGENT = "Mozilla/5.0";
-
+		String[] styleids = new String[100];
 		String urlS = url1;
 		URL obj = new URL(urlS);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -350,7 +350,7 @@ public class mySQLquery {
 
 			// model walk stop here
 			// parse the outputString here:
-			String[] styleids = GetStyleids(client, outputString, "text", "URLString", "parameterS", 10);
+			styleids = GetStyleids(client, outputString, "text", "URLString", "parameterS", 10);
 			int s = styleids.length;
 			System.out.println("\n");
 			for (int i = 0; i < s; i++) {
@@ -389,7 +389,7 @@ public class mySQLquery {
 					+ ". ErrorCode = " + errorStreamJson[2]);
 
 		}
-		return outputString;
+		return styleids;
 	}
 
 	public static String[] GetStyleids(String client, String wsResultfile, String text, String URLString,
@@ -502,6 +502,57 @@ public class mySQLquery {
 		return styleids;
 	}
 
+	public static String GetCountryCodeFromClientName(String client) throws IOException {
+		String country = "CA";
+		switch (client) {
+		case "Kia":
+			country = "CA";
+			break;
+		case "KiaUS":
+			country = "US";
+			break;
+		case "Mazda":
+			country = "US";
+			break;
+		case "MazdaCA":
+			country = "CA";
+			break;
+		case "Mitsubishi":
+			country = "CA";
+			break;
+		case "MitsubishiShowRoom":
+			country = "CA";
+			break;
+		case "Subaru":
+			country = "CA";
+			break;
+		case "SubaruUS":
+			country = "US";
+			break;
+		case "Hyundai":
+			country = "US";
+			break;
+		case "GenesisUS":
+			country = "US";
+			break;
+		case "ToyotaCA":
+			country = "US";
+			break;
+		case "LexusCA":
+			country = "CA";
+			break;
+		case "VolkswagenCA":
+			country = "CA";
+			break;
+		case "JeepUS":
+			country = "US";
+			break;
+		default:
+			country = "CA";
+		}
+		return country;
+	}
+
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 //		String Acode = "USC90HYC012A0+STDTN-6AT";// USD30ACC18
@@ -518,15 +569,14 @@ public class mySQLquery {
 //
 //			System.out.println(Acodes[i]);
 //
-//		}
+//		} 
 		String env = "Prod";
-		String cppModelWalkURL = "https://cpp-stable.autodatacorp.org/model-walk/rest/trims/STYLEID/EN";
-		String country = "US"; // "US" or "CA"
-		String ymmid = "34366";
-		String client = "MazdaUS";
-		String headers[] = { "", "", "", "", "" };
 
-		GetStyleidWSFromYmmid(env, client, cppModelWalkURL, headers, country, ymmid);
+		String cppModelWalkURL = "https://cpp-stable.autodatacorp.org/model-walk/rest/trims/STYLEID/EN";
+		String ymmid = "3436";
+		String client = "Mazda";
+
+		String[] Style_IDs = GetStyleidWSFromYmmid(env, client, cppModelWalkURL, ymmid);
 
 	}
 
