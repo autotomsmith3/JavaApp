@@ -1,9 +1,22 @@
 package compareBS;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Properties;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 //
 
@@ -72,7 +85,7 @@ public class mySQLquery {
 		return AcodesOrStyleidsReal;
 	}
 
-	public static String[] PullOneModelCodeToAcodesOrStyleids(String ModelCode) throws Exception {
+	public static String[] PullOneModelCodeToAcodesOrStyleids_From_CPP_Staging_DB(String ModelCode) throws Exception {
 //		int wSize = titleString.length;
 //		String[] jsonValue = new String[wSize];
 
@@ -85,14 +98,14 @@ public class mySQLquery {
 		Statement stmt = null;
 		if (ModelCodeLen == 10) {
 			acode_or_ymmid = "acode";
-			//Connect From Staging CPP DB:
+			// Connect From Staging CPP DB:
 			Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
 			Connection conn = DriverManager.getConnection("jdbc:mysql://LNOC-PPCP-XMY1.autodatacorp.org:3306",
 					"cpp_readonly", "test123"); // Staging CPP MySQL DB
 			stmt = conn.createStatement();
 		} else {
 			acode_or_ymmid = "ymmid";
-			//Connect From QA CPP DB: no longer update since June 2022
+			// Connect From QA CPP DB: no longer update since June 2022
 			Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
 			Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-q1cp-xmy1.autodatacorp.org:3306",
 					"qa_admin", "dund@s");
@@ -146,23 +159,375 @@ public class mySQLquery {
 		return AcodesOrStyleidsReal;
 	}
 
-	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
-		String Acode = "USC90HYC012A0+STDTN-6AT";// USD30ACC18
-		System.out.println("ignore now");
+	public static String[] PullOneModelCodeToAcodesOrStyleids(String ModelCode) throws Exception {
+//		int wSize = titleString.length;
+//		String[] jsonValue = new String[wSize];
 
-		String Acodes[];
+		String[] Acodes = new String[500];
+		String query = "";
+		String CountryCode = "";
+		String Acode = "";
+		int ModelCodeLen = ModelCode.length();
+		String acode_or_ymmid;
+		Statement stmt = null;
+		if (ModelCodeLen == 10) {
+			acode_or_ymmid = "acode";
+			// Connect From Staging CPP DB:
+			Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+			Connection conn = DriverManager.getConnection("jdbc:mysql://LNOC-PPCP-XMY1.autodatacorp.org:3306",
+					"cpp_readonly", "test123"); // Staging CPP MySQL DB
+			stmt = conn.createStatement();
+		} else {
+			acode_or_ymmid = "ymmid";
+			// Connect From QA CPP DB: no longer update since June 2022
+			Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+			Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-q1cp-xmy1.autodatacorp.org:3306",
+					"qa_admin", "dund@s");
+			stmt = conn.createStatement();
+		}
 
-//		Acodes = PullOneModelCodeToAcodesOrStyleids("35130");
-		Acodes = PullOneModelCodeToAcodesOrStyleids("35047"); //no return currently: 35676, has return: 35047
-		// can be: USC90HYC02, 35130
-		int len = Acodes.length;
-		System.out.println("\nTotal Aocdes = " + len);
-		for (int i = 0; i < len; i++) {
-
-			System.out.println(Acodes[i]);
+//		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+//		Connection conn = DriverManager.getConnection("jdbc:mysql://LNOC-PPCP-XMY1.autodatacorp.org:3306",
+//				"cpp_readonly", "test123"); // Staging CPP MySQL DB
+//		Statement stmt = conn.createStatement();
+		if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+			// it's modelcode 10 digit Acode = USD30ACC18
+			query = "SELECT DISTINCT WarehouseKeyStr, CountryCode, GVUID,CreatedDT "
+					+ "FROM globalvehicle.globalvehicle WHERE WarehouseKeyStr LIKE  \"" + ModelCode + "%" + "\"";
+		} else {
+			// it's YMMID 5-6 digits ymmid = 35130
+			query = "SELECT DISTINCT vehicle_id FROM modelwalk_v113.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
+					+ ModelCode + "\")";
 
 		}
+
+		ResultSet rs = stmt.executeQuery(query);
+//		
+		int num = 0;
+		while (rs.next()) {
+			// do something with the extracted data...
+			if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+				Acode = rs.getString("WarehouseKeyStr");
+			} else {
+				Acode = rs.getString("vehicle_id");//
+				System.out.println(Acode);
+			}
+
+			if (Acode.length() > 13) {
+//				Acode = Acode.substring(0, 13);
+				System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
+			} else {
+				Acodes[num] = Acode;
+				num++;
+			}
+
+			System.out.println(Acode);
+		}
+//		Save real size of String 
+		int len = num;
+		String[] AcodesOrStyleidsReal = new String[len];
+		for (int i = 0; i < len; i++) {
+			AcodesOrStyleidsReal[i] = Acodes[i];
+		}
+
+		return AcodesOrStyleidsReal;
+	}
+
+	public static void GetStyleidWSFromYmmid(String env, String client, String cppModelWalkURL, String headers[],
+			String country, String ymmid) throws Exception {
+
+		Properties prop = new Properties();
+		try {
+			prop.load(compareBS_commonCompetitors_outPutAcodeName.class.getClassLoader()
+					.getResourceAsStream("compareBS_data/compareBS_text.properties"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String envURL = cppModelWalkURL + "/" + country + "/" + ymmid;// QA
+
+		String jsonModelWalkWS = getStyleidsFromYmmid(env, client, ymmid, envURL, "", "getStyleidFromYmmid", 1, "", "",
+				"", "");
+
+	}
+
+	public static String getStyleidsFromYmmid(String environment, String client, String cc_code, String url1,
+			String url2, String auth_key, int s_number, String lang, String appid, String product_key,
+			String profile_Key) throws Exception {
+
+		int wt = 2;
+		String dateStamp, timeStamp;
+		final int CONNECTION_TIMEOUT = 1000 * 900;
+		final int DATARETREIVAL_TIMEOUT = 1000 * 900;
+
+		String acode_or_styleid = cc_code.replace("/", "");
+
+		String filePath_statusCode = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + environment + "." + client
+				+ "CompareBS_CommonCompetitors_StatusCode.txt";
+		String filePath_return = "C:\\1\\Eclipse\\Test Results\\CompareBS\\" + s_number + "_" + environment + "."
+				+ client + "_CompareBS_CommonCompetitors_Returns_" + acode_or_styleid + ".txt";
+
+		Calendar cal = Calendar.getInstance();
+		cal.getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		SimpleDateFormat sdfmt = new SimpleDateFormat("yyyy-MM-dd");
+		timeStamp = sdf.format(cal.getTime());
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+		Date d = new Date();
+		dateStamp = df.format(d);
+		timeStamp = dateStamp + "  " + timeStamp;
+		filePath_statusCode = filePath_statusCode.replace(".txt", "");
+		filePath_statusCode = filePath_statusCode + "_" + sdfmt.format(d) + ".txt";
+
+		filePath_return = filePath_return.replace(".txt", "");
+		filePath_return = filePath_return + "_" + sdfmt.format(d) + ".txt";
+
+		final String USER_AGENT = "Mozilla/5.0";
+
+		String urlS = url1;
+		URL obj = new URL(urlS);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setConnectTimeout(CONNECTION_TIMEOUT);
+		con.setReadTimeout(DATARETREIVAL_TIMEOUT);
+
+		con.setRequestMethod("GET");// for daaSNI is "POST"
+		con.setRequestProperty("User-Agent", USER_AGENT);
+		con.setRequestProperty("Content-Length", Integer.toString(11416884));// 11416884
+
+		con.setRequestProperty("Accept", "application/json");
+		con.setRequestProperty("Content-Type", "application/json");
+//			*************QA*************
+		con.setRequestProperty("Accept-Language", lang);
+
+//			con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=\"autodata-2ClEuwgRighfN83ccSskw3TA\"");
+		con.setRequestProperty("Authorization", "Atmosphere atmosphere_app_id=" + appid);
+
+//			con.setRequestProperty("chrome-appId", "autodata-2ClEuwgRighfN83ccSskw3TA");
+		con.setRequestProperty("chrome-appId", "autodata-" + appid);
+
+//			con.setRequestProperty("chrome-chrome-productKey", "comparev3");
+		con.setRequestProperty("chrome-chrome-productKey", product_key);
+
+//			con.setRequestProperty("X-Profile-Key", "kiaordering-ca-default");
+		con.setRequestProperty("X-Profile-Key", profile_Key);
+//			*************QA*************
+
+		con.setDoOutput(true);
+//			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+//			wr.writeBytes(BSBody);
+//			wr.flush();
+//			wr.close();
+		int responseCode = con.getResponseCode();
+		String outputString;
+//			String acode_or_styleid = cc_code.replace("/","");
+
+//			acode_or_styleid = getSubText(acode_or_styleid, '"');// "\"" - "
+//			filePath_return = filePath_return + "_" + acode_or_styleid + "_" + sdfmt.format(d) + ".txt";
+
+		if (!(responseCode == 404) && !(responseCode == 403) && !(responseCode == 402) && !(responseCode == 401)
+				&& !(responseCode == 405) && !(responseCode == 400) && !(responseCode == 503)
+				&& !(responseCode == 500)) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//					System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			outputString = postData.toString();
+			con.disconnect();
+
+			System.out.println(client + ". " + s_number + " - Return data Size = " + len + "  - Return Status Code: "
+					+ responseCode);
+
+			// model walk stop here
+			// parse the outputString here:
+			String[] styleids = GetStyleids(client, outputString, "text", "URLString", "parameterS", 10);
+			int s = styleids.length;
+			System.out.println("\n");
+			for (int i = 0; i < s; i++) {
+				System.out.println("Styleid " + (i + 1) + " = " + styleids[i]);
+			}
+			System.out.println("\nEnd=\n");
+		} else {
+			// error shows: 400,404, 500, 503,
+			// write to txt file for acode or styleid and error code here:
+			//
+			String[] errorStreamJson = { "1", "2", "3" };
+			;
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getErrorStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer postData = new StringBuffer();
+
+			int len = 0;
+
+			while ((inputLine = in.readLine()) != null) {
+//					System.out.println("Return data Size = "+inputLine.length());
+				len = inputLine.length();
+				if (!inputLine.isEmpty()) {
+					postData.append(inputLine);
+				}
+			}
+			in.close();
+			String errorStream = postData.toString();
+			con.disconnect();
+
+//				errorStreamJson = GetJsonErrorDetails(errorStream);
+
+			outputString = "";
+			System.out.println(client + ". " + s_number
+					+ " - Failed!Failed!Failed!Failed!Failed!Failed!Failed!, return Status Code = " + responseCode
+					+ ". ErrorCode = " + errorStreamJson[2]);
+
+		}
+		return outputString;
+	}
+
+	public static String[] GetStyleids(String client, String wsResultfile, String text, String URLString,
+			String parameterS, int countNum) throws IOException {
+
+		String serverTime = "";
+		String error = "";
+		String executionTimeMS = "";
+		String resultObj = "";
+		String id = "";
+		String mfgCode = "";
+		String trim = "";
+		String variation = "";
+
+		String modelsObj = "";
+		String modelYearId = "";
+
+		String[] temp = new String[30];
+		String[][] jsonValue = new String[100][1];
+		int size = 0;
+		if (text.equals("")) {
+			temp[0] = Integer.toString(countNum);
+			temp[1] = URLString;
+			temp[2] = "";
+			temp[3] = "404 error";
+			System.out.println("S/N: " + countNum);
+			System.out.println("404 ERROR ON : " + URLString);
+
+		} else {
+			try {
+				JSONObject obj = new JSONObject(wsResultfile);
+
+				JSONArray result = obj.getJSONArray("result");
+				size = result.length();
+
+				if (size == 0) {
+
+					temp[0] = Integer.toString(countNum);
+					temp[1] = URLString;
+					temp[2] = "";
+					temp[3] = "result [] object is blank";
+
+					System.out.println("gvuid = " + "  " + " - Result [] object is blank. ");
+
+				} else {
+					for (int i = 0; i < size; i++) {
+						try {
+							id = result.getJSONObject(i).getString("id");
+						} catch (Exception ex) {
+							id = "null";
+						}
+						try {
+							mfgCode = result.getJSONObject(i).getString("mfgCode");
+						} catch (Exception ex) {
+							mfgCode = "null";
+						}
+						try {
+							trim = result.getJSONObject(i).getString("trim");
+						} catch (Exception ex) {
+							trim = "null";
+						}
+						try {
+							variation = result.getJSONObject(i).getString("variation");
+						} catch (Exception ex) {
+							variation = "null";
+						}
+//							JSONArray modelsObject = result.getJSONObject(i).getJSONArray("models");
+//							int modelsObjSize = modelsObject.length();
+//							modelsObj = Integer.toString(modelsObjSize);
+						for (int j = 0; j < 1; j++) {
+//								try {
+//									modelYearId = modelsObject.getJSONObject(j).getString("modelYearId");
+//								} catch (Exception ex) {
+//									modelYearId = "";
+//								}
+//								try {
+//									model = modelsObject.getJSONObject(j).getString("model");
+//								} catch (Exception ex) {
+//									model = "";
+//								}
+
+							System.out.println("No.=" + (i + 1) + ".  id: " + id);
+
+//								String[] jsonValue = new String[11];
+
+							jsonValue[i][0] = id;
+//		
+
+						}
+					}
+				}
+			} catch (Exception ex) {
+				System.out.println("error occurs!");
+
+				temp[0] = Integer.toString(countNum);
+				temp[1] = URLString;
+				temp[2] = "";
+				temp[3] = "200 error";
+				System.out.println("S/N: " + countNum);
+				System.out.println("ERROR 200 ON : " + URLString);
+
+			}
+
+		}
+		String styleids[] = new String[size];
+		for (int i = 0; i < size; i++) {
+			styleids[i] = jsonValue[i][0];
+		}
+
+		return styleids;
+	}
+
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+//		String Acode = "USC90HYC012A0+STDTN-6AT";// USD30ACC18
+//		System.out.println("ignore now");
+//
+//		String Acodes[];
+//
+////		Acodes = PullOneModelCodeToAcodesOrStyleids("35130");
+//		Acodes = PullOneModelCodeToAcodesOrStyleids("35047"); //no return currently: 35676, has return: 35047
+//		// can be: USC90HYC02, 35130
+//		int len = Acodes.length;
+//		System.out.println("\nTotal Aocdes = " + len);
+//		for (int i = 0; i < len; i++) {
+//
+//			System.out.println(Acodes[i]);
+//
+//		}
+		String env = "Prod";
+		String cppModelWalkURL = "https://cpp-stable.autodatacorp.org/model-walk/rest/trims/STYLEID/EN";
+		String country = "US"; // "US" or "CA"
+		String ymmid = "34366";
+		String client = "MazdaUS";
+		String headers[] = { "", "", "", "", "" };
+
+		GetStyleidWSFromYmmid(env, client, cppModelWalkURL, headers, country, ymmid);
+
 	}
 
 }

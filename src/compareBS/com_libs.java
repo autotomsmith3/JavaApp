@@ -674,7 +674,6 @@ public class com_libs {
 		}
 		return outputString;
 	}
-
 	public static String getNewSourceCodeJsonGETcommonCompetitors(String environment, String client, String cc_code,
 			String url1, String url2, String auth_key, int s_number, String lang, String appid, String product_key,
 			String profile_Key) throws Exception {
