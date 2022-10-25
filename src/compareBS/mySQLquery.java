@@ -159,7 +159,8 @@ public class mySQLquery {
 		return AcodesOrStyleidsReal;
 	}
 
-	public static String[] PullOneModelCodeToAcodesOrStyleids(String ModelCode) throws Exception {
+	public static String[] PullOneModelCodeToAcodesOrStyleids(String env, String client, String ModelCode)
+			throws Exception {
 //		int wSize = titleString.length;
 //		String[] jsonValue = new String[wSize];
 
@@ -170,6 +171,9 @@ public class mySQLquery {
 		int ModelCodeLen = ModelCode.length();
 		String acode_or_ymmid;
 		Statement stmt = null;
+
+		String[] AcodesOrStyleidsReal = new String[100];
+
 		if (ModelCodeLen == 10) {
 			acode_or_ymmid = "acode";
 			// Connect From Staging CPP DB:
@@ -194,42 +198,54 @@ public class mySQLquery {
 			// it's modelcode 10 digit Acode = USD30ACC18
 			query = "SELECT DISTINCT WarehouseKeyStr, CountryCode, GVUID,CreatedDT "
 					+ "FROM globalvehicle.globalvehicle WHERE WarehouseKeyStr LIKE  \"" + ModelCode + "%" + "\"";
-		} else {
-			// it's YMMID 5-6 digits ymmid = 35130
-			query = "SELECT DISTINCT vehicle_id FROM modelwalk_v113.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
-					+ ModelCode + "\")";
+//		} else {
+//			// it's YMMID 5-6 digits ymmid = 35130
+//			query = "SELECT DISTINCT vehicle_id FROM modelwalk_v113.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
+//					+ ModelCode + "\")";
+//
+//		}
 
-		}
-
-		ResultSet rs = stmt.executeQuery(query);
+			ResultSet rs = stmt.executeQuery(query);
 //		
-		int num = 0;
-		while (rs.next()) {
-			// do something with the extracted data...
-			if (acode_or_ymmid.equalsIgnoreCase("acode")) {
-				Acode = rs.getString("WarehouseKeyStr");
-			} else {
-				Acode = rs.getString("vehicle_id");//
+			int num = 0;
+			while (rs.next()) {
+				// do something with the extracted data...
+				if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+					Acode = rs.getString("WarehouseKeyStr");
+				} else {
+					Acode = rs.getString("vehicle_id");//
+					System.out.println(Acode);
+				}
+
+				if (Acode.length() > 13) {
+//				Acode = Acode.substring(0, 13);
+					System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
+				} else {
+					Acodes[num] = Acode;
+					num++;
+				}
+
 				System.out.println(Acode);
 			}
-
-			if (Acode.length() > 13) {
-//				Acode = Acode.substring(0, 13);
-				System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
-			} else {
-				Acodes[num] = Acode;
-				num++;
-			}
-
-			System.out.println(Acode);
-		}
 //		Save real size of String 
-		int len = num;
-		String[] AcodesOrStyleidsReal = new String[len];
-		for (int i = 0; i < len; i++) {
-			AcodesOrStyleidsReal[i] = Acodes[i];
-		}
+			int len = num;
+			AcodesOrStyleidsReal = new String[len];
+			for (int i = 0; i < len; i++) {
+				AcodesOrStyleidsReal[i] = Acodes[i];
+			}
+		} else {
+			// it's YMMID 5-6 digits ymmid = 35130
+//			query = "SELECT DISTINCT vehicle_id FROM modelwalk_v113.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
+//					+ ModelCode + "\")";
 
+//			get styleids from cpp model walk service
+//			String env = "Prod";
+
+			String cppModelWalkURL = "https://cpp-stable.autodatacorp.org/model-walk/rest/trims/STYLEID/EN";
+
+//			String[] Style_IDs = GetStyleidWSFromYmmid(env, client, cppModelWalkURL, ymmid);
+			AcodesOrStyleidsReal = GetStyleidWSFromYmmid(env, client, cppModelWalkURL, ModelCode);
+		}
 		return AcodesOrStyleidsReal;
 	}
 

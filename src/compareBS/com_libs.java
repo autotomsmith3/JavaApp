@@ -2597,7 +2597,7 @@ public class com_libs {
 //		String[] acodes_or_styleids=new String[500];
 
 		mySQLquery queryAcodesOrStyleids = new mySQLquery();
-		String[] acodes_or_styleids = queryAcodesOrStyleids.PullOneModelCodeToAcodesOrStyleids(code);
+		String[] acodes_or_styleids = queryAcodesOrStyleids.PullOneModelCodeToAcodesOrStyleids(env,client,code);
 		int code_len = acodes_or_styleids.length;
 		System.err.println("code_len: " + code_len);
 		// save to: QA.ToyotaCACommonCompetitors.txt = BS_Name_cc
@@ -2611,7 +2611,8 @@ public class com_libs {
 //		String[] acodes_or_styleids=new String[500];
 		String textBodywithCode = "";
 		mySQLquery queryAcodesOrStyleids = new mySQLquery();
-		String[] acodes_or_styleids = queryAcodesOrStyleids.PullOneModelCodeToAcodesOrStyleids(code);
+		String[] acodes_or_styleids = queryAcodesOrStyleids.PullOneModelCodeToAcodesOrStyleids(env,client,code);
+//		int code_len = acodes_or_styleids.length;
 		int code_len = acodes_or_styleids.length;
 		System.err.println("code_len: " + code_len);
 		// save to: QA.ToyotaCACommonCompetitors.txt = BS_Name_cc
