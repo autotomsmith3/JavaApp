@@ -558,7 +558,7 @@ public class mySQLquery {
 			in.close();
 			String errorStream = postData.toString();
 			con.disconnect();
-			styleids[0] = acode_or_styleid;
+			styleids[0] = acode_or_styleid+"-No Trims";
 //				errorStreamJson = GetJsonErrorDetails(errorStream);
 
 			outputString = "";
