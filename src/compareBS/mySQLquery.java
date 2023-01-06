@@ -21,7 +21,6 @@ import org.json.JSONObject;
 //
 
 public class mySQLquery {
-
 	public static String[] PullOneModelCodeToAcodesOrStyleids_From_CPP_Prod_DB_MW_both_Acode_and_Styleid(String env,
 			String client, String ModelCode) throws Exception {
 //		Perfect! No 1.	This "_From_CPP_Prod_DB_MW_both_Acode_and_Styleid" 
@@ -46,6 +45,76 @@ public class mySQLquery {
 		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
 		Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-dscp-xmys1.autodatacorp.org:3306", "readonly",
 				"D*&5646AIFO2FCDER$%&0");
+		Statement stmt = conn.createStatement();
+		if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+			// it's modelcode 10 digit Acode = USC90HYS17
+			query = "SELECT DISTINCT WarehouseKeyStr, CountryCode, CreatedDT,Gvuid "
+					+ "FROM globalvehicle.globalvehicle WHERE WarehouseKeyStr LIKE  \"" + ModelCode + "%" + "\"";
+		} else {
+			// it's YMMID 5-6 digits ymmid = 35130
+			query = "SELECT DISTINCT vehicle_id FROM modelwalk.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
+					+ ModelCode + "\")";
+
+		}
+
+		ResultSet rs = stmt.executeQuery(query);
+//		
+		int num = 0;
+		while (rs.next()) {
+			// do something with the extracted data...
+			if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+				Acode = rs.getString("WarehouseKeyStr");
+			} else {
+				Acode = rs.getString("vehicle_id");//
+				System.out.println(Acode);
+			}
+
+			if (Acode.length() > 13) {
+//				Acode = Acode.substring(0, 13);
+				System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
+			} else {
+				Acodes[num] = Acode;
+				num++;
+			}
+
+			System.out.println(Acode);
+		}
+//		Save real size of String 
+		int len = num;
+		String[] AcodesOrStyleidsReal = new String[len];
+		for (int i = 0; i < len; i++) {
+			AcodesOrStyleidsReal[i] = Acodes[i];
+		}
+
+		return AcodesOrStyleidsReal;
+	}
+
+	public static String[] PullOneModelCodeToAcodesOrStyleids_From_CPP_Staging_DB_MW_cp_from_Prod_both_Acode_and_Styleid(String env,
+			String client, String ModelCode) throws Exception {
+//		Perfect! No 2.	This "_From_CPP_Staging_DB_MW_cp_from_Prod_both_Acode_and_Styleid" 
+//		Exactly same with Perfect! No1. on 2023-01-06 but some errors will occur because of performance issue? Don't know.
+//		Just need to re-run the failed one.
+//		
+//			CPP_QA_DB should not be used since QA Model Walk DB 
+//			is no longer be available from June, 2022 (no new update)
+//			int wSize = titleString.length;
+//			String[] jsonValue = new String[wSize];
+
+		String[] Acodes = new String[500];
+		String query = "";
+		String CountryCode = "";
+		String Acode = "";
+		int ModelCodeLen = ModelCode.length();
+		String acode_or_ymmid;
+		if (ModelCodeLen == 10) {
+			acode_or_ymmid = "acode";
+		} else {
+			acode_or_ymmid = "ymmid";
+		}
+
+		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+		Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-ppcp-xmys1.autodatacorp.org:3306",
+				"cpp_readonly", "test123");
 		Statement stmt = conn.createStatement();
 		if (acode_or_ymmid.equalsIgnoreCase("acode")) {
 			// it's modelcode 10 digit Acode = USC90HYS17
