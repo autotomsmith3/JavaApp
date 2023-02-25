@@ -10,6 +10,7 @@
 {"vehicles":[{"code":"CAD30VWS072E0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"CAD30VWS091A0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"CAD30VWS091B0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"CAD30VWS091C0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"CAD30VWS092A0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"CAD30VWS101A0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"CAD30VWS102A0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
