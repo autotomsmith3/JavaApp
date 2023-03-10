@@ -21,149 +21,12 @@ import org.json.JSONObject;
 //
 
 public class mySQLquery {
-	public static String[] PullOneModelCodeToAcodesOrStyleids_From_CPP_Prod_DB_MW_both_Acode_and_Styleid(String env,
+	public static String[] PullOneModelCodeToAcodesOrStyleids_From_StagingCPPURL_ModleWalk_get_Styleids(String env,
 			String client, String ModelCode) throws Exception {
-//		Perfect! No 1.	This "_From_CPP_Prod_DB_MW_both_Acode_and_Styleid" 
-//		
-//			CPP_QA_DB should not be used since QA Model Walk DB 
-//			is no longer be available from June, 2022 (no new update)
-//			int wSize = titleString.length;
-//			String[] jsonValue = new String[wSize];
-
-		String[] Acodes = new String[500];
-		String query = "";
-		String CountryCode = "";
-		String Acode = "";
-		int ModelCodeLen = ModelCode.length();
-		String acode_or_ymmid;
-		if (ModelCodeLen == 10) {
-			acode_or_ymmid = "acode";
-		} else {
-			acode_or_ymmid = "ymmid";
-		}
-
-		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
-		Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-dscp-xmys1.autodatacorp.org:3306", "readonly",
-				"D*&5646AIFO2FCDER$%&0");
-		Statement stmt = conn.createStatement();
-		if (acode_or_ymmid.equalsIgnoreCase("acode")) {
-			// it's modelcode 10 digit Acode = USC90HYS17
-			query = "SELECT DISTINCT WarehouseKeyStr, CountryCode, CreatedDT,Gvuid "
-					+ "FROM globalvehicle.globalvehicle WHERE WarehouseKeyStr LIKE  \"" + ModelCode + "%" + "\"";
-		} else {
-			// it's YMMID 5-6 digits ymmid = 35130
-			query = "SELECT DISTINCT vehicle_id FROM modelwalk.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
-					+ ModelCode + "\")";
-
-		}
-
-		ResultSet rs = stmt.executeQuery(query);
-//		
-		int num = 0;
-		while (rs.next()) {
-			// do something with the extracted data...
-			if (acode_or_ymmid.equalsIgnoreCase("acode")) {
-				Acode = rs.getString("WarehouseKeyStr");
-			} else {
-				Acode = rs.getString("vehicle_id");//
-				System.out.println(Acode);
-			}
-
-			if (Acode.length() > 13) {
-//				Acode = Acode.substring(0, 13);
-				System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
-			} else {
-				Acodes[num] = Acode;
-				num++;
-			}
-
-			System.out.println(Acode);
-		}
-//		Save real size of String 
-		int len = num;
-		String[] AcodesOrStyleidsReal = new String[len];
-		for (int i = 0; i < len; i++) {
-			AcodesOrStyleidsReal[i] = Acodes[i];
-		}
-
-		return AcodesOrStyleidsReal;
-	}
-
-	public static String[] PullOneModelCodeToAcodesOrStyleids_From_CPP_Staging_DB_MW_cp_from_Prod_both_Acode_and_Styleid(String env,
-			String client, String ModelCode) throws Exception {
-//		Perfect! No 2.	This "_From_CPP_Staging_DB_MW_cp_from_Prod_both_Acode_and_Styleid" 
-//		Exactly same with Perfect! No1. on 2023-01-06 but some errors will occur because of performance issue? Don't know.
-//		Just need to re-run the failed one.
-//		
-//			CPP_QA_DB should not be used since QA Model Walk DB 
-//			is no longer be available from June, 2022 (no new update)
-//			int wSize = titleString.length;
-//			String[] jsonValue = new String[wSize];
-
-		String[] Acodes = new String[500];
-		String query = "";
-		String CountryCode = "";
-		String Acode = "";
-		int ModelCodeLen = ModelCode.length();
-		String acode_or_ymmid;
-		if (ModelCodeLen == 10) {
-			acode_or_ymmid = "acode";
-		} else {
-			acode_or_ymmid = "ymmid";
-		}
-
-		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
-		Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-ppcp-xmys1.autodatacorp.org:3306",
-				"cpp_readonly", "test123");
-		Statement stmt = conn.createStatement();
-		if (acode_or_ymmid.equalsIgnoreCase("acode")) {
-			// it's modelcode 10 digit Acode = USC90HYS17
-			query = "SELECT DISTINCT WarehouseKeyStr, CountryCode, CreatedDT,Gvuid "
-					+ "FROM globalvehicle.globalvehicle WHERE WarehouseKeyStr LIKE  \"" + ModelCode + "%" + "\"";
-		} else {
-			// it's YMMID 5-6 digits ymmid = 35130
-			query = "SELECT DISTINCT vehicle_id FROM modelwalk.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
-					+ ModelCode + "\")";
-
-		}
-
-		ResultSet rs = stmt.executeQuery(query);
-//		
-		int num = 0;
-		while (rs.next()) {
-			// do something with the extracted data...
-			if (acode_or_ymmid.equalsIgnoreCase("acode")) {
-				Acode = rs.getString("WarehouseKeyStr");
-			} else {
-				Acode = rs.getString("vehicle_id");//
-				System.out.println(Acode);
-			}
-
-			if (Acode.length() > 13) {
-//				Acode = Acode.substring(0, 13);
-				System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
-			} else {
-				Acodes[num] = Acode;
-				num++;
-			}
-
-			System.out.println(Acode);
-		}
-//		Save real size of String 
-		int len = num;
-		String[] AcodesOrStyleidsReal = new String[len];
-		for (int i = 0; i < len; i++) {
-			AcodesOrStyleidsReal[i] = Acodes[i];
-		}
-
-		return AcodesOrStyleidsReal;
-	}
-
-	public static String[] PullOneModelCodeToAcodesOrStyleids_From_CPP_Model_Walk_get_Styleids(String env,
-			String client, String ModelCode) throws Exception {
-//		Best No 2.	This "_From_CPP_Model_Walk_get_Styleids" seems better because it will return Acodes from 
+//		This is now perfect No. 1 since 2023-03-10.  -It  Used to be Best No 2.	
+//		This "_From_StagingCPPURL_ModleWalk_get_Styleids" seems better because it will return more styleids than prod url.
 //				Staging DB even /Primary call fails. - Use this. - 2022-10-25.
-
+// 		This is now perfect No. 1 since modelwalk DB has been removed fro CPP Prod DB - 2023-03-10
 //		int wSize = titleString.length;
 //		String[] jsonValue = new String[wSize];
 
@@ -244,11 +107,252 @@ public class mySQLquery {
 //			get styleids from cpp model walk service
 //			String env = "Prod";
 
-			String cppModelWalkURL = "https://cpp-stable.autodatacorp.org/model-walk/rest/trims/STYLEID/EN";
+//			Prod url:
+//			String cppModelWalkURL = "https://cpp-stable.autodatacorp.org/model-walk/rest/trims/STYLEID/EN";
 
+//			Staging url:
+			String cppModelWalkURL = "https://cpp-latest.autodatacorp.org//model-walk/rest/trims/STYLEID/EN";
+
+			
 //			String[] Style_IDs = GetStyleidWSFromYmmid(env, client, cppModelWalkURL, ymmid);
 			AcodesOrStyleidsReal = GetStyleidWSFromYmmid(env, client, cppModelWalkURL, ModelCode);
 		}
+		return AcodesOrStyleidsReal;
+	}
+	public static String[] PullOneModelCodeToAcodesOrStyleids_From_ProdCPPURL_ModleWalk_get_Styleids(String env,
+			String client, String ModelCode) throws Exception {
+//		This is now perfect No. 2 since 2023-03-10.  -It  Used to be Best No 2.	
+//		This "_From_ProdCPPURL_ModleWalk_get_Styleids" seems some of ymmids return empty styleid.
+// 		This is now perfect No. 2 since modelwalk DB has been removed fro CPP Prod DB - 2023-03-10
+//		int wSize = titleString.length;
+//		String[] jsonValue = new String[wSize];
+
+		String[] Acodes = new String[500];
+		String query = "";
+		String CountryCode = "";
+		String Acode = "";
+		int ModelCodeLen = ModelCode.length();
+		String acode_or_ymmid;
+		Statement stmt = null;
+
+		String[] AcodesOrStyleidsReal = new String[100];
+
+		if (ModelCodeLen == 10) {
+			acode_or_ymmid = "acode";
+			// Connect From Staging CPP DB:
+			Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+			Connection conn = DriverManager.getConnection("jdbc:mysql://LNOC-PPCP-XMY1.autodatacorp.org:3306",
+					"cpp_readonly", "test123"); // Staging CPP MySQL DB
+			stmt = conn.createStatement();
+		} else {
+			acode_or_ymmid = "ymmid";
+			// Connect From QA CPP DB: no longer update since June 2022
+			Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+			Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-q1cp-xmy1.autodatacorp.org:3306",
+					"qa_admin", "dund@s");
+			stmt = conn.createStatement();
+		}
+
+//		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+//		Connection conn = DriverManager.getConnection("jdbc:mysql://LNOC-PPCP-XMY1.autodatacorp.org:3306",
+//				"cpp_readonly", "test123"); // Staging CPP MySQL DB
+//		Statement stmt = conn.createStatement();
+		if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+			// it's modelcode 10 digit Acode = USD30ACC18
+			query = "SELECT DISTINCT WarehouseKeyStr, CountryCode, GVUID,CreatedDT "
+					+ "FROM globalvehicle.globalvehicle WHERE WarehouseKeyStr LIKE  \"" + ModelCode + "%" + "\"";
+//		} else {
+//			// it's YMMID 5-6 digits ymmid = 35130
+//			query = "SELECT DISTINCT vehicle_id FROM modelwalk_v113.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
+//					+ ModelCode + "\")";
+//
+//		}
+
+			ResultSet rs = stmt.executeQuery(query);
+//		
+			int num = 0;
+			while (rs.next()) {
+				// do something with the extracted data...
+				if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+					Acode = rs.getString("WarehouseKeyStr");
+				} else {
+					Acode = rs.getString("vehicle_id");//
+					System.out.println(Acode);
+				}
+
+				if (Acode.length() > 13) {
+//				Acode = Acode.substring(0, 13);
+					System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
+				} else {
+					Acodes[num] = Acode;
+					num++;
+				}
+
+				System.out.println(Acode);
+			}
+//		Save real size of String 
+			int len = num;
+			AcodesOrStyleidsReal = new String[len];
+			for (int i = 0; i < len; i++) {
+				AcodesOrStyleidsReal[i] = Acodes[i];
+			}
+		} else {
+			// it's YMMID 5-6 digits ymmid = 35130
+//			query = "SELECT DISTINCT vehicle_id FROM modelwalk_v113.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
+//					+ ModelCode + "\")";
+
+//			get styleids from cpp model walk service
+//			String env = "Prod";
+
+//			Prod url:
+			String cppModelWalkURL = "https://cpp-stable.autodatacorp.org/model-walk/rest/trims/STYLEID/EN";
+
+//			Staging url:
+//			String cppModelWalkURL = "http://cpp-latest.autodatacorp.org//model-walk/rest/trims/STYLEID/EN";
+
+			
+//			String[] Style_IDs = GetStyleidWSFromYmmid(env, client, cppModelWalkURL, ymmid);
+			AcodesOrStyleidsReal = GetStyleidWSFromYmmid(env, client, cppModelWalkURL, ModelCode);
+		}
+		return AcodesOrStyleidsReal;
+	}
+
+	public static String[] PullOneModelCodeToAcodesOrStyleids_From_CPP_Prod_DB_MW_both_Acode_and_Styleid(String env,
+			String client, String ModelCode) throws Exception {
+//		No longer Perfect! No 1.	This "_From_CPP_Prod_DB_MW_both_Acode_and_Styleid" 
+//		No longer perfect since modelwalk DB has been removed from CPP DB in Prod  - 2023-03-10.
+//			CPP_QA_DB should not be used since QA Model Walk DB 
+//			is no longer be available from June, 2022 (no new update)
+//			int wSize = titleString.length;
+//			String[] jsonValue = new String[wSize];
+
+		String[] Acodes = new String[500];
+		String query = "";
+		String CountryCode = "";
+		String Acode = "";
+		int ModelCodeLen = ModelCode.length();
+		String acode_or_ymmid;
+		if (ModelCodeLen == 10) {
+			acode_or_ymmid = "acode";
+		} else {
+			acode_or_ymmid = "ymmid";
+		}
+
+		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+		Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-dscp-xmys1.autodatacorp.org:3306", "readonly",
+				"D*&5646AIFO2FCDER$%&0");
+		Statement stmt = conn.createStatement();
+		if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+			// it's modelcode 10 digit Acode = USC90HYS17
+			query = "SELECT DISTINCT WarehouseKeyStr, CountryCode, CreatedDT,Gvuid "
+					+ "FROM globalvehicle.globalvehicle WHERE WarehouseKeyStr LIKE  \"" + ModelCode + "%" + "\"";
+		} else {
+			// it's YMMID 5-6 digits ymmid = 35130
+			query = "SELECT DISTINCT vehicle_id FROM modelwalk.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
+					+ ModelCode + "\")";
+
+		}
+
+		ResultSet rs = stmt.executeQuery(query);
+//		
+		int num = 0;
+		while (rs.next()) {
+			// do something with the extracted data...
+			if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+				Acode = rs.getString("WarehouseKeyStr");
+			} else {
+				Acode = rs.getString("vehicle_id");//
+				System.out.println(Acode);
+			}
+
+			if (Acode.length() > 13) {
+//				Acode = Acode.substring(0, 13);
+				System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
+			} else {
+				Acodes[num] = Acode;
+				num++;
+			}
+
+			System.out.println(Acode);
+		}
+//		Save real size of String 
+		int len = num;
+		String[] AcodesOrStyleidsReal = new String[len];
+		for (int i = 0; i < len; i++) {
+			AcodesOrStyleidsReal[i] = Acodes[i];
+		}
+
+		return AcodesOrStyleidsReal;
+	}
+
+	public static String[] PullOneModelCodeToAcodesOrStyleids_From_CPP_Staging_DB_MW_cp_from_Prod_both_Acode_and_Styleid(
+			String env, String client, String ModelCode) throws Exception {
+//		No longer Perfect! No 2. since modelwalk has been removed from CPP Prod DB.
+//		This "_From_CPP_Staging_DB_MW_cp_from_Prod_both_Acode_and_Styleid" 
+//		Exactly same with Perfect! No1. on 2023-01-06 but some errors will occur because of performance issue? Don't know.
+//		Just need to re-run the failed one.
+//		
+//			CPP_QA_DB should not be used since QA Model Walk DB 
+//			is no longer be available from June, 2022 (no new update)
+//			int wSize = titleString.length;
+//			String[] jsonValue = new String[wSize];
+
+		String[] Acodes = new String[500];
+		String query = "";
+		String CountryCode = "";
+		String Acode = "";
+		int ModelCodeLen = ModelCode.length();
+		String acode_or_ymmid;
+		if (ModelCodeLen == 10) {
+			acode_or_ymmid = "acode";
+		} else {
+			acode_or_ymmid = "ymmid";
+		}
+
+		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+		Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-ppcp-xmys1.autodatacorp.org:3306",
+				"cpp_readonly", "test123");
+		Statement stmt = conn.createStatement();
+		if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+			// it's modelcode 10 digit Acode = USC90HYS17
+			query = "SELECT DISTINCT WarehouseKeyStr, CountryCode, CreatedDT,Gvuid "
+					+ "FROM globalvehicle.globalvehicle WHERE WarehouseKeyStr LIKE  \"" + ModelCode + "%" + "\"";
+		} else {
+			// it's YMMID 5-6 digits ymmid = 35130
+			query = "SELECT DISTINCT vehicle_id FROM modelwalk.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
+					+ ModelCode + "\")";
+
+		}
+
+		ResultSet rs = stmt.executeQuery(query);
+//		
+		int num = 0;
+		while (rs.next()) {
+			// do something with the extracted data...
+			if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+				Acode = rs.getString("WarehouseKeyStr");
+			} else {
+				Acode = rs.getString("vehicle_id");//
+				System.out.println(Acode);
+			}
+
+			if (Acode.length() > 13) {
+//				Acode = Acode.substring(0, 13);
+				System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
+			} else {
+				Acodes[num] = Acode;
+				num++;
+			}
+
+			System.out.println(Acode);
+		}
+//		Save real size of String 
+		int len = num;
+		String[] AcodesOrStyleidsReal = new String[len];
+		for (int i = 0; i < len; i++) {
+			AcodesOrStyleidsReal[i] = Acodes[i];
+		}
+
 		return AcodesOrStyleidsReal;
 	}
 
@@ -525,12 +629,12 @@ public class mySQLquery {
 
 	public static String[] PullOneModelCodeToAcodesOrStyleids(String env, String client, String ModelCode)
 			throws Exception {
-//		Perfect! No 1.	This "_From_CPP_Prod_DB_MW_both_Acode_and_Styleid" 
-//		
-//			CPP_QA_DB should not be used since QA Model Walk DB 
-//			is no longer be available from June, 2022 (no new update)
-//			int wSize = titleString.length;
-//			String[] jsonValue = new String[wSize];
+//		This is now perfect No. 1 since 2023-03-10.  -It  Used to be Best No 2.	
+//		This "_From_StagingCPPURL_ModleWalk_get_Styleids" seems better because it will return more styleids than prod url.
+//				Staging DB even /Primary call fails. - Use this. - 2022-10-25.
+// 		This is now perfect No. 1 since modelwalk DB has been removed fro CPP Prod DB - 2023-03-10
+//		int wSize = titleString.length;
+//		String[] jsonValue = new String[wSize];
 
 		String[] Acodes = new String[500];
 		String query = "";
@@ -538,56 +642,87 @@ public class mySQLquery {
 		String Acode = "";
 		int ModelCodeLen = ModelCode.length();
 		String acode_or_ymmid;
+		Statement stmt = null;
+
+		String[] AcodesOrStyleidsReal = new String[100];
+
 		if (ModelCodeLen == 10) {
 			acode_or_ymmid = "acode";
+			// Connect From Staging CPP DB:
+			Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+			Connection conn = DriverManager.getConnection("jdbc:mysql://LNOC-PPCP-XMY1.autodatacorp.org:3306",
+					"cpp_readonly", "test123"); // Staging CPP MySQL DB
+			stmt = conn.createStatement();
 		} else {
 			acode_or_ymmid = "ymmid";
+			// Connect From QA CPP DB: no longer update since June 2022
+			Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+			Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-q1cp-xmy1.autodatacorp.org:3306",
+					"qa_admin", "dund@s");
+			stmt = conn.createStatement();
 		}
 
-		Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
-		Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-dscp-xmys1.autodatacorp.org:3306", "readonly",
-				"D*&5646AIFO2FCDER$%&0");
-		Statement stmt = conn.createStatement();
+//			Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
+//			Connection conn = DriverManager.getConnection("jdbc:mysql://LNOC-PPCP-XMY1.autodatacorp.org:3306",
+//					"cpp_readonly", "test123"); // Staging CPP MySQL DB
+//			Statement stmt = conn.createStatement();
 		if (acode_or_ymmid.equalsIgnoreCase("acode")) {
-			// it's modelcode 10 digit Acode = USC90HYS17
-			query = "SELECT DISTINCT WarehouseKeyStr, CountryCode, CreatedDT,Gvuid "
+			// it's modelcode 10 digit Acode = USD30ACC18
+			query = "SELECT DISTINCT WarehouseKeyStr, CountryCode, GVUID,CreatedDT "
 					+ "FROM globalvehicle.globalvehicle WHERE WarehouseKeyStr LIKE  \"" + ModelCode + "%" + "\"";
-		} else {
-			// it's YMMID 5-6 digits ymmid = 35130
-			query = "SELECT DISTINCT vehicle_id FROM modelwalk.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
-					+ ModelCode + "\")";
+//			} else {
+//				// it's YMMID 5-6 digits ymmid = 35130
+//				query = "SELECT DISTINCT vehicle_id FROM modelwalk_v113.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
+//						+ ModelCode + "\")";
+			//
+//			}
 
-		}
+			ResultSet rs = stmt.executeQuery(query);
+//			
+			int num = 0;
+			while (rs.next()) {
+				// do something with the extracted data...
+				if (acode_or_ymmid.equalsIgnoreCase("acode")) {
+					Acode = rs.getString("WarehouseKeyStr");
+				} else {
+					Acode = rs.getString("vehicle_id");//
+					System.out.println(Acode);
+				}
 
-		ResultSet rs = stmt.executeQuery(query);
-//		
-		int num = 0;
-		while (rs.next()) {
-			// do something with the extracted data...
-			if (acode_or_ymmid.equalsIgnoreCase("acode")) {
-				Acode = rs.getString("WarehouseKeyStr");
-			} else {
-				Acode = rs.getString("vehicle_id");//
+				if (Acode.length() > 13) {
+//					Acode = Acode.substring(0, 13);
+					System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
+				} else {
+					Acodes[num] = Acode;
+					num++;
+				}
+
 				System.out.println(Acode);
 			}
-
-			if (Acode.length() > 13) {
-//				Acode = Acode.substring(0, 13);
-				System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
-			} else {
-				Acodes[num] = Acode;
-				num++;
+//			Save real size of String 
+			int len = num;
+			AcodesOrStyleidsReal = new String[len];
+			for (int i = 0; i < len; i++) {
+				AcodesOrStyleidsReal[i] = Acodes[i];
 			}
+		} else {
+			// it's YMMID 5-6 digits ymmid = 35130
+//				query = "SELECT DISTINCT vehicle_id FROM modelwalk_v113.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
+//						+ ModelCode + "\")";
 
-			System.out.println(Acode);
-		}
-//		Save real size of String 
-		int len = num;
-		String[] AcodesOrStyleidsReal = new String[len];
-		for (int i = 0; i < len; i++) {
-			AcodesOrStyleidsReal[i] = Acodes[i];
-		}
+//				get styleids from cpp model walk service
+//				String env = "Prod";
 
+
+//			Prod url:
+//			String cppModelWalkURL = "https://cpp-stable.autodatacorp.org/model-walk/rest/trims/STYLEID/EN";
+
+//			Staging url:
+			String cppModelWalkURL = "https://cpp-latest.autodatacorp.org//model-walk/rest/trims/STYLEID/EN";
+
+//				String[] Style_IDs = GetStyleidWSFromYmmid(env, client, cppModelWalkURL, ymmid);
+			AcodesOrStyleidsReal = GetStyleidWSFromYmmid(env, client, cppModelWalkURL, ModelCode);
+		}
 		return AcodesOrStyleidsReal;
 	}
 
@@ -901,6 +1036,9 @@ public class mySQLquery {
 			break;
 		case "VolkswagenCA":
 			country = "CA";
+			break;
+		case "AudiUS":
+			country = "US";
 			break;
 		case "JeepUS":
 			country = "US";
