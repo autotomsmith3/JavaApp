@@ -629,12 +629,9 @@ public class mySQLquery {
 
 	public static String[] PullOneModelCodeToAcodesOrStyleids(String env, String client, String ModelCode)
 			throws Exception {
-//		This is now perfect No. 1 since 2023-03-10.  -It  Used to be Best No 2.	
-//		This "_From_StagingCPPURL_ModleWalk_get_Styleids" seems better because it will return more styleids than prod url.
-//				Staging DB even /Primary call fails. - Use this. - 2022-10-25.
-// 		This is now perfect No. 1 since modelwalk DB has been removed fro CPP Prod DB - 2023-03-10
-//		int wSize = titleString.length;
-//		String[] jsonValue = new String[wSize];
+//		This is now perfect No. 1 since 2023-03-16.  
+//		It uses CPP Prod DB vindescriptionlookup.VSSLookup to get Styleids from Ymmid. No lost Stylieids.	
+
 
 		String[] Acodes = new String[500];
 		String query = "";
@@ -657,8 +654,8 @@ public class mySQLquery {
 			acode_or_ymmid = "ymmid";
 			// Connect From QA CPP DB: no longer update since June 2022
 			Class.forName("com.mysql.jdbc.Driver");// Class.forName("com.mysql.cj.jdbc.Driver"); not work
-			Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-q1cp-xmy1.autodatacorp.org:3306",
-					"qa_admin", "dund@s");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://lnoc-dscp-xmys1.autodatacorp.org:3306",
+					"readonly", "D*&5646AIFO2FCDER$%&0");
 			stmt = conn.createStatement();
 		}
 
@@ -706,22 +703,40 @@ public class mySQLquery {
 				AcodesOrStyleidsReal[i] = Acodes[i];
 			}
 		} else {
-			// it's YMMID 5-6 digits ymmid = 35130
-//				query = "SELECT DISTINCT vehicle_id FROM modelwalk_v113.vehiclesearchcriteria WHERE ISOLngCode=\"en\" AND vehiclesetcode=\"Styleid\" AND Model_Year_ID IN (\""
-//						+ ModelCode + "\")";
 
-//				get styleids from cpp model walk service
-//				String env = "Prod";
+			// it's ymmid=34544
+			query = "SELECT  DISTINCT styleid,ymmid FROM vindescriptionlookup.VSSLookup WHERE  ymmid=\""+ModelCode+"\"";
 
+			ResultSet rs = stmt.executeQuery(query);
+//			
+			int num = 0;
+			while (rs.next()) {
+				// do something with the extracted data...
+				if (acode_or_ymmid.equalsIgnoreCase("ymmid")) {
+					Acode = rs.getString("styleid");
+				} else {
+//					Acode = rs.getString("vehicle_id");//
+					System.out.println("something wrong!!!");
+					System.out.println(Acode);
+				}
 
-//			Prod url:
-//			String cppModelWalkURL = "https://cpp-stable.autodatacorp.org/model-walk/rest/trims/STYLEID/EN";
+				if (Acode.length() > 13) {
+//					Acode = Acode.substring(0, 13);
+					System.out.print(Acode + "			- Acode length > 13, ignore!  - ");
+				} else {
+					Acodes[num] = Acode;
+					num++;
+				}
 
-//			Staging url:
-			String cppModelWalkURL = "https://cpp-latest.autodatacorp.org//model-walk/rest/trims/STYLEID/EN";
-
-//				String[] Style_IDs = GetStyleidWSFromYmmid(env, client, cppModelWalkURL, ymmid);
-			AcodesOrStyleidsReal = GetStyleidWSFromYmmid(env, client, cppModelWalkURL, ModelCode);
+				System.out.println(Acode);
+			}
+//			Save real size of String 
+			int len = num;
+			AcodesOrStyleidsReal = new String[len];
+			for (int i = 0; i < len; i++) {
+				AcodesOrStyleidsReal[i] = Acodes[i];
+			}
+		
 		}
 		return AcodesOrStyleidsReal;
 	}
@@ -1044,7 +1059,7 @@ public class mySQLquery {
 			country = "US";
 			break;
 		default:
-			country = "CA";
+			country = "US";
 		}
 		return country;
 	}
