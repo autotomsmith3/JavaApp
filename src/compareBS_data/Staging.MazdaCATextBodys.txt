@@ -31,6 +31,7 @@
 {"vehicles":[{"code":"427076"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"427077"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"427075"}],"include": {"vehicleDetails": true,"includeCategories": true}}
+{"vehicles":[{"code":"439476"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"431644"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"431646"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"431647"}],"include": {"vehicleDetails": true,"includeCategories": true}}
