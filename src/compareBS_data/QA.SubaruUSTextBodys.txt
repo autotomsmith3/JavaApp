@@ -124,6 +124,3 @@
 {"vehicles":[{"code":"425152"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"425151"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"425154"}],"include": {"vehicleDetails": true,"includeCategories": true}}
-{"vehicles":[{"code":"438575"}],"include": {"vehicleDetails": true,"includeCategories": true}}
-{"vehicles":[{"code":"438576"}],"include": {"vehicleDetails": true,"includeCategories": true}}
-{"vehicles":[{"code":"438577"}],"include": {"vehicleDetails": true,"includeCategories": true}}
