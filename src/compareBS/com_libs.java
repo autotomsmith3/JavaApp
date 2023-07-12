@@ -409,7 +409,7 @@ public class com_libs {
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 		wr.writeBytes(BSBody);
 		wr.flush();
-		wr.close();
+		wr.close(); Wait(0);//=In QA: 10,12 still fails; next time try 15?
 		int responseCode = con.getResponseCode();
 		String outputString;
 		String acode_or_styleid = BSBody.substring(22, 35);
