@@ -14,7 +14,6 @@
 {"vehicles":[{"code":"443039"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"443042"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"443045"}],"include": {"vehicleDetails": true,"includeCategories": true}}
-{"vehicles":[{"code":"437880"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"437881"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"437882"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"437883"}],"include": {"vehicleDetails": true,"includeCategories": true}}

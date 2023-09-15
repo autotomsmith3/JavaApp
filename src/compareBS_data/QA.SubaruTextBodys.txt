@@ -80,5 +80,3 @@
 {"vehicles":[{"code":"CAD20SUC171A0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"CAD20SUC171B0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
 {"vehicles":[{"code":"CAD20SUC171C0"}],"include": {"vehicleDetails": true,"includeCategories": true}}
-{"vehicles":[{"code":"CAD30SUS321B1"}],"include": {"vehicleDetails": true,"includeCategories": true}}
-{"vehicles":[{"code":"CAD30SUS321D1"}],"include": {"vehicleDetails": true,"includeCategories": true}}
